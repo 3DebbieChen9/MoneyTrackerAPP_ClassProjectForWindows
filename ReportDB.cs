@@ -23,7 +23,7 @@ namespace MoneyTrackerAPP
             List<string> expenseCategories = new List<string>();
             List<int> expenseAmount = new List<int>();
 
-            expenseCategories = queryDistinctCategoryByType("Expense");
+            expenseCategories = queryDistictCategorByTypeWithinDate(type: "Expense", startTime: startDate, endTime: endDate);
             foreach (string category in expenseCategories)
             {
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Expense", category: category, startTime: startDate, endTime: endDate));
@@ -40,7 +40,7 @@ namespace MoneyTrackerAPP
             List<string> expenseCategories = new List<string>();
             List<int> expenseAmount = new List<int>();
 
-            expenseCategories = queryDistinctCategoryByType("Income");
+            expenseCategories = queryDistictCategorByTypeWithinDate(type: "Income", startTime: startDate, endTime: endDate);
             foreach (string category in expenseCategories)
             {
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Income", category: category, startTime: startDate, endTime: endDate));
@@ -66,7 +66,8 @@ namespace MoneyTrackerAPP
             List<string> expenseCategories = new List<string>();
             List<int> expenseAmount = new List<int>();
 
-            expenseCategories = queryDistinctCategoryByType("Expense");
+            DateTime lastDay = Convert.ToDateTime(date.Month.ToString() + "/" + DateTime.DaysInMonth(date.Year, date.Month).ToString() + "/" + date.Year.ToString());
+            expenseCategories = queryDistictCategorByTypeWithinDate(type: "Expense", startTime: date, endTime: lastDay);
             foreach (string category in expenseCategories)
             {
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Expense", category: category, startTime: date, endTime: date));
@@ -80,7 +81,8 @@ namespace MoneyTrackerAPP
             List<string> expenseCategories = new List<string>();
             List<int> expenseAmount = new List<int>();
 
-            expenseCategories = queryDistinctCategoryByType("Income");
+            DateTime lastDay = Convert.ToDateTime(date.Month.ToString() + "/" + DateTime.DaysInMonth(date.Year, date.Month).ToString() + "/" + date.Year.ToString());
+            expenseCategories = queryDistictCategorByTypeWithinDate(type: "Income", startTime: date, endTime: lastDay);
             foreach (string category in expenseCategories)
             {
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Income", category: category, startTime: date, endTime: date));

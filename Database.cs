@@ -116,6 +116,46 @@ namespace MoneyTrackerAPP
         #endregion
 
         #region QUERY
+        public List<string> queryDistictCategorByTypeWithinDate(string type, DateTime startTime, DateTime endTime)
+        {
+            List<string> categories = new List<string>();
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT DISTINCT(Category) FROM Transactions
+                            WHERE (Type = $type) AND (Date BETWEEN Date($startTime) AND Date($endTime))
+                    ";
+                    command.Parameters.AddWithValue("$type", type);
+                    command.Parameters.AddWithValue("$startTime", startTime.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("$endTime", endTime.ToString("yyyy-MM-dd"));
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string category = reader.GetString(0);
+                            categories.Add(category);
+                            //Console.WriteLine(category);
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+
+            return categories;
+        }
+
         public List<string> queryDistinctCategoryByType(string type)
         {
             List<string> categories = new List<string>();
@@ -128,8 +168,9 @@ namespace MoneyTrackerAPP
                     var command = connection.CreateCommand();
                     command.CommandText =
                     @"
-                        SELECT DISTINCT(Category) FROM Categories
+                        SELECT DISTINCT(Category) FROM Transactions
                             WHERE Type = $type
+
                     ";
                     command.Parameters.AddWithValue("$type", type);
 
