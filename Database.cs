@@ -64,7 +64,7 @@ namespace MoneyTrackerAPP
                     if (inputValue.recipient != null) { command.Parameters.AddWithValue("$recipient", inputValue.recipient); } else { command.Parameters.AddWithValue("$recipient", DBNull.Value); }
                     if (inputValue.comment != null) { command.Parameters.AddWithValue("$comment", inputValue.comment); } else { command.Parameters.AddWithValue("$comment", DBNull.Value); }
                     if (inputValue.tag != null) { command.Parameters.AddWithValue("$tag", inputValue.tag); } else { command.Parameters.AddWithValue("$tag", DBNull.Value); }
-                    if (inputValue.bankChecked != null) { command.Parameters.AddWithValue("$bankChecked", inputValue.bankChecked); } else { command.Parameters.AddWithValue("$bankChecked", DBNull.Value); }
+                    command.Parameters.AddWithValue("$bankChecked", inputValue.bankChecked);
                     if (inputValue.bankDate != null) { command.Parameters.AddWithValue("$bankDate", inputValue.bankDate?.ToString("yyyy-MM-dd HH:mm:ss")); } else { command.Parameters.AddWithValue("$bankDate", DBNull.Value); }
 
                     command.ExecuteNonQuery();
@@ -77,45 +77,14 @@ namespace MoneyTrackerAPP
             }
         }
 
-        public void insertAccount(Account inputAccount)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
 
-                    var command = connection.CreateCommand();
-
-                    command.CommandText =
-                    @"
-                        INSERT INTO Accounts (Account, Type, Balance)
-                        VALUES ($account, $type, $balance)
-                    ";
-
-                    // Not NULL
-                    command.Parameters.AddWithValue("$account", inputAccount.account);
-                    command.Parameters.AddWithValue("$type", inputAccount.type);
-
-                    // Null able
-                    if (inputAccount.balance != null) { command.Parameters.AddWithValue("$balance", inputAccount.balance); } else { command.Parameters.AddWithValue("$balance", 0); }
-
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
 
         #endregion
 
         #region UPDATE
         #endregion
 
-        #region QUERY
+        #region QUERY 
         public List<string> queryDistictCategorByTypeWithinDate(string type, DateTime startTime, DateTime endTime)
         {
             List<string> categories = new List<string>();
@@ -170,7 +139,6 @@ namespace MoneyTrackerAPP
                     @"
                         SELECT DISTINCT(Category) FROM Transactions
                             WHERE Type = $type
-
                     ";
                     command.Parameters.AddWithValue("$type", type);
 
@@ -312,7 +280,7 @@ namespace MoneyTrackerAPP
                             try { tmpTrans.recipient = reader.GetString(8); } catch { tmpTrans.recipient = null; }
                             try { tmpTrans.comment = reader.GetString(9); } catch { tmpTrans.comment = null; }
                             try { tmpTrans.tag = reader.GetString(10); } catch { tmpTrans.tag = null; }
-                            try { tmpTrans.bankChecked = reader.GetBoolean(11); } catch { tmpTrans.bankChecked = null; }
+                            tmpTrans.bankChecked = reader.GetBoolean(11);
                             try { tmpTrans.bankDate = reader.GetDateTime(12); } catch { tmpTrans.bankDate = null; }
                             detail.Add(tmpTrans);
                         }
@@ -328,6 +296,8 @@ namespace MoneyTrackerAPP
 
             return detail;
         }
+
         #endregion
+
     }
 }

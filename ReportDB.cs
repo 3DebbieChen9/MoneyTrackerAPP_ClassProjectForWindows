@@ -15,7 +15,7 @@ namespace MoneyTrackerAPP
         }
 
         // Monthly
-        public (List<string> expenseCategories, List<int> expenseAmount) get_month_exp_cate(string year, string month)
+        public (string[] expenseCategories, int[] expenseAmount) get_month_exp_cate(string year, string month)
         {
             DateTime startDate = Convert.ToDateTime(month + "/01/" + year);
             DateTime endDate = Convert.ToDateTime(month + "/" + DateTime.DaysInMonth(startDate.Year, startDate.Month).ToString() + "/" + year);
@@ -29,10 +29,10 @@ namespace MoneyTrackerAPP
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Expense", category: category, startTime: startDate, endTime: endDate));
             }
 
-            return (expenseCategories: expenseCategories, expenseAmount: expenseAmount);
+            return (expenseCategories: expenseCategories.ToArray(), expenseAmount: expenseAmount.ToArray());
         }
 
-        public (List<string> expenseCategories, List<int> expenseAmount) get_month_inc_cate(string year, string month)
+        public (string[] expenseCategories,  int[] expenseAmount) get_month_inc_cate(string year, string month)
         {
             DateTime startDate = Convert.ToDateTime(month + "/01/" + year);
             DateTime endDate = Convert.ToDateTime(month + "/" + DateTime.DaysInMonth(startDate.Year, startDate.Month).ToString() + "/" + year);
@@ -46,7 +46,7 @@ namespace MoneyTrackerAPP
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Income", category: category, startTime: startDate, endTime: endDate));
             }
 
-            return (expenseCategories: expenseCategories, expenseAmount: expenseAmount);
+            return (expenseCategories: expenseCategories.ToArray(), expenseAmount: expenseAmount.ToArray());
         }
 
         public (int totalExpense, int totalIncome) get_month_total_amount(string year, string month)
@@ -61,7 +61,7 @@ namespace MoneyTrackerAPP
         }
 
         // Daily
-        public (List<string> expenseCategories, List<int> expenseAmount) get_day_exp_cate(DateTime date)
+        public (string[] expenseCategories, int[] expenseAmount) get_day_exp_cate(DateTime date)
         {
             List<string> expenseCategories = new List<string>();
             List<int> expenseAmount = new List<int>();
@@ -73,10 +73,10 @@ namespace MoneyTrackerAPP
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Expense", category: category, startTime: date, endTime: date));
             }
 
-            return (expenseCategories: expenseCategories, expenseAmount: expenseAmount);
+            return (expenseCategories: expenseCategories.ToArray(), expenseAmount: expenseAmount.ToArray());
         }
 
-        public (List<string> expenseCategories, List<int> expenseAmount) get_day_inc_cate(DateTime date)
+        public (string[] expenseCategories, int[] expenseAmount) get_day_inc_cate(DateTime date)
         {
             List<string> expenseCategories = new List<string>();
             List<int> expenseAmount = new List<int>();
@@ -88,7 +88,7 @@ namespace MoneyTrackerAPP
                 expenseAmount.Add(querySumAmountByCategoryWithinDate(type: "Income", category: category, startTime: date, endTime: date));
             }
 
-            return (expenseCategories: expenseCategories, expenseAmount: expenseAmount);
+            return (expenseCategories: expenseCategories.ToArray(), expenseAmount: expenseAmount.ToArray());
         }
 
         public (int totalExpense, int totalIncome) get_day_total_amount(DateTime date)
@@ -113,14 +113,14 @@ namespace MoneyTrackerAPP
         public (int totalExpense, int totalIncome) get_du_total_amount(string startYear, string startMonth, string endYear, string endMonth)
         {
             DateTime startDate = Convert.ToDateTime(startMonth + "/01/" + startYear);
-            DateTime endDate = Convert.ToDateTime(endMonth + "/01/" + endYear);
+            DateTime endDate = Convert.ToDateTime(endMonth + "/"+DateTime.DaysInMonth(int.Parse(endYear),int.Parse(endMonth)).ToString() + "/"+endYear);
             int totalExpense = querySumAmountByTypeWithinDate(type: "Expense", startTime: startDate, endTime: endDate);
             int totalIncome = querySumAmountByTypeWithinDate(type: "Income", startTime: startDate, endTime: endDate); ;
 
             return (totalExpense: totalExpense, totalIncome: totalIncome);
         }
 
-        public (List<int> monthlyExpenses, List<int> monthlyIncomes) get_duration_data(string startYear, string startMonth, string endYear, string endMonth)
+        public (int[] monthlyExpenses, int[] monthlyIncomes) get_duration_data(string startYear, string startMonth, string endYear, string endMonth)
         {
             List<int> monthlyExpenses = new List<int>();
             List<int> monthlyIncomes = new List<int>();
@@ -137,7 +137,7 @@ namespace MoneyTrackerAPP
                 // pull out month and year
                 beginDate = beginDate.AddMonths(1);
             }
-            return (monthlyExpenses: monthlyExpenses, monthlyIncomes: monthlyIncomes);
+            return (monthlyExpenses: monthlyExpenses.ToArray(), monthlyIncomes: monthlyIncomes.ToArray());
         }
     }
 }

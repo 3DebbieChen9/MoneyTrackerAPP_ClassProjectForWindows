@@ -19,13 +19,13 @@ namespace MoneyTrackerAPP
         public string recipient;
         public string comment;
         public string tag;
-        public bool? bankChecked;
+        public bool bankChecked;
         public DateTime? bankDate;
 
         public Transaction() { }
         public Transaction(string name, string type, string category, string account, int amount, DateTime date,
             string subcategory = null, string place = null, string recipient = null, string comment = null, string tag = null,
-            bool? bankChecked = null, DateTime? bankDate = null)
+            bool bankChecked = false, DateTime? bankDate = null)
         {
             this.name = name;
             this.type = type;
@@ -40,21 +40,6 @@ namespace MoneyTrackerAPP
             this.tag = tag;
             this.bankChecked = bankChecked;
             this.bankDate = bankDate;
-        }
-    }
-
-    class Account
-    {
-        public string account;
-        public string type;
-        public int? balance;
-
-        public Account() { }
-        public Account(string account, string type = null, int? balance = null)
-        {
-            this.account = account;
-            this.type = type;
-            this.balance = balance;
         }
     }
 

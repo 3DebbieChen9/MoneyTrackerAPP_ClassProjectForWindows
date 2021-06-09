@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountDB.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DataClassStructure.cs" />
     <Compile Include="MainForm.cs">
