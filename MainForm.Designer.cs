@@ -357,6 +357,7 @@
             this.main_border.Name = "main_border";
             this.main_border.Size = new System.Drawing.Size(1024, 40);
             this.main_border.TabIndex = 0;
+            this.main_border.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_border_MouseMove);
             // 
             // main_closeApp
             // 
@@ -383,6 +384,7 @@
             this.main_appName.TabIndex = 2;
             this.main_appName.Text = "Money Tracker";
             this.main_appName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.main_appName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_appName_MouseMove);
             // 
             // main_applogo
             // 
@@ -390,6 +392,7 @@
             this.main_applogo.Name = "main_applogo";
             this.main_applogo.Size = new System.Drawing.Size(30, 30);
             this.main_applogo.TabIndex = 1;
+            this.main_applogo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_applogo_MouseMove);
             // 
             // MainForm
             // 

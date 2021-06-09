@@ -7,18 +7,6 @@ using Microsoft.Data.Sqlite;
 
 namespace MoneyTrackerAPP
 {
-    class Budget
-    {
-        public string budgetAmount;
-        public string cycleDay;
-        
-        public Budget() { }
-        public Budget(string budgetAmount, string cycleDay)
-        {
-            this.budgetAmount = budgetAmount;
-            this.cycleDay = cycleDay;
-        }
-    }
     class SettingDB : Database
     {
         private string dbName;
@@ -26,10 +14,10 @@ namespace MoneyTrackerAPP
         {
             this.dbName = dbName;
         }
-        
-        public Budget get_budget_info()
+
+        public string get_budgetAmount()
         {
-            Budget budgetInfo = new Budget();
+            string db_budgetAmount = null;
             try
             {
                 using (var connection = new SqliteConnection("Data Source=" + this.dbName))
@@ -46,12 +34,24 @@ namespace MoneyTrackerAPP
                     {
                         while (reader.Read())
                         {
-                            budgetInfo.budgetAmount = reader.GetInt32(0).ToString();
+                            db_budgetAmount = reader.GetInt32(0).ToString();
                         }
                     }
                     connection.Close();
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
+            return db_budgetAmount;
+        }
+        public string get_budget_cycleDay()
+        {
+            string db_cycleDay = null;
+            try
+            {
                 using (var connection = new SqliteConnection("Data Source=" + this.dbName))
                 {
                     connection.Open();
@@ -66,7 +66,7 @@ namespace MoneyTrackerAPP
                     {
                         while (reader.Read())
                         {
-                            budgetInfo.cycleDay = reader.GetInt32(0).ToString();
+                            db_cycleDay = reader.GetInt32(0).ToString();
                         }
                     }
                     connection.Close();
@@ -77,10 +77,9 @@ namespace MoneyTrackerAPP
                 Console.WriteLine(ex);
             }
 
-            return budgetInfo;
+            return db_cycleDay;
         }
-
-        public void set_budget_info(string budgetAmount, string cycleDay)
+        public void set_bugetAmount(string budgetAmount)
         {
             try
             {
@@ -100,7 +99,16 @@ namespace MoneyTrackerAPP
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
-
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        public void set_budget_cycleDay(string cycleDay)
+        {
+            try
+            {
                 using (var connection = new SqliteConnection("Data Source=" + this.dbName))
                 {
                     connection.Open();
@@ -124,7 +132,6 @@ namespace MoneyTrackerAPP
                 Console.WriteLine(ex);
             }
         }
-
         public int get_sum_period(DateTime start, DateTime end)
         {
             int expenseSum = 0;
@@ -152,7 +159,6 @@ namespace MoneyTrackerAPP
                             catch { expenseSum = 0; }
                         }
                     }
-                    //Console.WriteLine("Sum = {0}", sum);
                     connection.Close();
                 }
             }
@@ -162,7 +168,5 @@ namespace MoneyTrackerAPP
             }
             return expenseSum;
         }
-
-
     }
 }
