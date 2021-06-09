@@ -80,6 +80,51 @@ namespace MoneyTrackerAPP
             return budgetInfo;
         }
 
+        public void set_budget_info(string budgetAmount, string cycleDay)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        UPDATE Info
+                        SET Amount = $budgetAmount
+                        WHERE Detail = 'Budget'
+                    ";
+                    command.Parameters.AddWithValue("$budgetAmount", int.Parse(budgetAmount));
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        UPDATE Info
+                        SET Amount = $budgetCycle
+                        WHERE Detail = 'Budget Cycle'
+                    ";
+
+                    command.Parameters.AddWithValue("$budgetCycle", int.Parse(cycleDay));
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
         public int get_sum_period(DateTime start, DateTime end)
         {
             int expenseSum = 0;
