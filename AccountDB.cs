@@ -14,10 +14,15 @@ namespace MoneyTrackerAPP
         public int x2;
         public int x3;
         public int x4;
+        public int x5;
+        public int x6;
         public int y;
+
+        public List<CheckBox> debt_checkbox;
+        public List<ComboBox> debt_account;
+
         public List<CheckBox> accounts_checkbox;
-        public List<int> accounts_id;
-        public List<DateTime> accounts_bankDates;
+        public List<DateTimePicker> accounts_bankDate;
 
         public AccountGlobal()
         {
@@ -25,10 +30,14 @@ namespace MoneyTrackerAPP
             this.x2 = 200;
             this.x3 = 300;
             this.x4 = 550;
+            this.x5 = 650;
+            this.x6 = 700;
             this.y = 100;
+            this.debt_checkbox = new List<CheckBox>();
+            this.debt_account = new List<ComboBox>();
+
             this.accounts_checkbox = new List<CheckBox>();
-            this.accounts_id = new List<int>();
-            this.accounts_bankDates = new List<DateTime>();
+            this.accounts_bankDate = new List<DateTimePicker>();
         }
     }
 
@@ -389,6 +398,37 @@ namespace MoneyTrackerAPP
             return balance;
         }
 
+        public string[] get_all_account()
+        {
+            List<string> accountNames = new List<string>();
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT DISTINCT(Account) FROM Accounts
+                    ";
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            accountNames.Add(reader.GetString(0));
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return accountNames.ToArray();
+        }
+
         public string get_debtLoan_balance(string who)
         {
             string balance = "0";
@@ -465,10 +505,35 @@ namespace MoneyTrackerAPP
             return lists.ToArray();
         }
 
-        public void pay_DebtLoan(int id, string account, int amount)
+        public void pay_DebtLoan(int id, string account)
         {
+            int amount = 0;
             try
             {
+                // Query Amount By id
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        SELECT Amount FROM DebtLoan WHERE id = $id;
+                    ";
+
+                    // Not NULL
+                    command.Parameters.AddWithValue("$id", id);
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            try { amount = reader.GetInt32(0); } catch { amount = 0; }
+                        }
+                    }
+                    connection.Close();
+                }
                 using (var connection = new SqliteConnection("Data Source=" + this.dbName))
                 {
                     connection.Open();
@@ -494,7 +559,7 @@ namespace MoneyTrackerAPP
                     command.CommandText =
                     @"
                         UPDATE Accounts 
-                        SET Balance = (SELECT Balance FROM Accounts WHERE Account = $account) - $amount
+                        SET Balance = (SELECT Balance FROM Accounts WHERE Account = $account) + $amount
                         WHERE Account = $account
                     ";
                     command.Parameters.AddWithValue("$account", account);

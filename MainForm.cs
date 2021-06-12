@@ -105,6 +105,7 @@ namespace MoneyTrackerAPP
             accounts_create.Enabled = true;
             accounts_delete.Enabled = true;
             accounts_ok.Enabled = false;
+            accounts_btn_payDebt.Enabled = false;
             string[] account_type = accountDB.get_account_type();
             foreach (string ele in account_type)
             {
@@ -118,8 +119,15 @@ namespace MoneyTrackerAPP
             report_linechart.Titles.Add("收支折線圖");
             #endregion
             Transaction trans = new Transaction(name: " ", category: " ", account: " ", amount: 10, date: DateTime.Now, place: "", comment: "");
-            db.insertTransaction(trans, "Expense");
-            //db.insertTransaction(trans, "Income");
+            if(trans_rdb_expanse.Checked)
+            {
+                db.insertTransaction(trans, "Expense");
+            }
+            else if (trans_rdb_income.Checked)
+            {
+                db.insertTransaction(trans, "Income");
+            }
+            
             //string remainBudget = db.get_budgetAmount();
 
         }
@@ -131,6 +139,12 @@ namespace MoneyTrackerAPP
                 accounts_type.Text = "";
                 accounts_name.Text = "";
                 accounts_total_balance.Text = "0";
+                accounts_panel_detail.Controls.Clear();
+                accounts_panel_creditcard.Controls.Clear();
+                accounts_panel_debt.Controls.Clear();
+                main_accounts.Controls.Add(accounts_panel_detail);
+                main_accounts.Controls.Remove(accounts_panel_creditcard);
+                main_accounts.Controls.Remove(accounts_panel_debt);
             }
             // Report
             else if (main_tabControl.SelectedIndex == 2)
@@ -227,22 +241,47 @@ namespace MoneyTrackerAPP
             accounts_name.Text = "";
             accounts_panel_detail.Controls.Clear();
             accounts_panel_creditcard.Controls.Clear();
-            string[] account_name = accountDB.get_account_name(accounts_type.Text);
-            foreach (string ele in account_name)
+            accounts_panel_debt.Controls.Clear();
+            
+            if (accounts_type.Text == "Debt/Loan")
             {
-                accounts_name.Items.Add(ele);
-            }
-            if (accounts_type.Text == "Credit Card")
-            {
-                refreshCreditCardInfo();
-            }
-            if (accounts_type.Text != "Credit Card")
-            {
-                accounts_panel_creditcard.Enabled = false;
-                accounts_panel_creditcard.Controls.Clear();
+                accounts_panel_account.Controls.Remove(accounts_delete);
+                
+                string[] recipients_name = accountDB.get_list_recipient().ToArray();
+                foreach (string ele in recipients_name)
+                {
+                    accounts_name.Items.Add(ele);
+                }
                 main_accounts.Controls.Remove(accounts_panel_creditcard);
-                accounts_panel_detail.Location = new Point(36, 159);
-                accounts_panel_detail.Size = new Size(829, 376);
+                main_accounts.Controls.Remove(accounts_panel_detail);
+                main_accounts.Controls.Add(accounts_panel_debt);
+                accounts_panel_debt.Location = new Point(36, 159);
+                accounts_panel_debt.Size = new Size(829, 376);
+                refreshDebtLoanInfo();
+            }
+            else
+            {
+                accounts_panel_debt.Controls.Remove(accounts_btn_payDebt);
+                accounts_panel_account.Controls.Add(accounts_delete);
+                string[] account_name = accountDB.get_account_name(accounts_type.Text);
+                foreach (string ele in account_name)
+                {
+                    accounts_name.Items.Add(ele);
+                }
+                if (accounts_type.Text == "Credit Card")
+                {
+                    main_accounts.Controls.Remove(accounts_panel_debt);
+                    main_accounts.Controls.Add(accounts_panel_detail);
+                    refreshCreditCardInfo();
+                }
+                else
+                {
+                    main_accounts.Controls.Remove(accounts_panel_creditcard);
+                    main_accounts.Controls.Remove(accounts_panel_debt);
+                    main_accounts.Controls.Add(accounts_panel_detail);
+                    accounts_panel_detail.Location = new Point(36, 159);
+                    accounts_panel_detail.Size = new Size(829, 376);
+                }
             }
         }
 
@@ -282,7 +321,91 @@ namespace MoneyTrackerAPP
                 accounts_name.Items.Add(ele);
             }
         }
+        void refreshDebtLoanInfo()
+        {
+            accounts_panel_debt.Controls.Clear();
+            accounts_panel_debt.Controls.Add(accounts_btn_payDebt);
+            accounts_btn_payDebt.Enabled = true;
+            accounts_total_balance.Text = accountDB.get_debtLoan_balance(who: accounts_name.Text);
+            DebtLoan[] debt_info = accountDB.get_debtLoans_detail(who: accounts_name.Text);
+            accounts_panel_debt.Location = new Point(36, 159);
+            accounts_panel_debt.Size = new Size(829, 376);
+            Label accounts_label1 = new Label();
+            accounts_label1.Location = new Point(10, 10);
+            accounts_label1.Text = "品項";
+            accounts_panel_debt.Controls.Add(accounts_label1);
+            Label accounts_label2 = new Label();
+            accounts_label2.Location = new Point(150, 10);
+            accounts_label2.Text = "Debt/Loan";
+            accounts_panel_debt.Controls.Add(accounts_label2);
+            Label accounts_label3 = new Label();
+            accounts_label3.Location = new Point(300, 10);
+            accounts_label3.Text = "金額";
+            accounts_panel_debt.Controls.Add(accounts_label3);
+            Label accounts_label4 = new Label();
+            accounts_label4.Location = new Point(450, 10);
+            accounts_label4.Text = "日期";
+            accounts_panel_debt.Controls.Add(accounts_label4);
+            Label accounts_label5 = new Label();
+            accounts_label5.Location = new Point(600, 10);
+            accounts_label5.Text = "帳戶";
+            accounts_panel_debt.Controls.Add(accounts_label5);
+            Label accounts_label6 = new Label();
+            accounts_label6.Location = new Point(750, 10);
+            accounts_label6.Text = "已結清";
+            accounts_panel_debt.Controls.Add(accounts_label6);
 
+            account.y = 50;
+
+            for (int i = 0; i < debt_info.Length; i++)
+            {
+                Label accounts_detail = new Label();
+                Label accounts_type = new Label();
+                Label accounts_amount = new Label();
+                Label accounts_date = new Label();
+                accounts_detail.Location = new Point(10, account.y);
+                accounts_type.Location = new Point(150, account.y);
+                accounts_amount.Location = new Point(300, account.y);
+                accounts_date.Location = new Point(450, account.y);
+                //DateTimePicker accounts_paid_date = new DateTimePicker();
+                ComboBox accounts_account = new ComboBox();
+                string[] allAccounts = accountDB.get_all_account();
+                foreach(string account in allAccounts)
+                {
+                    if(account != "Debt/Loan")
+                    {
+                        accounts_account.Items.Add(account);
+                    }
+                }
+                accounts_account.Location = new Point(600, account.y);
+
+                CheckBox accounts_paid = new CheckBox();
+                accounts_paid.Location = new Point(750, account.y);
+                try { accounts_paid.Name = "p" + debt_info[i].id.ToString(); }
+                catch { accounts_paid.Name = "p0"; }
+                try { accounts_account.Name = "a" + debt_info[i].id.ToString(); }
+                catch { accounts_account.Name = "a0"; }
+                
+
+                account.debt_checkbox.Add(accounts_paid);
+                account.debt_account.Add(accounts_account);
+
+                accounts_detail.Text = debt_info[i].detail;
+                accounts_type.Text = debt_info[i].type;
+                accounts_amount.Text = debt_info[i].amount.ToString();
+                accounts_date.Text = debt_info[i].date.ToString("yyyy/MM/dd");
+                accounts_account.Text = debt_info[i].account;
+
+                accounts_panel_debt.Controls.Add(accounts_detail);
+                accounts_panel_debt.Controls.Add(accounts_type);
+                accounts_panel_debt.Controls.Add(accounts_amount);
+                accounts_panel_debt.Controls.Add(accounts_date);
+                accounts_panel_debt.Controls.Add(accounts_account);
+                accounts_panel_debt.Controls.Add(accounts_paid);
+                accounts_panel_debt.Show();
+                account.y += 50;
+            }
+        }
         void refreshCreditCardInfo()
         {
             accounts_total_balance.Text = accountDB.queryAccountBalance(accountType: accounts_type.Text, accountName: accounts_name.Text);
@@ -317,7 +440,7 @@ namespace MoneyTrackerAPP
                 accounts_panel_creditcard.Controls.Add(accounts_ok);
 
                 account.y = 100;
-                List<CreditCardInfo> accounts_check = new List<CreditCardInfo>();
+                //List<CreditCardInfo> accounts_check = new List<CreditCardInfo>();
                 for (int i = 0; i < accounts_info.Length; i++)
                 {
                     Label accounts_item = new Label();
@@ -328,20 +451,21 @@ namespace MoneyTrackerAPP
                     accounts_paid_date.Location = new Point(account.x3, account.y);
                     accounts_panel_creditcard.Controls.Add(accounts_paid_date);
                     CheckBox accounts_paid = new CheckBox();
-                    try { accounts_paid.Name = accounts_info[i].id.ToString(); }
-                    catch { accounts_paid.Name = "0"; }
-
+                    try { accounts_paid.Name = "b" + accounts_info[i].id.ToString(); }
+                    catch { accounts_paid.Name = "b0"; }
+                    try { accounts_paid_date.Name = "d" + accounts_info[i].id.ToString(); }
+                    catch { accounts_paid_date.Name = "d0"; }
                     accounts_paid.Location = new Point(account.x4, account.y);
                     accounts_panel_creditcard.Controls.Add(accounts_paid);
                     account.accounts_checkbox.Add(accounts_paid);
+                    account.accounts_bankDate.Add(accounts_paid_date);
                     accounts_item.Text = accounts_info[i].name;
                     accounts_amount.Text = accounts_info[i].amount;
                     accounts_panel_creditcard.Controls.Add(accounts_item);
                     accounts_panel_creditcard.Controls.Add(accounts_amount);
                     accounts_panel_creditcard.Show();
                     account.y += 50;
-                    account.accounts_id.Add(accounts_info[i].id);
-                    account.accounts_bankDates.Add(accounts_info[i].date);
+
                 }
             }
 
@@ -388,20 +512,55 @@ namespace MoneyTrackerAPP
         {
             accounts_ok.Enabled = true;
             accounts_panel_detail.Enabled = true;
-            refreshCreditCardInfo();
-            accounts_total_balance.Text = accountDB.queryAccountBalance(accountType: accounts_type.Text, accountName: accounts_name.Text);
+            if (accounts_type.Text != "Debt/Loan")
+            {
+                refreshCreditCardInfo();
+                accounts_total_balance.Text = accountDB.queryAccountBalance(accountType: accounts_type.Text, accountName: accounts_name.Text);
+            }
+            else
+            {
+                accounts_total_balance.Text = accountDB.get_debtLoan_balance(accounts_name.Text);
+                refreshDebtLoanInfo();
+            }
+            
         }
 
         private void accounts_ok_Click(object sender, EventArgs e)
         {
-            foreach (CheckBox ele in account.accounts_checkbox)
+            foreach(CheckBox ele in account.accounts_checkbox)
             {
                 if (ele.Checked)
                 {
-                    accountDB.updateBankChecked(int.Parse(ele.Name), DateTime.Now);
+                    foreach (DateTimePicker element in account.accounts_bankDate)
+                    {
+                        if (element.Name.Substring(1) == ele.Name.Substring(1))
+                        {
+                            DateTime date = element.Value;
+                            accountDB.updateBankChecked(int.Parse(ele.Name.Substring(1)), date);
+                        }
+                    }
                 }
             }
             refreshCreditCardInfo();
+        }
+
+        private void accounts_btn_payDebt_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox ele in account.debt_checkbox)
+            {
+                if (ele.Checked)
+                {
+                    foreach(ComboBox element in account.debt_account)
+                    {
+                        if(element.Name.Substring(1) == ele.Name.Substring(1))
+                        {
+                            string payAccount = element.Text;
+                            accountDB.pay_DebtLoan(int.Parse(ele.Name.Substring(1)), payAccount);
+                        }
+                    }
+                }
+            }
+            refreshDebtLoanInfo();
         }
         #endregion
 
@@ -1129,7 +1288,11 @@ namespace MoneyTrackerAPP
 
         private void trans_cbo_category_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if(trans_rdb_expanse.Checked)
+            {
+               
+            }
+            //if()
         }
 
         private void trans_txtbox_name_TextChanged(object sender, EventArgs e)
@@ -1146,5 +1309,12 @@ namespace MoneyTrackerAPP
         {
 
         }
+
+        private void trans_label_category_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

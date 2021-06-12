@@ -467,7 +467,7 @@ namespace MoneyTrackerAPP
             return accountNames.ToArray();
         }
 
-
+        
         public List<string> queryDistictCategorByTypeWithinDate(string type, DateTime startTime, DateTime endTime)
         {
             List<string> categories = new List<string>();
