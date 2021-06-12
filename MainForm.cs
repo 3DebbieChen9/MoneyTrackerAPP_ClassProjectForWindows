@@ -57,7 +57,7 @@ namespace MoneyTrackerAPP
         private void MainForm_Load(object sender, EventArgs e)
         {
             main_applogo.Image = new Bitmap("icons/applogo_30x30.png");
-            string dbName = "../../accounting_DB_v1.db";
+            string dbName = "../../moneyRecord.db";
             Database database = new Database(dbName);
             ReportDB reportDB = new ReportDB(dbName);
 
