@@ -202,7 +202,7 @@ namespace MoneyTrackerAPP
         }
 
 
-        void deleteAllPlaces()
+        public void deleteAllPlaces()
         {
             try
             {
@@ -225,7 +225,7 @@ namespace MoneyTrackerAPP
             }
         }
 
-        void deleteAllRecipients()
+        public void deleteAllRecipients()
         {
             try
             {

@@ -133,7 +133,7 @@ namespace MoneyTrackerAPP
             settingVar.category_exp = settingDB.get_category("Expense");
             //  setting_list
             settingVar.list_place = settingDB.get_list_place();
-            settingVar.list_place = settingDB.get_list_recipient();
+            settingVar.list_recipient = settingDB.get_list_recipient();
 
             setting_update_List2ListBox("TotalList");
             #endregion
