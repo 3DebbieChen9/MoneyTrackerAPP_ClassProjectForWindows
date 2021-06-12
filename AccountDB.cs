@@ -125,39 +125,6 @@ namespace MoneyTrackerAPP
             return accountTypes.ToArray();
         }
 
-        public string[] get_account_name(string accountType)
-        {
-            List<string> accountNames = new List<string>();
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        SELECT DISTINCT(Account) FROM Accounts
-                        WHERE Type = $type
-                    ";
-                    command.Parameters.AddWithValue("$type", accountType);
-
-                    using (SqliteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            accountNames.Add(reader.GetString(0));
-                        }
-                    }
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            return accountNames.ToArray();
-        }
 
         public void insert_account_name(string accountType, string accountName, string balance)
         {
@@ -301,8 +268,36 @@ namespace MoneyTrackerAPP
 
         public void updateBankChecked(int id, DateTime bankDate)
         {
+            string accountName = "";
+            int amount = 0;
             try
             {
+                // Query Account, Amount By id
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        SELECT Account, Amount FROM Transactions WHERE id = $id;
+                    ";
+
+                    // Not NULL
+                    command.Parameters.AddWithValue("$id", id);
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            accountName = reader.GetString(0);
+                            try { amount = reader.GetInt32(1); } catch { amount = 0; }
+                        }
+                    }
+                    connection.Close();
+                }
+                // UPDATE bankchecked, bankdate By id
                 using (var connection = new SqliteConnection("Data Source=" + this.dbName))
                 {
                     connection.Open();
@@ -323,6 +318,27 @@ namespace MoneyTrackerAPP
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
+                // UPDATE balance
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        UPDATE Accounts
+                        SET Balance = (SELECT Balance FROM Accounts WHERE Account = $accountName) - $amount
+                        WHERE Account = $accountName
+                    ";
+
+                    // Not NULL
+                    command.Parameters.AddWithValue("$accountName", accountName);
+                    command.Parameters.AddWithValue("$amount", amount);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -335,6 +351,163 @@ namespace MoneyTrackerAPP
             for(int i = 0; i < ids.Count; i++)
             {
                 updateBankChecked(ids[i], bankDates[i]);
+            }
+        }
+
+        public string queryAccountBalance(string accountType, string accountName)
+        {
+            string balance = "0";
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT Balance FROM Accounts
+                        WHERE Account = $accountName AND Type = $accountType
+                    ";
+                    command.Parameters.AddWithValue("$accountName", accountName);
+                    command.Parameters.AddWithValue("$accountType", accountType);
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            try { balance = reader.GetInt32(0).ToString(); } catch { balance = "0"; }
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return balance;
+        }
+
+        public string get_debtLoan_balance(string who)
+        {
+            string balance = "0";
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT SUM(Amount) FROM DebtLoan
+                        WHERE Recipient = $who
+                    ";
+                    command.Parameters.AddWithValue("$who", who);
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            try { balance = reader.GetInt32(0).ToString(); } catch { balance = "0"; }
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return balance;
+        }
+
+        public DebtLoan[] get_debtLoans_detail(string who)
+        {
+            List<DebtLoan> lists = new List<DebtLoan>();
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT id, Detail, Type, Amount, Account, Date FROM DebtLoan
+                        WHERE Recipient = $who
+                    ";
+                    command.Parameters.AddWithValue("$who", who);
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DebtLoan tmp = new DebtLoan();
+                            tmp.id = reader.GetInt32(0);
+                            tmp.detail = reader.GetString(1);
+                            tmp.type = reader.GetString(2);
+                            tmp.amount = reader.GetInt32(3);
+                            tmp.account = reader.GetString(4);
+                            tmp.date = reader.GetDateTime(5);
+                            lists.Add(tmp);
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return lists.ToArray();
+        }
+
+        public void pay_DebtLoan(int id, string account, int amount)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        DELETE FROM DebtLoan WHERE id = $id
+                    ";
+                    // Not NULL
+                    command.Parameters.AddWithValue("$id", id);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+
+                    command.CommandText =
+                    @"
+                        UPDATE Accounts 
+                        SET Balance = (SELECT Balance FROM Accounts WHERE Account = $account) - $amount
+                        WHERE Account = $account
+                    ";
+                    command.Parameters.AddWithValue("$account", account);
+                    command.Parameters.AddWithValue("$amount", amount);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
     }

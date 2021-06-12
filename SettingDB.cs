@@ -15,38 +15,6 @@ namespace MoneyTrackerAPP
             this.dbName = dbName;
         }
 
-        public string get_budgetAmount()
-        {
-            string db_budgetAmount = null;
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        SELECT Amount FROM Info WHERE Detail = 'Budget'
-                    ";
-
-                    using (SqliteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            db_budgetAmount = reader.GetInt32(0).ToString();
-                        }
-                    }
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return db_budgetAmount;
-        }
         public string get_budget_cycleDay()
         {
             string db_cycleDay = null;
@@ -169,41 +137,6 @@ namespace MoneyTrackerAPP
             return expenseSum;
         }
 
-        public List<string> get_category(string type)
-        {
-            List<string> categories = new List<string>();
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        SELECT DISTINCT(Category) FROM Categories WHERE Type = $type
-                    ";
-
-                    command.Parameters.AddWithValue("$type", type);
-
-                    using (SqliteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            categories.Add(reader.GetString(0));
-                        }
-                    }
-                    //Console.WriteLine("Sum = {0}", sum);
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return categories;
-        }
 
         void deleteAllCategory(string type)
         {
@@ -268,74 +201,6 @@ namespace MoneyTrackerAPP
             }
         }
 
-        public List<string> get_list_place()
-        {
-            List<string> places = new List<string>();
-
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        SELECT DISTINCT(Place) FROM Places
-                    ";
-
-                    using (SqliteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            places.Add(reader.GetString(0));
-                        }
-                    }
-                    //Console.WriteLine("Sum = {0}", sum);
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return places;
-        }
-        public List<string> get_list_recipient()
-        {
-            List<string> recipients = new List<string>();
-
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        SELECT DISTINCT(Recipient) FROM Recipients
-                    ";
-
-                    using (SqliteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            recipients.Add(reader.GetString(0));
-                        }
-                    }
-                    //Console.WriteLine("Sum = {0}", sum);
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return recipients;
-        }
 
         void deleteAllPlaces()
         {
@@ -383,57 +248,6 @@ namespace MoneyTrackerAPP
             }
         }
 
-        void insertPlace(string place)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        INSERT INTO Places (Place)
-                        VALUES($place)
-                    ";
-
-                    command.Parameters.AddWithValue("$place", place);
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
-
-        void insertRecipient(string recipient)
-        {
-            try
-            {
-                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                {
-                    connection.Open();
-
-                    var command = connection.CreateCommand();
-                    command.CommandText =
-                    @"
-                        INSERT INTO Recipients (Recipient)
-                        VALUES($recipient)
-                    ";
-
-                    command.Parameters.AddWithValue("$recipient", recipient);
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
 
         public void set_list(string target, List<string> newList)
         {

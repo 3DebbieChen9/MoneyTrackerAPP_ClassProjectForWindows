@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoneyTrackerAPP
 {
-    class Transaction
+    class Detail
     {
         public string name;
         public string type;
@@ -16,16 +16,11 @@ namespace MoneyTrackerAPP
         public int amount;
         public DateTime date;
         public string place;
-        public string recipient;
         public string comment;
         public string tag;
-        public bool bankChecked;
-        public DateTime? bankDate;
-
-        public Transaction() { }
-        public Transaction(string name, string type, string category, string account, int amount, DateTime date,
-            string subcategory = null, string place = null, string recipient = null, string comment = null, string tag = null,
-            bool bankChecked = false, DateTime? bankDate = null)
+        public Detail() { }
+        public Detail(string name, string type, string category, string account, int amount, DateTime date,
+            string subcategory = null, string place = null, string comment = null, string tag = null)
         {
             this.name = name;
             this.type = type;
@@ -35,11 +30,61 @@ namespace MoneyTrackerAPP
             this.amount = amount;
             this.date = date;
             this.place = place;
-            this.recipient = recipient;
             this.comment = comment;
             this.tag = tag;
-            this.bankChecked = bankChecked;
-            this.bankDate = bankDate;
+        }
+    }
+
+    class DebtLoan
+    {
+        public int id;
+        public string recipient;
+        public string detail;
+        public string type;
+        public string account;
+        public int amount;
+        public DateTime date;
+
+        public DebtLoan() { }
+        public DebtLoan(string detail, string type, int amount, DateTime date, string recipient = null, string account = null, int id = 0)
+        {
+            this.recipient = recipient;
+            this.detail = detail;
+            this.type = type;
+            this.account = account;
+            this.amount = amount;
+            this.date = date;
+            this.id = id;
+        }
+    }
+
+    class Transaction
+    {
+        public string name;
+        public string category;
+        public string subcategory;
+        public string account;
+        public int amount;
+        public DateTime date;
+        public string place;
+        public string comment;
+        public bool bankChecked;
+        public DateTime? bankDate;
+
+        public Transaction() { }
+        public Transaction(string name, string category, string account, int amount, DateTime date,
+            string subcategory = null, string place = null, string comment = null)
+        {
+            this.name = name;
+            this.category = category;
+            this.subcategory = subcategory;
+            this.account = account;
+            this.amount = amount;
+            this.date = date;
+            this.place = place;
+            this.comment = comment;
+            this.bankChecked = false;
+            this.bankDate = null;
         }
     }
 

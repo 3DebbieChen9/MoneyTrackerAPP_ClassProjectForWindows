@@ -19,6 +19,7 @@ namespace MoneyTrackerAPP
         static Database db = new Database(dbName);
         static AccountDB accountDB = new AccountDB(dbName);
         static ReportDB reportDB = new ReportDB(dbName);
+        static SettingDB settingDB = new SettingDB(dbName);
         AccountGlobal account = new AccountGlobal();
         Report report = new Report();
 
@@ -81,6 +82,9 @@ namespace MoneyTrackerAPP
                 case 3:
                     e.Graphics.FillRectangle(new SolidBrush(Color.Aquamarine), e.Bounds);
                     break;
+                case 4:
+                    e.Graphics.FillRectangle(new SolidBrush(Color.LightSkyBlue), e.Bounds);
+                    break;
                 default:
                     break;
             }
@@ -113,7 +117,11 @@ namespace MoneyTrackerAPP
             report_barchart.Titles.Add("收支長條圖");
             report_linechart.Titles.Add("收支折線圖");
             #endregion
-            
+            Transaction trans = new Transaction(name: " ", category: " ", account: " ", amount: 10, date: DateTime.Now, place: "", comment: "");
+            db.insertTransaction(trans, "Expense");
+            //db.insertTransaction(trans, "Income");
+            //string remainBudget = db.get_budgetAmount();
+
         }
         private void main_tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -122,6 +130,7 @@ namespace MoneyTrackerAPP
             {
                 accounts_type.Text = "";
                 accounts_name.Text = "";
+                accounts_total_balance.Text = "0";
             }
             // Report
             else if (main_tabControl.SelectedIndex == 2)
@@ -196,11 +205,28 @@ namespace MoneyTrackerAPP
                 report_show_lb.Text += Environment.NewLine;
                 report_show_lb.Text += "Total Income:       " + report.total_income + Environment.NewLine;
             }
+            // List
+            else if (main_tabControl.SelectedIndex == 4)
+            {
+                List<Detail> details = db.queryDetail();
+                detail_label.Text = "";
+                detail_label.Text += "Name" + "                " + "Type" + "      " + "Category" + "            " + "Subcategory" + "        " + "Amount" + "       " + "Account" + "     " + "Date" + "        " + "Place" + "     " + "Comment" + Environment.NewLine;
+                detail_label.Text += "--------------------" + "----------" + "--------------------" + "-------------------" + "-------------" + "------------" + "----------" + "----------" + "--------------------" + "----------" + Environment.NewLine;
+                foreach (Detail ele in details)
+                {
+                    detail_label.Text += String.Format("{0,-20}", ele.name) + String.Format("{0,-10}", ele.type) + String.Format("{0,-20}", ele.category) + String.Format("{0,-19}", ele.subcategory) + String.Format("{0,-13}", ele.amount) + 
+                        String.Format("{0,-12}", ele.account) + String.Format("{0,-10}", ele.date.ToString("yyyy-MM-dd")) + String.Format("{0,-10}", ele.place) + String.Format("{0,-20}", ele.comment) + Environment.NewLine;
+                }
+                detail_label.Text += " " + Environment.NewLine;
+            }
         }
         #region Account
         private void accounts_type_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             accounts_name.Items.Clear();
+            accounts_name.Text = "";
+            accounts_panel_detail.Controls.Clear();
+            accounts_panel_creditcard.Controls.Clear();
             string[] account_name = accountDB.get_account_name(accounts_type.Text);
             foreach (string ele in account_name)
             {
@@ -259,6 +285,7 @@ namespace MoneyTrackerAPP
 
         void refreshCreditCardInfo()
         {
+            accounts_total_balance.Text = accountDB.queryAccountBalance(accountType: accounts_type.Text, accountName: accounts_name.Text);
             CreditCardInfo[] accounts_info = accountDB.get_unpaid_transaction(accounts_name.Text);
             if (accounts_type.Text == "Credit Card")
             {
@@ -362,6 +389,7 @@ namespace MoneyTrackerAPP
             accounts_ok.Enabled = true;
             accounts_panel_detail.Enabled = true;
             refreshCreditCardInfo();
+            accounts_total_balance.Text = accountDB.queryAccountBalance(accountType: accounts_type.Text, accountName: accounts_name.Text);
         }
 
         private void accounts_ok_Click(object sender, EventArgs e)
@@ -1096,8 +1124,27 @@ namespace MoneyTrackerAPP
                 MessageBox.Show("輸入格式錯誤!");
             }
         }
+
         #endregion
 
+        private void trans_cbo_category_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void trans_txtbox_name_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_txtbox_amount_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_btn_save_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend17 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend18 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend19 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend20 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.main_panel = new System.Windows.Forms.Panel();
             this.main_tabControl = new System.Windows.Forms.TabControl();
@@ -49,8 +49,6 @@
             this.trans_remainder = new System.Windows.Forms.Label();
             this.trans_txtbox_note = new System.Windows.Forms.TextBox();
             this.trans_note = new System.Windows.Forms.Label();
-            this.trans_txtbox_tag = new System.Windows.Forms.TextBox();
-            this.trans_label_tag = new System.Windows.Forms.Label();
             this.trans_txtbox_store = new System.Windows.Forms.TextBox();
             this.trans_label_store = new System.Windows.Forms.Label();
             this.trans_date_picker = new System.Windows.Forms.DateTimePicker();
@@ -119,6 +117,11 @@
             this.main_closeApp = new System.Windows.Forms.Button();
             this.main_appName = new System.Windows.Forms.Label();
             this.main_applogo = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.detail_label = new System.Windows.Forms.Label();
+            this.detail_panel = new System.Windows.Forms.Panel();
+            this.tran_rdb_debtandloan = new System.Windows.Forms.RadioButton();
+            this.tran_rdb_transfer = new System.Windows.Forms.RadioButton();
             this.main_panel.SuspendLayout();
             this.main_tabControl.SuspendLayout();
             this.main_transaction.SuspendLayout();
@@ -135,6 +138,8 @@
             this.report_day_gb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.report_linechart)).BeginInit();
             this.main_border.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.detail_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_panel
@@ -154,6 +159,7 @@
             this.main_tabControl.Controls.Add(this.main_accounts);
             this.main_tabControl.Controls.Add(this.main_report);
             this.main_tabControl.Controls.Add(this.main_settings);
+            this.main_tabControl.Controls.Add(this.tabPage1);
             this.main_tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.main_tabControl.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -176,12 +182,12 @@
             // 
             this.main_transaction.AutoScroll = true;
             this.main_transaction.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.main_transaction.Controls.Add(this.tran_rdb_transfer);
+            this.main_transaction.Controls.Add(this.tran_rdb_debtandloan);
             this.main_transaction.Controls.Add(this.trans_btn_save);
             this.main_transaction.Controls.Add(this.trans_remainder);
             this.main_transaction.Controls.Add(this.trans_txtbox_note);
             this.main_transaction.Controls.Add(this.trans_note);
-            this.main_transaction.Controls.Add(this.trans_txtbox_tag);
-            this.main_transaction.Controls.Add(this.trans_label_tag);
             this.main_transaction.Controls.Add(this.trans_txtbox_store);
             this.main_transaction.Controls.Add(this.trans_label_store);
             this.main_transaction.Controls.Add(this.trans_date_picker);
@@ -212,6 +218,7 @@
             this.trans_btn_save.TabIndex = 19;
             this.trans_btn_save.Text = "儲存";
             this.trans_btn_save.UseVisualStyleBackColor = true;
+            this.trans_btn_save.Click += new System.EventHandler(this.trans_btn_save_Click);
             // 
             // trans_remainder
             // 
@@ -237,22 +244,6 @@
             this.trans_note.Size = new System.Drawing.Size(116, 28);
             this.trans_note.TabIndex = 16;
             this.trans_note.Text = "備　　註";
-            // 
-            // trans_txtbox_tag
-            // 
-            this.trans_txtbox_tag.Location = new System.Drawing.Point(207, 298);
-            this.trans_txtbox_tag.Name = "trans_txtbox_tag";
-            this.trans_txtbox_tag.Size = new System.Drawing.Size(241, 36);
-            this.trans_txtbox_tag.TabIndex = 15;
-            // 
-            // trans_label_tag
-            // 
-            this.trans_label_tag.AutoSize = true;
-            this.trans_label_tag.Location = new System.Drawing.Point(65, 301);
-            this.trans_label_tag.Name = "trans_label_tag";
-            this.trans_label_tag.Size = new System.Drawing.Size(116, 28);
-            this.trans_label_tag.TabIndex = 14;
-            this.trans_label_tag.Text = "標　　籤";
             // 
             // trans_txtbox_store
             // 
@@ -310,6 +301,7 @@
             this.trans_cbo_category.Name = "trans_cbo_category";
             this.trans_cbo_category.Size = new System.Drawing.Size(241, 36);
             this.trans_cbo_category.TabIndex = 7;
+            this.trans_cbo_category.SelectedIndexChanged += new System.EventHandler(this.trans_cbo_category_SelectedIndexChanged);
             // 
             // trans_label_category
             // 
@@ -326,6 +318,7 @@
             this.trans_txtbox_amount.Name = "trans_txtbox_amount";
             this.trans_txtbox_amount.Size = new System.Drawing.Size(241, 36);
             this.trans_txtbox_amount.TabIndex = 5;
+            this.trans_txtbox_amount.TextChanged += new System.EventHandler(this.trans_txtbox_amount_TextChanged);
             // 
             // trans_label_amount
             // 
@@ -342,6 +335,7 @@
             this.trans_txtbox_name.Name = "trans_txtbox_name";
             this.trans_txtbox_name.Size = new System.Drawing.Size(241, 36);
             this.trans_txtbox_name.TabIndex = 3;
+            this.trans_txtbox_name.TextChanged += new System.EventHandler(this.trans_txtbox_name_TextChanged);
             // 
             // trans_label_name
             // 
@@ -359,13 +353,13 @@
             this.trans_rdb_income.Name = "trans_rdb_income";
             this.trans_rdb_income.Size = new System.Drawing.Size(89, 32);
             this.trans_rdb_income.TabIndex = 1;
-            this.trans_rdb_income.TabStop = true;
             this.trans_rdb_income.Text = "收入";
             this.trans_rdb_income.UseVisualStyleBackColor = true;
             // 
             // trans_rdb_expanse
             // 
             this.trans_rdb_expanse.AutoSize = true;
+            this.trans_rdb_expanse.Checked = true;
             this.trans_rdb_expanse.Location = new System.Drawing.Point(70, 46);
             this.trans_rdb_expanse.Name = "trans_rdb_expanse";
             this.trans_rdb_expanse.Size = new System.Drawing.Size(89, 32);
@@ -435,9 +429,9 @@
             this.accounts_total_balance.AutoSize = true;
             this.accounts_total_balance.Location = new System.Drawing.Point(714, 108);
             this.accounts_total_balance.Name = "accounts_total_balance";
-            this.accounts_total_balance.Size = new System.Drawing.Size(51, 28);
+            this.accounts_total_balance.Size = new System.Drawing.Size(25, 28);
             this.accounts_total_balance.TabIndex = 17;
-            this.accounts_total_balance.Text = "100";
+            this.accounts_total_balance.Text = "0";
             // 
             // account_label9
             // 
@@ -593,56 +587,56 @@
             // 
             // report_barchart
             // 
-            chartArea5.Name = "ChartArea1";
-            this.report_barchart.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.report_barchart.Legends.Add(legend5);
+            chartArea17.Name = "ChartArea1";
+            this.report_barchart.ChartAreas.Add(chartArea17);
+            legend17.Name = "Legend1";
+            this.report_barchart.Legends.Add(legend17);
             this.report_barchart.Location = new System.Drawing.Point(575, 390);
             this.report_barchart.Name = "report_barchart";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.report_barchart.Series.Add(series5);
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series17.Legend = "Legend1";
+            series17.Name = "Series1";
+            this.report_barchart.Series.Add(series17);
             this.report_barchart.Size = new System.Drawing.Size(342, 166);
             this.report_barchart.TabIndex = 12;
             this.report_barchart.Text = "chart3";
             // 
             // report_piechart2
             // 
-            chartArea6.Name = "ChartArea1";
-            this.report_piechart2.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.report_piechart2.Legends.Add(legend6);
+            chartArea18.Name = "ChartArea1";
+            this.report_piechart2.ChartAreas.Add(chartArea18);
+            legend18.Name = "Legend1";
+            this.report_piechart2.Legends.Add(legend18);
             this.report_piechart2.Location = new System.Drawing.Point(575, 193);
             this.report_piechart2.Name = "report_piechart2";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series6.IsValueShownAsLabel = true;
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.report_piechart2.Series.Add(series6);
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series18.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series18.IsValueShownAsLabel = true;
+            series18.Legend = "Legend1";
+            series18.Name = "Series1";
+            this.report_piechart2.Series.Add(series18);
             this.report_piechart2.Size = new System.Drawing.Size(341, 200);
             this.report_piechart2.TabIndex = 11;
             this.report_piechart2.Text = "chart2";
             // 
             // report_piechart1
             // 
-            chartArea7.Name = "ChartArea1";
-            this.report_piechart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.report_piechart1.Legends.Add(legend7);
+            chartArea19.Name = "ChartArea1";
+            this.report_piechart1.ChartAreas.Add(chartArea19);
+            legend19.Name = "Legend1";
+            this.report_piechart1.Legends.Add(legend19);
             this.report_piechart1.Location = new System.Drawing.Point(575, 0);
             this.report_piechart1.Name = "report_piechart1";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series7.IsValueShownAsLabel = true;
-            series7.Label = "#PERCENT{P1}";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.report_piechart1.Series.Add(series7);
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series19.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series19.IsValueShownAsLabel = true;
+            series19.Label = "#PERCENT{P1}";
+            series19.Legend = "Legend1";
+            series19.Name = "Series1";
+            this.report_piechart1.Series.Add(series19);
             this.report_piechart1.Size = new System.Drawing.Size(341, 200);
             this.report_piechart1.TabIndex = 10;
             this.report_piechart1.Text = "chart1";
@@ -938,20 +932,20 @@
             // 
             // report_linechart
             // 
-            chartArea8.AxisX.Title = "Month";
-            chartArea8.AxisY.Title = "Amount";
-            chartArea8.Name = "ChartArea1";
-            this.report_linechart.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.report_linechart.Legends.Add(legend8);
+            chartArea20.AxisX.Title = "Month";
+            chartArea20.AxisY.Title = "Amount";
+            chartArea20.Name = "ChartArea1";
+            this.report_linechart.ChartAreas.Add(chartArea20);
+            legend20.Name = "Legend1";
+            this.report_linechart.Legends.Add(legend20);
             this.report_linechart.Location = new System.Drawing.Point(575, 129);
             this.report_linechart.Name = "report_linechart";
-            series8.BorderWidth = 3;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.report_linechart.Series.Add(series8);
+            series20.BorderWidth = 3;
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series20.Legend = "Legend1";
+            series20.Name = "Series1";
+            this.report_linechart.Series.Add(series20);
             this.report_linechart.Size = new System.Drawing.Size(341, 262);
             this.report_linechart.TabIndex = 13;
             this.report_linechart.Text = "chart1";
@@ -975,6 +969,7 @@
             this.main_iconImages.Images.SetKeyName(1, "account.png");
             this.main_iconImages.Images.SetKeyName(2, "report.png");
             this.main_iconImages.Images.SetKeyName(3, "settings.png");
+            this.main_iconImages.Images.SetKeyName(4, "file.png");
             // 
             // main_border
             // 
@@ -1024,6 +1019,54 @@
             this.main_applogo.TabIndex = 1;
             this.main_applogo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_applogo_MouseMove);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.tabPage1.Controls.Add(this.detail_panel);
+            this.tabPage1.Location = new System.Drawing.Point(104, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(916, 552);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "main_list";
+            // 
+            // detail_label
+            // 
+            this.detail_label.Location = new System.Drawing.Point(11, 15);
+            this.detail_label.Name = "detail_label";
+            this.detail_label.Size = new System.Drawing.Size(1451, 868);
+            this.detail_label.TabIndex = 0;
+            // 
+            // detail_panel
+            // 
+            this.detail_panel.AutoScroll = true;
+            this.detail_panel.Controls.Add(this.detail_label);
+            this.detail_panel.Location = new System.Drawing.Point(33, 26);
+            this.detail_panel.Name = "detail_panel";
+            this.detail_panel.Size = new System.Drawing.Size(852, 494);
+            this.detail_panel.TabIndex = 10;
+            // 
+            // tran_rdb_debtandloan
+            // 
+            this.tran_rdb_debtandloan.AutoSize = true;
+            this.tran_rdb_debtandloan.Location = new System.Drawing.Point(367, 46);
+            this.tran_rdb_debtandloan.Name = "tran_rdb_debtandloan";
+            this.tran_rdb_debtandloan.Size = new System.Drawing.Size(154, 32);
+            this.tran_rdb_debtandloan.TabIndex = 20;
+            this.tran_rdb_debtandloan.TabStop = true;
+            this.tran_rdb_debtandloan.Text = "應收/應付";
+            this.tran_rdb_debtandloan.UseVisualStyleBackColor = true;
+            // 
+            // tran_rdb_transfer
+            // 
+            this.tran_rdb_transfer.AutoSize = true;
+            this.tran_rdb_transfer.Location = new System.Drawing.Point(552, 46);
+            this.tran_rdb_transfer.Name = "tran_rdb_transfer";
+            this.tran_rdb_transfer.Size = new System.Drawing.Size(89, 32);
+            this.tran_rdb_transfer.TabIndex = 21;
+            this.tran_rdb_transfer.TabStop = true;
+            this.tran_rdb_transfer.Text = "轉帳";
+            this.tran_rdb_transfer.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1059,6 +1102,8 @@
             this.report_day_gb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.report_linechart)).EndInit();
             this.main_border.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.detail_panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1092,8 +1137,6 @@
         private System.Windows.Forms.Label trans_remainder;
         private System.Windows.Forms.TextBox trans_txtbox_note;
         private System.Windows.Forms.Label trans_note;
-        private System.Windows.Forms.TextBox trans_txtbox_tag;
-        private System.Windows.Forms.Label trans_label_tag;
         private System.Windows.Forms.TextBox trans_txtbox_store;
         private System.Windows.Forms.Label trans_label_store;
         private System.Windows.Forms.DateTimePicker trans_date_picker;
@@ -1145,6 +1188,11 @@
         private System.Windows.Forms.DateTimePicker report_dateTimePicker1;
         private System.Windows.Forms.RadioButton report_day_rb;
         private System.Windows.Forms.DataVisualization.Charting.Chart report_linechart;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel detail_panel;
+        private System.Windows.Forms.Label detail_label;
+        private System.Windows.Forms.RadioButton tran_rdb_transfer;
+        private System.Windows.Forms.RadioButton tran_rdb_debtandloan;
     }
 }
 
