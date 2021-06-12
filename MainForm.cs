@@ -113,11 +113,18 @@ namespace MoneyTrackerAPP
             report_barchart.Titles.Add("收支長條圖");
             report_linechart.Titles.Add("收支折線圖");
             #endregion
+            
         }
         private void main_tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Account
+            if(main_tabControl.SelectedIndex == 1)
+            {
+                accounts_type.Text = "";
+                accounts_name.Text = "";
+            }
             // Report
-            if (main_tabControl.SelectedIndex == 2)
+            else if (main_tabControl.SelectedIndex == 2)
             {
                 report_day_rb.Checked = true;
                 report_dateTimePicker1.Value = DateTime.Now;
@@ -199,10 +206,17 @@ namespace MoneyTrackerAPP
             {
                 accounts_name.Items.Add(ele);
             }
+            if (accounts_type.Text == "Credit Card")
+            {
+                refreshCreditCardInfo();
+            }
             if (accounts_type.Text != "Credit Card")
             {
                 accounts_panel_creditcard.Enabled = false;
                 accounts_panel_creditcard.Controls.Clear();
+                main_accounts.Controls.Remove(accounts_panel_creditcard);
+                accounts_panel_detail.Location = new Point(36, 159);
+                accounts_panel_detail.Size = new Size(829, 376);
             }
         }
 
@@ -248,8 +262,11 @@ namespace MoneyTrackerAPP
             CreditCardInfo[] accounts_info = accountDB.get_unpaid_transaction(accounts_name.Text);
             if (accounts_type.Text == "Credit Card")
             {
+                main_accounts.Controls.Add(accounts_panel_creditcard);
                 accounts_panel_creditcard.Controls.Clear();
                 accounts_panel_creditcard.Enabled = true;
+                accounts_panel_detail.Location = new Point(36, 354);
+                accounts_panel_detail.Size = new Size(829, 190);
                 Label accounts_label1 = new Label();
                 accounts_label1.Location = new Point(10, 10);
                 accounts_label1.Text = "未付款";

@@ -29,22 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.main_panel = new System.Windows.Forms.Panel();
             this.main_tabControl = new System.Windows.Forms.TabControl();
-
             this.main_transaction = new System.Windows.Forms.TabPage();
             this.trans_btn_save = new System.Windows.Forms.Button();
             this.trans_remainder = new System.Windows.Forms.Label();
@@ -66,7 +65,6 @@
             this.trans_label_name = new System.Windows.Forms.Label();
             this.trans_rdb_income = new System.Windows.Forms.RadioButton();
             this.trans_rdb_expanse = new System.Windows.Forms.RadioButton();
-
             this.main_accounts = new System.Windows.Forms.TabPage();
             this.accounts_panel_creditcard = new System.Windows.Forms.Panel();
             this.accounts_ok = new System.Windows.Forms.Button();
@@ -87,7 +85,6 @@
             this.accounts_create = new System.Windows.Forms.Button();
             this.accounts_panel_detail = new System.Windows.Forms.Panel();
             this.accounts_label = new System.Windows.Forms.Label();
-
             this.main_report = new System.Windows.Forms.TabPage();
             this.report_barchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.report_piechart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -125,11 +122,9 @@
             this.main_panel.SuspendLayout();
             this.main_tabControl.SuspendLayout();
             this.main_transaction.SuspendLayout();
-
             this.main_accounts.SuspendLayout();
             this.accounts_panel_creditcard.SuspendLayout();
             this.accounts_panel_account.SuspendLayout();
-
             this.main_report.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.report_barchart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.report_piechart2)).BeginInit();
@@ -598,56 +593,56 @@
             // 
             // report_barchart
             // 
-            chartArea13.Name = "ChartArea1";
-            this.report_barchart.ChartAreas.Add(chartArea13);
-            legend13.Name = "Legend1";
-            this.report_barchart.Legends.Add(legend13);
+            chartArea5.Name = "ChartArea1";
+            this.report_barchart.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.report_barchart.Legends.Add(legend5);
             this.report_barchart.Location = new System.Drawing.Point(575, 390);
             this.report_barchart.Name = "report_barchart";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series13.Legend = "Legend1";
-            series13.Name = "Series1";
-            this.report_barchart.Series.Add(series13);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.report_barchart.Series.Add(series5);
             this.report_barchart.Size = new System.Drawing.Size(342, 166);
             this.report_barchart.TabIndex = 12;
             this.report_barchart.Text = "chart3";
             // 
             // report_piechart2
             // 
-            chartArea14.Name = "ChartArea1";
-            this.report_piechart2.ChartAreas.Add(chartArea14);
-            legend14.Name = "Legend1";
-            this.report_piechart2.Legends.Add(legend14);
+            chartArea6.Name = "ChartArea1";
+            this.report_piechart2.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.report_piechart2.Legends.Add(legend6);
             this.report_piechart2.Location = new System.Drawing.Point(575, 193);
             this.report_piechart2.Name = "report_piechart2";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series14.IsValueShownAsLabel = true;
-            series14.Legend = "Legend1";
-            series14.Name = "Series1";
-            this.report_piechart2.Series.Add(series14);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series6.IsValueShownAsLabel = true;
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.report_piechart2.Series.Add(series6);
             this.report_piechart2.Size = new System.Drawing.Size(341, 200);
             this.report_piechart2.TabIndex = 11;
             this.report_piechart2.Text = "chart2";
             // 
             // report_piechart1
             // 
-            chartArea15.Name = "ChartArea1";
-            this.report_piechart1.ChartAreas.Add(chartArea15);
-            legend15.Name = "Legend1";
-            this.report_piechart1.Legends.Add(legend15);
+            chartArea7.Name = "ChartArea1";
+            this.report_piechart1.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.report_piechart1.Legends.Add(legend7);
             this.report_piechart1.Location = new System.Drawing.Point(575, 0);
             this.report_piechart1.Name = "report_piechart1";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series15.IsValueShownAsLabel = true;
-            series15.Label = "#PERCENT{P1}";
-            series15.Legend = "Legend1";
-            series15.Name = "Series1";
-            this.report_piechart1.Series.Add(series15);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series7.IsValueShownAsLabel = true;
+            series7.Label = "#PERCENT{P1}";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.report_piechart1.Series.Add(series7);
             this.report_piechart1.Size = new System.Drawing.Size(341, 200);
             this.report_piechart1.TabIndex = 10;
             this.report_piechart1.Text = "chart1";
@@ -943,20 +938,20 @@
             // 
             // report_linechart
             // 
-            chartArea16.AxisX.Title = "Month";
-            chartArea16.AxisY.Title = "Amount";
-            chartArea16.Name = "ChartArea1";
-            this.report_linechart.ChartAreas.Add(chartArea16);
-            legend16.Name = "Legend1";
-            this.report_linechart.Legends.Add(legend16);
+            chartArea8.AxisX.Title = "Month";
+            chartArea8.AxisY.Title = "Amount";
+            chartArea8.Name = "ChartArea1";
+            this.report_linechart.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.report_linechart.Legends.Add(legend8);
             this.report_linechart.Location = new System.Drawing.Point(575, 129);
             this.report_linechart.Name = "report_linechart";
-            series16.BorderWidth = 3;
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series16.Legend = "Legend1";
-            series16.Name = "Series1";
-            this.report_linechart.Series.Add(series16);
+            series8.BorderWidth = 3;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.report_linechart.Series.Add(series8);
             this.report_linechart.Size = new System.Drawing.Size(341, 262);
             this.report_linechart.TabIndex = 13;
             this.report_linechart.Text = "chart1";
@@ -1046,6 +1041,11 @@
             this.main_tabControl.ResumeLayout(false);
             this.main_transaction.ResumeLayout(false);
             this.main_transaction.PerformLayout();
+            this.main_accounts.ResumeLayout(false);
+            this.main_accounts.PerformLayout();
+            this.accounts_panel_creditcard.ResumeLayout(false);
+            this.accounts_panel_account.ResumeLayout(false);
+            this.accounts_panel_account.PerformLayout();
             this.main_report.ResumeLayout(false);
             this.main_report.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.report_barchart)).EndInit();
