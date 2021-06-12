@@ -58,19 +58,11 @@ namespace MoneyTrackerAPP
             InitializeComponent();
         }
 
-        
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void main_closeApp_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        
         private void main_tabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             switch (e.Index)
@@ -95,9 +87,16 @@ namespace MoneyTrackerAPP
             paddedBounds.Inflate(-15, -15);
             e.Graphics.DrawImage(main_iconImages.Images[e.Index], paddedBounds);
         }
+        #endregion
 
-        
-
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            main_applogo.Image = new Bitmap("icons/applogo_30x30.png");
+            report_piechart1.Titles.Add("支出圓餅圖");
+            report_piechart2.Titles.Add("收入圓餅圖");
+            report_barchart.Titles.Add("收支長條圖");
+            report_linechart.Titles.Add("收支折線圖");
+        }
         private void main_tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (main_tabControl.SelectedIndex == 2)
@@ -173,9 +172,6 @@ namespace MoneyTrackerAPP
                 report_show_lb.Text += "Total Income:       " + report.total_income + Environment.NewLine;
             }
         }
-
-
-        #endregion
 
         #region Report
         private void report_day_rb_CheckedChanged(object sender, EventArgs e)
