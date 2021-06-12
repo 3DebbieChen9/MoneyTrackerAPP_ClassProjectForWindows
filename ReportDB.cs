@@ -3,9 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Drawing;
 
 namespace MoneyTrackerAPP
 {
+    class Report
+    {
+        public Series pie_exp_series;
+        public Series pie_inc_series;
+        public Series[] bar_series;
+        public Color[] bar_colors;
+        public Series line_series1;
+        public Series line_series2;
+        public List<DateTime> du_datetime_list;
+        public String[] bar_item;
+        public DateTime start_date;
+        public DateTime end_date;
+        public int total_expense;
+        public int total_income;
+        public Report()
+        {
+            this.pie_exp_series = new Series();
+            this.pie_inc_series = new Series();
+            this.bar_series = new Series[2];
+            this.bar_colors = new Color[] { Color.Salmon, Color.MediumSlateBlue };
+            this.line_series1 = new Series("支出");
+            this.line_series2 = new Series("收入");
+            this.du_datetime_list = new List<DateTime>();
+            this.bar_item = new String[] { "支出", "收入" };
+        }
+
+    }
     class ReportDB : Database
     {
         private string dbName;
