@@ -17,7 +17,9 @@ namespace MoneyTrackerAPP
     {
         static string dbName = "../../moneyRecord.db";
         static Database db = new Database(dbName);
+        static AccountDB accountDB = new AccountDB(dbName);
         static ReportDB reportDB = new ReportDB(dbName);
+        AccountGlobal account = new AccountGlobal();
         Report report = new Report();
 
         #region MainForm
@@ -92,13 +94,29 @@ namespace MoneyTrackerAPP
         private void MainForm_Load(object sender, EventArgs e)
         {
             main_applogo.Image = new Bitmap("icons/applogo_30x30.png");
+            #region Account
+            accounts_panel_account.Enabled = true;
+            accounts_panel_creditcard.Enabled = false;
+            accounts_panel_detail.Enabled = false;
+            accounts_create.Enabled = true;
+            accounts_delete.Enabled = true;
+            accounts_ok.Enabled = false;
+            string[] account_type = accountDB.get_account_type();
+            foreach (string ele in account_type)
+            {
+                accounts_type.Items.Add(ele);
+            }
+            #endregion
+            #region Report
             report_piechart1.Titles.Add("支出圓餅圖");
             report_piechart2.Titles.Add("收入圓餅圖");
             report_barchart.Titles.Add("收支長條圖");
             report_linechart.Titles.Add("收支折線圖");
+            #endregion
         }
         private void main_tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Report
             if (main_tabControl.SelectedIndex == 2)
             {
                 report_day_rb.Checked = true;
@@ -172,6 +190,176 @@ namespace MoneyTrackerAPP
                 report_show_lb.Text += "Total Income:       " + report.total_income + Environment.NewLine;
             }
         }
+        #region Account
+        private void accounts_type_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            accounts_name.Items.Clear();
+            string[] account_name = accountDB.get_account_name(accounts_type.Text);
+            foreach (string ele in account_name)
+            {
+                accounts_name.Items.Add(ele);
+            }
+            if (accounts_type.Text != "Credit Card")
+            {
+                accounts_panel_creditcard.Enabled = false;
+                accounts_panel_creditcard.Controls.Clear();
+            }
+        }
+
+        private void accounts_create_Click_1(object sender, EventArgs e)
+        {
+            accountDB.insert_account_name(accounts_txtType.Text, accounts_txtName.Text, accounts_txtBalance.Text);
+            string[] account_type = accountDB.get_account_type();
+            accounts_type.Items.Clear();
+            foreach (string ele in account_type)
+            {
+                accounts_type.Items.Add(ele);
+            }
+            string[] account_name = accountDB.get_account_name(accounts_type.Text);
+            accounts_name.Items.Clear();
+            foreach (string ele in account_name)
+            {
+                accounts_name.Items.Add(ele);
+            }
+            accounts_txtType.Text = "";
+            accounts_txtName.Text = "";
+            accounts_txtBalance.Text = "";
+        }
+
+        private void accounts_delete_Click(object sender, EventArgs e)
+        {
+            accountDB.delete_account_name(accounts_type.Text, accounts_name.Text);
+            string[] account_type = accountDB.get_account_type();
+            accounts_type.Items.Clear();
+            foreach (string ele in account_type)
+            {
+                accounts_type.Items.Add(ele);
+            }
+            string[] account_name = accountDB.get_account_name(accounts_type.Text);
+            accounts_name.Items.Clear();
+            foreach (string ele in account_name)
+            {
+                accounts_name.Items.Add(ele);
+            }
+        }
+
+        void refreshCreditCardInfo()
+        {
+            CreditCardInfo[] accounts_info = accountDB.get_unpaid_transaction(accounts_name.Text);
+            if (accounts_type.Text == "Credit Card")
+            {
+                accounts_panel_creditcard.Controls.Clear();
+                accounts_panel_creditcard.Enabled = true;
+                Label accounts_label1 = new Label();
+                accounts_label1.Location = new Point(10, 10);
+                accounts_label1.Text = "未付款";
+                accounts_panel_creditcard.Controls.Add(accounts_label1);
+                Label accounts_label2 = new Label();
+                accounts_label2.Location = new Point(account.x1, 50);
+                accounts_label2.Text = "品項";
+                accounts_panel_creditcard.Controls.Add(accounts_label2);
+                Label accounts_label3 = new Label();
+                accounts_label3.Location = new Point(account.x2, 50);
+                accounts_label3.Text = "金額";
+                accounts_panel_creditcard.Controls.Add(accounts_label3);
+                Label accounts_label4 = new Label();
+                accounts_label4.Location = new Point(account.x3, 50);
+                accounts_label4.Text = "付款日期";
+                accounts_panel_creditcard.Controls.Add(accounts_label4);
+                Label accounts_label5 = new Label();
+                accounts_label5.Location = new Point(account.x4, 50);
+                accounts_label5.Text = "已付款";
+                accounts_panel_creditcard.Controls.Add(accounts_label5);
+                accounts_panel_creditcard.Controls.Add(accounts_ok);
+
+                account.y = 100;
+                List<CreditCardInfo> accounts_check = new List<CreditCardInfo>();
+                for (int i = 0; i < accounts_info.Length; i++)
+                {
+                    Label accounts_item = new Label();
+                    Label accounts_amount = new Label();
+                    accounts_item.Location = new Point(account.x1, account.y);
+                    accounts_amount.Location = new Point(account.x2, account.y);
+                    DateTimePicker accounts_paid_date = new DateTimePicker();
+                    accounts_paid_date.Location = new Point(account.x3, account.y);
+                    accounts_panel_creditcard.Controls.Add(accounts_paid_date);
+                    CheckBox accounts_paid = new CheckBox();
+                    try { accounts_paid.Name = accounts_info[i].id.ToString(); }
+                    catch { accounts_paid.Name = "0"; }
+
+                    accounts_paid.Location = new Point(account.x4, account.y);
+                    accounts_panel_creditcard.Controls.Add(accounts_paid);
+                    account.accounts_checkbox.Add(accounts_paid);
+                    accounts_item.Text = accounts_info[i].name;
+                    accounts_amount.Text = accounts_info[i].amount;
+                    accounts_panel_creditcard.Controls.Add(accounts_item);
+                    accounts_panel_creditcard.Controls.Add(accounts_amount);
+                    accounts_panel_creditcard.Show();
+                    account.y += 50;
+                    account.accounts_id.Add(accounts_info[i].id);
+                    account.accounts_bankDates.Add(accounts_info[i].date);
+                }
+            }
+
+            accounts_panel_detail.Controls.Clear();
+            Label accounts_label6 = new Label();
+            accounts_label6.Location = new Point(10, 10);
+            accounts_label6.Text = "交易紀錄";
+            accounts_panel_detail.Controls.Add(accounts_label6);
+            Label accounts_label7 = new Label();
+            accounts_label7.Location = new Point(account.x1, 50);
+            accounts_label7.Text = "品項";
+            accounts_panel_detail.Controls.Add(accounts_label7);
+            Label accounts_label8 = new Label();
+            accounts_label8.Location = new Point(account.x2, 50);
+            accounts_label8.Text = "金額";
+            accounts_panel_detail.Controls.Add(accounts_label8);
+            Label accounts_label9 = new Label();
+            accounts_label9.Location = new Point(account.x3, 50);
+            accounts_label9.Text = "交易日期";
+            accounts_panel_detail.Controls.Add(accounts_label9);
+            accounts_panel_detail.Show();
+
+            AccountDetail[] accounts_detail = accountDB.get_account_detail(accounts_name.Text);
+            account.y = 100;
+            for (int i = 0; i < accounts_detail.Length; i++)
+            {
+                Label accounts_item = new Label();
+                Label accounts_amount = new Label();
+                Label accounts_date = new Label();
+                accounts_item.Location = new Point(account.x1, account.y);
+                accounts_amount.Location = new Point(account.x2, account.y);
+                accounts_date.Location = new Point(account.x3, account.y);
+                accounts_item.Text = accounts_detail[i].name;
+                accounts_amount.Text = accounts_detail[i].amount;
+                accounts_date.Text = accounts_detail[i].date.ToString();
+                accounts_panel_detail.Controls.Add(accounts_item);
+                accounts_panel_detail.Controls.Add(accounts_amount);
+                accounts_panel_detail.Controls.Add(accounts_date);
+                accounts_panel_detail.Show();
+                account.y += 50;
+            }
+        }
+        private void accounts_name_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            accounts_ok.Enabled = true;
+            accounts_panel_detail.Enabled = true;
+            refreshCreditCardInfo();
+        }
+
+        private void accounts_ok_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox ele in account.accounts_checkbox)
+            {
+                if (ele.Checked)
+                {
+                    accountDB.updateBankChecked(int.Parse(ele.Name), DateTime.Now);
+                }
+            }
+            refreshCreditCardInfo();
+        }
+        #endregion
+
 
         #region Report
         private void report_day_rb_CheckedChanged(object sender, EventArgs e)

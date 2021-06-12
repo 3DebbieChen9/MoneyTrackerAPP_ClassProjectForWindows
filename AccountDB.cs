@@ -3,10 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Microsoft.Data.Sqlite;
 
 namespace MoneyTrackerAPP
 {
+    class AccountGlobal
+    {
+        public int x1;
+        public int x2;
+        public int x3;
+        public int x4;
+        public int y;
+        public List<CheckBox> accounts_checkbox;
+        public List<int> accounts_id;
+        public List<DateTime> accounts_bankDates;
+
+        public AccountGlobal()
+        {
+            this.x1 = 100;
+            this.x2 = 200;
+            this.x3 = 300;
+            this.x4 = 550;
+            this.y = 100;
+            this.accounts_checkbox = new List<CheckBox>();
+            this.accounts_id = new List<int>();
+            this.accounts_bankDates = new List<DateTime>();
+        }
+    }
+
     class Account
     {
         public string account;

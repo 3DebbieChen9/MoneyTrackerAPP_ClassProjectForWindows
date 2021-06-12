@@ -44,6 +44,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.main_panel = new System.Windows.Forms.Panel();
             this.main_tabControl = new System.Windows.Forms.TabControl();
+
             this.main_transaction = new System.Windows.Forms.TabPage();
             this.trans_btn_save = new System.Windows.Forms.Button();
             this.trans_remainder = new System.Windows.Forms.Label();
@@ -65,7 +66,28 @@
             this.trans_label_name = new System.Windows.Forms.Label();
             this.trans_rdb_income = new System.Windows.Forms.RadioButton();
             this.trans_rdb_expanse = new System.Windows.Forms.RadioButton();
+
             this.main_accounts = new System.Windows.Forms.TabPage();
+            this.accounts_panel_creditcard = new System.Windows.Forms.Panel();
+            this.accounts_ok = new System.Windows.Forms.Button();
+            this.accounts_panel_account = new System.Windows.Forms.Panel();
+            this.accounts_total_balance = new System.Windows.Forms.Label();
+            this.account_label9 = new System.Windows.Forms.Label();
+            this.account_label8 = new System.Windows.Forms.Label();
+            this.account_label7 = new System.Windows.Forms.Label();
+            this.account_label6 = new System.Windows.Forms.Label();
+            this.accounts_txtBalance = new System.Windows.Forms.TextBox();
+            this.accounts_txtName = new System.Windows.Forms.TextBox();
+            this.accounts_txtType = new System.Windows.Forms.TextBox();
+            this.account_label5 = new System.Windows.Forms.Label();
+            this.account_label2 = new System.Windows.Forms.Label();
+            this.accounts_name = new System.Windows.Forms.ComboBox();
+            this.accounts_delete = new System.Windows.Forms.Button();
+            this.accounts_type = new System.Windows.Forms.ComboBox();
+            this.accounts_create = new System.Windows.Forms.Button();
+            this.accounts_panel_detail = new System.Windows.Forms.Panel();
+            this.accounts_label = new System.Windows.Forms.Label();
+
             this.main_report = new System.Windows.Forms.TabPage();
             this.report_barchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.report_piechart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -103,6 +125,11 @@
             this.main_panel.SuspendLayout();
             this.main_tabControl.SuspendLayout();
             this.main_transaction.SuspendLayout();
+
+            this.main_accounts.SuspendLayout();
+            this.accounts_panel_creditcard.SuspendLayout();
+            this.accounts_panel_account.SuspendLayout();
+
             this.main_report.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.report_barchart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.report_piechart2)).BeginInit();
@@ -355,6 +382,10 @@
             // main_accounts
             // 
             this.main_accounts.BackColor = System.Drawing.Color.Turquoise;
+            this.main_accounts.Controls.Add(this.accounts_panel_creditcard);
+            this.main_accounts.Controls.Add(this.accounts_panel_account);
+            this.main_accounts.Controls.Add(this.accounts_panel_detail);
+            this.main_accounts.Controls.Add(this.accounts_label);
             this.main_accounts.ImageIndex = 1;
             this.main_accounts.Location = new System.Drawing.Point(104, 4);
             this.main_accounts.Name = "main_accounts";
@@ -362,6 +393,185 @@
             this.main_accounts.Size = new System.Drawing.Size(916, 552);
             this.main_accounts.TabIndex = 1;
             this.main_accounts.ToolTipText = "Check Account";
+            // 
+            // accounts_panel_creditcard
+            // 
+            this.accounts_panel_creditcard.AutoScroll = true;
+            this.accounts_panel_creditcard.Controls.Add(this.accounts_ok);
+            this.accounts_panel_creditcard.Location = new System.Drawing.Point(36, 159);
+            this.accounts_panel_creditcard.Name = "accounts_panel_creditcard";
+            this.accounts_panel_creditcard.Size = new System.Drawing.Size(829, 186);
+            this.accounts_panel_creditcard.TabIndex = 14;
+            // 
+            // accounts_ok
+            // 
+            this.accounts_ok.Location = new System.Drawing.Point(671, 147);
+            this.accounts_ok.Name = "accounts_ok";
+            this.accounts_ok.Size = new System.Drawing.Size(130, 36);
+            this.accounts_ok.TabIndex = 0;
+            this.accounts_ok.Text = "確定";
+            this.accounts_ok.UseVisualStyleBackColor = true;
+            this.accounts_ok.Click += new System.EventHandler(this.accounts_ok_Click);
+            // 
+            // accounts_panel_account
+            // 
+            this.accounts_panel_account.AutoScroll = true;
+            this.accounts_panel_account.Controls.Add(this.accounts_total_balance);
+            this.accounts_panel_account.Controls.Add(this.account_label9);
+            this.accounts_panel_account.Controls.Add(this.account_label8);
+            this.accounts_panel_account.Controls.Add(this.account_label7);
+            this.accounts_panel_account.Controls.Add(this.account_label6);
+            this.accounts_panel_account.Controls.Add(this.accounts_txtBalance);
+            this.accounts_panel_account.Controls.Add(this.accounts_txtName);
+            this.accounts_panel_account.Controls.Add(this.accounts_txtType);
+            this.accounts_panel_account.Controls.Add(this.account_label5);
+            this.accounts_panel_account.Controls.Add(this.account_label2);
+            this.accounts_panel_account.Controls.Add(this.accounts_name);
+            this.accounts_panel_account.Controls.Add(this.accounts_delete);
+            this.accounts_panel_account.Controls.Add(this.accounts_type);
+            this.accounts_panel_account.Controls.Add(this.accounts_create);
+            this.accounts_panel_account.Location = new System.Drawing.Point(36, 6);
+            this.accounts_panel_account.Name = "accounts_panel_account";
+            this.accounts_panel_account.Size = new System.Drawing.Size(826, 147);
+            this.accounts_panel_account.TabIndex = 13;
+            // 
+            // accounts_total_balance
+            // 
+            this.accounts_total_balance.AutoSize = true;
+            this.accounts_total_balance.Location = new System.Drawing.Point(714, 108);
+            this.accounts_total_balance.Name = "accounts_total_balance";
+            this.accounts_total_balance.Size = new System.Drawing.Size(51, 28);
+            this.accounts_total_balance.TabIndex = 17;
+            this.accounts_total_balance.Text = "100";
+            // 
+            // account_label9
+            // 
+            this.account_label9.AutoSize = true;
+            this.account_label9.Location = new System.Drawing.Point(501, 108);
+            this.account_label9.Name = "account_label9";
+            this.account_label9.Size = new System.Drawing.Size(181, 28);
+            this.account_label9.TabIndex = 0;
+            this.account_label9.Text = "Total Balance";
+            // 
+            // account_label8
+            // 
+            this.account_label8.AutoSize = true;
+            this.account_label8.Location = new System.Drawing.Point(560, 11);
+            this.account_label8.Name = "account_label8";
+            this.account_label8.Size = new System.Drawing.Size(103, 28);
+            this.account_label8.TabIndex = 16;
+            this.account_label8.Text = "Balance";
+            // 
+            // account_label7
+            // 
+            this.account_label7.AutoSize = true;
+            this.account_label7.Location = new System.Drawing.Point(467, 11);
+            this.account_label7.Name = "account_label7";
+            this.account_label7.Size = new System.Drawing.Size(64, 28);
+            this.account_label7.TabIndex = 15;
+            this.account_label7.Text = "Name";
+            // 
+            // account_label6
+            // 
+            this.account_label6.AutoSize = true;
+            this.account_label6.Location = new System.Drawing.Point(362, 11);
+            this.account_label6.Name = "account_label6";
+            this.account_label6.Size = new System.Drawing.Size(64, 28);
+            this.account_label6.TabIndex = 14;
+            this.account_label6.Text = "Type";
+            // 
+            // accounts_txtBalance
+            // 
+            this.accounts_txtBalance.Location = new System.Drawing.Point(547, 37);
+            this.accounts_txtBalance.Name = "accounts_txtBalance";
+            this.accounts_txtBalance.Size = new System.Drawing.Size(100, 36);
+            this.accounts_txtBalance.TabIndex = 13;
+            // 
+            // accounts_txtName
+            // 
+            this.accounts_txtName.Location = new System.Drawing.Point(441, 37);
+            this.accounts_txtName.Name = "accounts_txtName";
+            this.accounts_txtName.Size = new System.Drawing.Size(100, 36);
+            this.accounts_txtName.TabIndex = 12;
+            // 
+            // accounts_txtType
+            // 
+            this.accounts_txtType.Location = new System.Drawing.Point(335, 37);
+            this.accounts_txtType.Name = "accounts_txtType";
+            this.accounts_txtType.Size = new System.Drawing.Size(100, 36);
+            this.accounts_txtType.TabIndex = 11;
+            // 
+            // account_label5
+            // 
+            this.account_label5.AutoSize = true;
+            this.account_label5.Location = new System.Drawing.Point(18, 103);
+            this.account_label5.Name = "account_label5";
+            this.account_label5.Size = new System.Drawing.Size(64, 28);
+            this.account_label5.TabIndex = 10;
+            this.account_label5.Text = "Name";
+            // 
+            // account_label2
+            // 
+            this.account_label2.AutoSize = true;
+            this.account_label2.Location = new System.Drawing.Point(18, 37);
+            this.account_label2.Name = "account_label2";
+            this.account_label2.Size = new System.Drawing.Size(64, 28);
+            this.account_label2.TabIndex = 9;
+            this.account_label2.Text = "Type";
+            // 
+            // accounts_name
+            // 
+            this.accounts_name.FormattingEnabled = true;
+            this.accounts_name.Location = new System.Drawing.Point(91, 100);
+            this.accounts_name.Name = "accounts_name";
+            this.accounts_name.Size = new System.Drawing.Size(189, 36);
+            this.accounts_name.TabIndex = 8;
+            this.accounts_name.SelectedIndexChanged += new System.EventHandler(this.accounts_name_SelectedIndexChanged);
+            // 
+            // accounts_delete
+            // 
+            this.accounts_delete.Location = new System.Drawing.Point(335, 96);
+            this.accounts_delete.Name = "accounts_delete";
+            this.accounts_delete.Size = new System.Drawing.Size(130, 35);
+            this.accounts_delete.TabIndex = 6;
+            this.accounts_delete.Text = "刪除帳戶";
+            this.accounts_delete.UseVisualStyleBackColor = true;
+            this.accounts_delete.Click += new System.EventHandler(this.accounts_delete_Click);
+            // 
+            // accounts_type
+            // 
+            this.accounts_type.FormattingEnabled = true;
+            this.accounts_type.Location = new System.Drawing.Point(91, 34);
+            this.accounts_type.Name = "accounts_type";
+            this.accounts_type.Size = new System.Drawing.Size(189, 36);
+            this.accounts_type.TabIndex = 5;
+            this.accounts_type.SelectedIndexChanged += new System.EventHandler(this.accounts_type_SelectedIndexChanged_1);
+            // 
+            // accounts_create
+            // 
+            this.accounts_create.Location = new System.Drawing.Point(671, 37);
+            this.accounts_create.Name = "accounts_create";
+            this.accounts_create.Size = new System.Drawing.Size(130, 35);
+            this.accounts_create.TabIndex = 3;
+            this.accounts_create.Text = "新增帳戶";
+            this.accounts_create.UseVisualStyleBackColor = true;
+            this.accounts_create.Click += new System.EventHandler(this.accounts_create_Click_1);
+            // 
+            // accounts_panel_detail
+            // 
+            this.accounts_panel_detail.AutoScroll = true;
+            this.accounts_panel_detail.Location = new System.Drawing.Point(36, 354);
+            this.accounts_panel_detail.Name = "accounts_panel_detail";
+            this.accounts_panel_detail.Size = new System.Drawing.Size(829, 190);
+            this.accounts_panel_detail.TabIndex = 12;
+            // 
+            // accounts_label
+            // 
+            this.accounts_label.AutoSize = true;
+            this.accounts_label.Location = new System.Drawing.Point(225, 130);
+            this.accounts_label.Name = "accounts_label";
+            this.accounts_label.Size = new System.Drawing.Size(0, 28);
+            this.accounts_label.TabIndex = 3;
             // 
             // main_report
             // 
@@ -866,6 +1076,7 @@
         private System.Windows.Forms.ImageList main_iconImages;
         private System.Windows.Forms.TabPage main_report;
         private System.Windows.Forms.TabPage main_settings;
+
         private System.Windows.Forms.Label trans_label_name;
         private System.Windows.Forms.RadioButton trans_rdb_income;
         private System.Windows.Forms.RadioButton trans_rdb_expanse;
@@ -886,6 +1097,26 @@
         private System.Windows.Forms.TextBox trans_txtbox_store;
         private System.Windows.Forms.Label trans_label_store;
         private System.Windows.Forms.DateTimePicker trans_date_picker;
+
+        private System.Windows.Forms.Label accounts_label;
+        private System.Windows.Forms.Panel accounts_panel_detail;
+        private System.Windows.Forms.Panel accounts_panel_creditcard;
+        private System.Windows.Forms.Panel accounts_panel_account;
+        private System.Windows.Forms.Button accounts_delete;
+        private System.Windows.Forms.ComboBox accounts_type;
+        private System.Windows.Forms.Button accounts_create;
+        private System.Windows.Forms.Label account_label8;
+        private System.Windows.Forms.Label account_label7;
+        private System.Windows.Forms.Label account_label6;
+        private System.Windows.Forms.TextBox accounts_txtBalance;
+        private System.Windows.Forms.TextBox accounts_txtName;
+        private System.Windows.Forms.TextBox accounts_txtType;
+        private System.Windows.Forms.Label account_label5;
+        private System.Windows.Forms.Label account_label2;
+        private System.Windows.Forms.ComboBox accounts_name;
+        private System.Windows.Forms.Button accounts_ok;
+        private System.Windows.Forms.Label account_label9;
+        private System.Windows.Forms.Label accounts_total_balance;
 
         private System.Windows.Forms.Label report_label;
         private System.Windows.Forms.DataVisualization.Charting.Chart report_barchart;
