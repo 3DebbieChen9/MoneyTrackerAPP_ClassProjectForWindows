@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Runtime.InteropServices;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace MoneyTrackerAPP
 {
@@ -20,6 +21,7 @@ namespace MoneyTrackerAPP
         static AccountDB accountDB = new AccountDB(dbName);
         static ReportDB reportDB = new ReportDB(dbName);
         static SettingDB settingDB = new SettingDB(dbName);
+        static SettingVar settingVar = new SettingVar();
         AccountGlobal account = new AccountGlobal();
         Report report = new Report();
 
@@ -117,6 +119,23 @@ namespace MoneyTrackerAPP
             report_piechart2.Titles.Add("收入圓餅圖");
             report_barchart.Titles.Add("收支長條圖");
             report_linechart.Titles.Add("收支折線圖");
+            #endregion
+            #region Setting
+            //  setting
+            setting_tabControl.RightToLeft = RightToLeft.Yes;
+            setting_tabControl.RightToLeftLayout = true;
+            setting_tabControl.SelectedIndex = 3;
+            setting_title.Text = "Category";
+
+
+            //  setting_category
+            settingVar.category_inc = settingDB.get_category("Income");
+            settingVar.category_exp = settingDB.get_category("Expense");
+            //  setting_list
+            settingVar.list_place = settingDB.get_list_place();
+            settingVar.list_place = settingDB.get_list_recipient();
+
+            setting_update_List2ListBox("TotalList");
             #endregion
             Transaction trans = new Transaction(name: " ", category: " ", account: " ", amount: 10, date: DateTime.Now, place: "", comment: "");
             if(trans_rdb_expanse.Checked)
@@ -218,6 +237,11 @@ namespace MoneyTrackerAPP
                 }
                 report_show_lb.Text += Environment.NewLine;
                 report_show_lb.Text += "Total Income:       " + report.total_income + Environment.NewLine;
+            }
+            //  setting
+            else if (main_tabControl.SelectedIndex == 3)
+            {
+                setting_update_List2ListBox("TotalList");
             }
             // List
             else if (main_tabControl.SelectedIndex == 4)
@@ -1284,6 +1308,257 @@ namespace MoneyTrackerAPP
             }
         }
 
+        #endregion
+
+        #region Setting
+        private void setting_tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //  category
+            if (setting_tabControl.SelectedIndex == 3)
+            {
+                //  set title
+                setting_title.Left = 100;
+                setting_title.Text = "Category";
+                //  set background
+                main_settings.BackColor = Color.NavajoWhite;
+                setting_category.BackColor = Color.NavajoWhite;
+
+                //  set list box
+                setting_update_List2ListBox("TotalList");
+            }
+
+            //  list
+            if (setting_tabControl.SelectedIndex == 2)
+            {
+                //  set title
+                setting_title.Left = 165;
+                setting_title.Text = "List";
+                //  set background
+                main_settings.BackColor = Color.Wheat;
+                setting_list.BackColor = Color.Wheat;
+            }
+            //  budget
+            if (setting_tabControl.SelectedIndex == 1)
+            {
+                //  set title
+                setting_title.Left = 160;
+                setting_title.Text = "Budget";
+                //  set background
+                main_settings.BackColor = Color.Moccasin;
+                setting_budget.BackColor = Color.Moccasin;
+
+                //  get_DB
+                setting_budget_cycletime_cb.Text = settingDB.get_budget_cycleDay();
+                setting_budget_total_txt.Text = settingDB.get_budgetAmount();
+
+                //  show remaining budget
+                settingVar.startDate = SettingFunction.get_date(setting_budget_cycletime_cb.Text, true);
+                settingVar.endDate = SettingFunction.get_date(setting_budget_cycletime_cb.Text, false).AddDays(-1);
+
+                setting_budget_result_lbl1.Text = "截至 " + settingVar.endDate.Month.ToString() + " 月 " + settingVar.endDate.Day.ToString() + " 日前";
+                setting_budget_result_money.Text = (int.Parse(settingDB.get_budgetAmount()) + settingDB.get_sum_period(settingVar.startDate, settingVar.endDate)).ToString();
+                setting_budget_result_money.ForeColor = SettingFunction.budgetColor(int.Parse(setting_budget_result_money.Text), int.Parse(settingDB.get_budgetAmount()));
+            }
+
+            //  notification
+            if (setting_tabControl.SelectedIndex == 0)
+            {
+                //  set title
+                setting_title.Left = 45;
+                setting_title.Text = "Notification";
+                //  set background
+                main_settings.BackColor = Color.AntiqueWhite;
+                setting_notification.BackColor = Color.AntiqueWhite;
+                SettingFunction.notification();
+            }
+        }
+
+        private void setting_budget_total_txt_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int validation = int.Parse(setting_budget_total_txt.Text);
+            }
+            catch
+            {
+                if (setting_budget_total_txt.Text != "")
+                    MessageBox.Show("請輸入數字");
+
+                return;
+            }
+            settingDB.set_bugetAmount(setting_budget_total_txt.Text);
+            setting_budget_result_money.Text = (int.Parse(settingDB.get_budgetAmount()) + settingDB.get_sum_period(settingVar.startDate, settingVar.endDate)).ToString();
+            setting_budget_result_money.ForeColor = SettingFunction.budgetColor(int.Parse(setting_budget_result_money.Text), int.Parse(settingDB.get_budgetAmount()));
+        }
+
+        private void setting_budget_cycletime_cb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingDB.set_budget_cycleDay(setting_budget_cycletime_cb.Text);
+
+            //  show remaining budget
+            settingVar.startDate = SettingFunction.get_date(setting_budget_cycletime_cb.Text, true);
+            settingVar.endDate = SettingFunction.get_date(setting_budget_cycletime_cb.Text, false).AddDays(-1);
+
+            setting_budget_result_lbl1.Text = "截至 " + settingVar.endDate.Month.ToString() + " 月 " + settingVar.endDate.Day.ToString() + " 日前";
+            setting_budget_result_money.Text = (int.Parse(settingDB.get_budgetAmount()) + settingDB.get_sum_period(settingVar.startDate, settingVar.endDate)).ToString();
+            setting_budget_result_money.ForeColor = SettingFunction.budgetColor(int.Parse(setting_budget_result_money.Text), int.Parse(settingDB.get_budgetAmount()));
+        }
+
+        private void setting_category_inc_add_Click(object sender, EventArgs e)
+        {
+            SettingInfoForm infoForm = new SettingInfoForm("Income", this);
+            infoForm.Show();
+        }
+        private void setting_category_exp_add_Click(object sender, EventArgs e)
+        {
+            SettingInfoForm infoForm = new SettingInfoForm("Expense", this);
+            infoForm.Show();
+        }
+
+        private void setting_category_inc_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_category_inc_listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                SettingInfoForm infoForm = new SettingInfoForm("Income", this, setting_category_inc_listbox.SelectedItem.ToString());
+                infoForm.Show();
+            }
+            else
+            {
+                setting_category_inc_listbox.SelectedIndex = -1;
+            }
+        }
+        private void setting_category_exp_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_category_exp_listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                SettingInfoForm infoForm = new SettingInfoForm("Expense", this, setting_category_exp_listbox.SelectedItem.ToString());
+                infoForm.Show();
+            }
+            else
+            {
+                setting_category_exp_listbox.SelectedIndex = -1;
+            }
+        }
+        private void setting_list_place_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_list_place_listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                SettingInfoForm infoForm = new SettingInfoForm("Place", this, setting_list_place_listbox.SelectedItem.ToString());
+                infoForm.Show();
+            }
+            else
+            {
+                setting_list_place_listbox.SelectedIndex = -1;
+            }
+        }
+        private void setting_list_recipient_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_list_recipient_listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                SettingInfoForm infoForm = new SettingInfoForm("Recipient", this, setting_list_recipient_listbox.SelectedItem.ToString());
+                infoForm.Show();
+            }
+            else
+            {
+                setting_list_recipient_listbox.SelectedIndex = -1;
+            }
+        }
+
+        public void setting_list_add(string type, string str)
+        {
+            switch (type)
+            {
+                default:
+                    return;
+                case "Income":
+                    settingVar.category_inc.Add(str);
+                    settingDB.set_category("Income", settingVar.category_inc);
+                    break;
+                case "Expense":
+                    settingVar.category_exp.Add(str);
+                    settingDB.set_category("Expense", settingVar.category_exp);
+                    break;
+            }
+        }
+        public void setting_list_modify(string type, string origintext, string modifytext)
+        {
+            switch (type)
+            {
+                default:
+                    return;
+                case "Income":
+                    settingVar.category_inc[settingVar.category_inc.IndexOf(origintext)] = modifytext;
+                    settingDB.set_category("Income", settingVar.category_inc);
+                    break;
+                case "Expense":
+                    settingVar.category_exp[settingVar.category_exp.IndexOf(origintext)] = modifytext;
+                    settingDB.set_category("Expense", settingVar.category_exp);
+                    break;
+                case "Place":
+                    settingVar.list_place[settingVar.list_place.IndexOf(origintext)] = modifytext;
+                    settingDB.set_list("Place", settingVar.list_place);
+                    break;
+                case "Recipient":
+                    settingVar.list_recipient[settingVar.list_recipient.IndexOf(origintext)] = modifytext;
+                    settingDB.set_list("Recipient", settingVar.list_recipient);
+                    break;
+            }
+        }
+        public void setting_list_remove(string type, string origintext)
+        {
+            switch (type)
+            {
+                default:
+                    return;
+                case "Income":
+                    settingVar.category_inc.Remove(origintext);
+                    settingDB.set_category("Income", settingVar.category_inc);
+                    break;
+                case "Expense":
+                    settingVar.category_exp.Remove(origintext);
+                    settingDB.set_category("Expense", settingVar.category_exp);
+                    break;
+                case "Place":
+                    settingVar.list_place.Remove(origintext);
+                    settingDB.set_list("Place", settingVar.list_place);
+                    break;
+                case "Recipient":
+                    settingVar.list_recipient.Remove(origintext);
+                    settingDB.set_list("Recipient", settingVar.list_recipient);
+                    break;
+            }
+        }
+        public void setting_update_List2ListBox(string type)
+        {
+            switch (type)
+            {
+                default:
+                    return;
+                case "Income":
+                    SettingFunction.update_List2ListBox(setting_category_inc_listbox, settingVar.category_inc);
+                    break;
+                case "Expense":
+                    SettingFunction.update_List2ListBox(setting_category_exp_listbox, settingVar.category_exp);
+                    break;
+                case "Place":
+                    SettingFunction.update_List2ListBox(setting_list_place_listbox, settingVar.list_place);
+                    break;
+                case "Recipient":
+                    SettingFunction.update_List2ListBox(setting_list_recipient_listbox, settingVar.list_recipient);
+                    break;
+                case "TotalList":
+                    SettingFunction.update_List2ListBox(setting_category_inc_listbox, settingVar.category_inc);
+                    SettingFunction.update_List2ListBox(setting_category_exp_listbox, settingVar.category_exp);
+                    SettingFunction.update_List2ListBox(setting_list_place_listbox, settingVar.list_place);
+                    SettingFunction.update_List2ListBox(setting_list_recipient_listbox, settingVar.list_recipient);
+                    break;
+            }
+
+        }
         #endregion
 
         private void trans_cbo_category_SelectedIndexChanged(object sender, EventArgs e)
