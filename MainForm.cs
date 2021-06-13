@@ -24,6 +24,7 @@ namespace MoneyTrackerAPP
         static SettingVar settingVar = new SettingVar();
         AccountGlobal account = new AccountGlobal();
         Report report = new Report();
+        TransactionGlobal transactionGlobal = new TransactionGlobal();
 
         #region MainForm
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -126,34 +127,39 @@ namespace MoneyTrackerAPP
             setting_tabControl.RightToLeftLayout = true;
             setting_tabControl.SelectedIndex = 3;
             setting_title.Text = "Category";
-
-
             //  setting_category
             settingVar.category_inc = settingDB.get_category("Income");
             settingVar.category_exp = settingDB.get_category("Expense");
             //  setting_list
             settingVar.list_place = settingDB.get_list_place();
             settingVar.list_recipient = settingDB.get_list_recipient();
-
+            //  setting_notification
+            settingVar.notification_infos = settingDB.get_notification();
+            //  setting timer
+            setting_notification_timer.Interval = 1000 * 30;
+            setting_notification_timer.Enabled = true;
+            setting_notification_timer.Start();
+            //  update listbox
+            SettingFunction.update_NotificationListBox(setting_notification_listbox, settingVar.notification_infos);
             setting_update_List2ListBox("TotalList");
             #endregion
-            Transaction trans = new Transaction(name:trans_txtbox_name.Text, category:trans_cbo_category.Text, account:trans_cbo_account.Text, amount: 10, date: DateTime.Now, place:trans_txtbox_store.Text, comment:trans_txtbox_note.Text);
-            if(trans_rdb_expanse.Checked)
-            {
-                db.insertTransaction(trans, "Expense");
-            }
-            else if (trans_rdb_income.Checked)
-            {
-                db.insertTransaction(trans, "Income");
-            }
-            
-            //string remainBudget = db.get_budgetAmount();
+            //Transaction trans = new Transaction(name:trans_txtbox_name.Text, category:trans_cbo_category.Text, account:trans_cbo_account.Text, amount:10, date: , place:trans_txtbox_store.Text, comment:trans_txtbox_note.Text);
 
+            trans_expense_display();
         }
         private void main_tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Trans
+            if(main_tabControl.SelectedIndex == 0)
+            {
+                trans_expense_display();
+                trans_rdb_expense.Checked = true;
+                trans_rdb_income.Checked = false;
+                tran_rdb_debtandloan.Checked = false;
+                tran_rdb_transfer.Checked = false;
+            }
             // Account
-            if(main_tabControl.SelectedIndex == 1)
+            else if(main_tabControl.SelectedIndex == 1)
             {
                 accounts_type.Text = "";
                 accounts_name.Text = "";
@@ -238,9 +244,14 @@ namespace MoneyTrackerAPP
                 report_show_lb.Text += Environment.NewLine;
                 report_show_lb.Text += "Total Income:       " + report.total_income + Environment.NewLine;
             }
-            //  setting
+            // Setting
             else if (main_tabControl.SelectedIndex == 3)
             {
+                settingVar.list_place = settingDB.get_list_place();
+                settingVar.list_recipient = settingDB.get_list_recipient();
+                SettingFunction.update_NotificationListBox(setting_notification_listbox, settingVar.notification_infos);
+                setting_notification_info_modify.Enabled = false;
+                setting_notification_info_delete.Enabled = false;
                 setting_update_List2ListBox("TotalList");
             }
             // List
@@ -1369,10 +1380,49 @@ namespace MoneyTrackerAPP
                 //  set background
                 main_settings.BackColor = Color.AntiqueWhite;
                 setting_notification.BackColor = Color.AntiqueWhite;
-                SettingFunction.notification();
             }
         }
-
+        #region category
+        private void setting_category_inc_add_Click(object sender, EventArgs e)
+        {
+            SettingInfoForm infoForm = new SettingInfoForm("Income", this);
+            infoForm.Show();
+        }
+        private void setting_category_exp_add_Click(object sender, EventArgs e)
+        {
+            SettingInfoForm infoForm = new SettingInfoForm("Expense", this);
+            infoForm.Show();
+        }
+        private void setting_category_inc_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_category_inc_listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                settingVar.category_incClickItem = setting_category_inc_listbox.IndexFromPoint(e.Location);
+                SettingInfoForm infoForm = new SettingInfoForm("Income", this, setting_category_inc_listbox.SelectedItem.ToString());
+                infoForm.Show();
+            }
+            else
+            {
+                setting_category_inc_listbox.SelectedIndex = -1;
+            }
+        }
+        private void setting_category_exp_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_category_exp_listbox.IndexFromPoint(e.Location);
+            if (index != ListBox.NoMatches)
+            {
+                settingVar.category_expClickItem = setting_category_exp_listbox.IndexFromPoint(e.Location);
+                SettingInfoForm infoForm = new SettingInfoForm("Expense", this, setting_category_exp_listbox.SelectedItem.ToString());
+                infoForm.Show();
+            }
+            else
+            {
+                setting_category_exp_listbox.SelectedIndex = -1;
+            }
+        }
+        #endregion
+        #region budget
         private void setting_budget_total_txt_TextChanged(object sender, EventArgs e)
         {
             try
@@ -1390,9 +1440,22 @@ namespace MoneyTrackerAPP
             setting_budget_result_money.Text = (int.Parse(settingDB.get_budgetAmount()) + settingDB.get_sum_period(settingVar.startDate, settingVar.endDate)).ToString();
             setting_budget_result_money.ForeColor = SettingFunction.budgetColor(int.Parse(setting_budget_result_money.Text), int.Parse(settingDB.get_budgetAmount()));
         }
-
         private void setting_budget_cycletime_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try
+            {
+                int validation = int.Parse(setting_budget_cycletime_cb.Text);
+                if (!(1 <= validation && validation <= 31))
+                {
+                    MessageBox.Show("日期非法");
+                    return;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("日期非法");
+                return;
+            }
             settingDB.set_budget_cycleDay(setting_budget_cycletime_cb.Text);
 
             //  show remaining budget
@@ -1403,49 +1466,14 @@ namespace MoneyTrackerAPP
             setting_budget_result_money.Text = (int.Parse(settingDB.get_budgetAmount()) + settingDB.get_sum_period(settingVar.startDate, settingVar.endDate)).ToString();
             setting_budget_result_money.ForeColor = SettingFunction.budgetColor(int.Parse(setting_budget_result_money.Text), int.Parse(settingDB.get_budgetAmount()));
         }
-
-        private void setting_category_inc_add_Click(object sender, EventArgs e)
-        {
-            SettingInfoForm infoForm = new SettingInfoForm("Income", this);
-            infoForm.Show();
-        }
-        private void setting_category_exp_add_Click(object sender, EventArgs e)
-        {
-            SettingInfoForm infoForm = new SettingInfoForm("Expense", this);
-            infoForm.Show();
-        }
-
-        private void setting_category_inc_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int index = setting_category_inc_listbox.IndexFromPoint(e.Location);
-            if (index != ListBox.NoMatches)
-            {
-                SettingInfoForm infoForm = new SettingInfoForm("Income", this, setting_category_inc_listbox.SelectedItem.ToString());
-                infoForm.Show();
-            }
-            else
-            {
-                setting_category_inc_listbox.SelectedIndex = -1;
-            }
-        }
-        private void setting_category_exp_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int index = setting_category_exp_listbox.IndexFromPoint(e.Location);
-            if (index != ListBox.NoMatches)
-            {
-                SettingInfoForm infoForm = new SettingInfoForm("Expense", this, setting_category_exp_listbox.SelectedItem.ToString());
-                infoForm.Show();
-            }
-            else
-            {
-                setting_category_exp_listbox.SelectedIndex = -1;
-            }
-        }
+        #endregion
+        #region list
         private void setting_list_place_listbox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int index = setting_list_place_listbox.IndexFromPoint(e.Location);
             if (index != ListBox.NoMatches)
             {
+                settingVar.list_placeClickItem = setting_list_place_listbox.IndexFromPoint(e.Location);
                 SettingInfoForm infoForm = new SettingInfoForm("Place", this, setting_list_place_listbox.SelectedItem.ToString());
                 infoForm.Show();
             }
@@ -1459,6 +1487,7 @@ namespace MoneyTrackerAPP
             int index = setting_list_recipient_listbox.IndexFromPoint(e.Location);
             if (index != ListBox.NoMatches)
             {
+                settingVar.list_recipientClickItem = setting_list_recipient_listbox.IndexFromPoint(e.Location);
                 SettingInfoForm infoForm = new SettingInfoForm("Recipient", this, setting_list_recipient_listbox.SelectedItem.ToString());
                 infoForm.Show();
             }
@@ -1467,7 +1496,135 @@ namespace MoneyTrackerAPP
                 setting_list_recipient_listbox.SelectedIndex = -1;
             }
         }
+        #endregion
+        #region notification
+        private void setting_notification_listbox_MouseClick(object sender, MouseEventArgs e)
+        {
+            int index = setting_notification_listbox.IndexFromPoint(e.Location);
 
+            if (index != ListBox.NoMatches)
+            {
+                settingVar.notificationClickItem = setting_notification_listbox.IndexFromPoint(e.Location);
+                setting_notification_info_modify.Enabled = true;
+                setting_notification_info_delete.Enabled = true;
+
+                settingVar.notificationOriText = setting_notification_listbox.SelectedItem.ToString();
+
+                setting_notification_title_txt.Text = settingVar.notification_infos[settingVar.notificationClickItem].notiTitle;
+                setting_notification_content_txt.Text = settingVar.notification_infos[settingVar.notificationClickItem].notiContent;
+                setting_notification_date_cb.Text = settingVar.notification_infos[settingVar.notificationClickItem].notiDate.Day.ToString();
+            }
+            else
+            {
+                setting_notification_info_modify.Enabled = false;
+                setting_notification_info_delete.Enabled = false;
+                settingVar.notificationClickItem = -1;
+                setting_notification_listbox.SelectedIndex = -1;
+            }
+        }
+        private void setting_notification_info_add_Click(object sender, EventArgs e)
+        {
+
+            if (setting_notification_title_txt.Text == "")
+            {
+                MessageBox.Show("請輸入標題");
+            }
+            else if (setting_notification_date_cb.Text == "")
+            {
+                MessageBox.Show("請輸入日期");
+            }
+            else
+            {
+                try
+                {
+                    int validation = int.Parse(setting_notification_date_cb.Text);
+                    if (!(1 <= validation && validation <= 25))
+                    {
+                        MessageBox.Show("日期非法");
+                        return;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("日期非法");
+                    return;
+                }
+
+                DateTime notiDate;
+                if (int.Parse(setting_notification_date_cb.Text) <= DateTime.Now.Day)
+                    notiDate = DateTime.Now;
+                else
+                    notiDate = DateTime.Now.AddMonths(1);
+
+                SettingNotification settingNotification = new SettingNotification();
+                settingNotification.notiTitle = setting_notification_title_txt.Text;
+                settingNotification.notiContent = setting_notification_content_txt.Text;
+                settingNotification.notiDate = new DateTime(notiDate.Year, notiDate.Month, int.Parse(setting_notification_date_cb.Text));
+                settingVar.notification_infos.Add(settingNotification);
+                settingDB.set_notification(settingVar.notification_infos);
+                SettingFunction.update_NotificationListBox(setting_notification_listbox, settingVar.notification_infos);
+            }
+
+        }
+        private void setting_notification_info_modify_Click(object sender, EventArgs e)
+        {
+            if (setting_notification_title_txt.Text == "")
+            {
+                MessageBox.Show("請輸入標題");
+            }
+            else if (setting_notification_date_cb.Text == "")
+            {
+                MessageBox.Show("請輸入日期");
+            }
+            else
+            {
+                try
+                {
+                    int validation = int.Parse(setting_notification_date_cb.Text);
+                    if (!(1 <= validation && validation <= 25))
+                    {
+                        MessageBox.Show("日期非法");
+                        return;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("日期非法");
+                    return;
+                }
+
+                DateTime notiDate;
+                if (int.Parse(setting_notification_date_cb.Text) <= DateTime.Now.Day)
+                    notiDate = DateTime.Now;
+                else
+                    notiDate = DateTime.Now.AddMonths(1);
+
+                settingVar.notification_infos[settingVar.notificationClickItem].notiTitle = setting_notification_title_txt.Text;
+                settingVar.notification_infos[settingVar.notificationClickItem].notiContent = setting_notification_content_txt.Text;
+                settingVar.notification_infos[settingVar.notificationClickItem].notiDate = new DateTime(notiDate.Year, notiDate.Month, int.Parse(setting_notification_date_cb.Text));
+                settingDB.set_notification(settingVar.notification_infos);
+                SettingFunction.update_NotificationListBox(setting_notification_listbox, settingVar.notification_infos);
+                setting_notification_info_modify.Enabled = false;
+                setting_notification_info_delete.Enabled = false;
+            }
+        }
+        private void setting_notification_info_delete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("確定要刪除 " + settingVar.notificationOriText + " 嗎?", "通知列表", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+            {
+                settingVar.notification_infos.RemoveAt(settingVar.notificationClickItem);
+                settingDB.set_notification(settingVar.notification_infos);
+                SettingFunction.update_NotificationListBox(setting_notification_listbox, settingVar.notification_infos);
+                setting_notification_info_modify.Enabled = false;
+                setting_notification_info_delete.Enabled = false;
+            }
+        }
+        private void setting_notification_timer_Tick(object sender, EventArgs e)
+        {
+            SettingFunction.notification(settingVar.notification_infos, settingDB);
+        }
+        #endregion
+        #region function
         public void setting_list_add(string type, string str)
         {
             switch (type)
@@ -1491,19 +1648,19 @@ namespace MoneyTrackerAPP
                 default:
                     return;
                 case "Income":
-                    settingVar.category_inc[settingVar.category_inc.IndexOf(origintext)] = modifytext;
+                    settingVar.category_inc[settingVar.category_incClickItem] = modifytext;
                     settingDB.set_category("Income", settingVar.category_inc);
                     break;
                 case "Expense":
-                    settingVar.category_exp[settingVar.category_exp.IndexOf(origintext)] = modifytext;
+                    settingVar.category_exp[settingVar.category_expClickItem] = modifytext;
                     settingDB.set_category("Expense", settingVar.category_exp);
                     break;
                 case "Place":
-                    settingVar.list_place[settingVar.list_place.IndexOf(origintext)] = modifytext;
+                    settingVar.list_place[settingVar.list_placeClickItem] = modifytext;
                     settingDB.set_list("Place", settingVar.list_place);
                     break;
                 case "Recipient":
-                    settingVar.list_recipient[settingVar.list_recipient.IndexOf(origintext)] = modifytext;
+                    settingVar.list_recipient[settingVar.list_recipientClickItem] = modifytext;
                     settingDB.set_list("Recipient", settingVar.list_recipient);
                     break;
             }
@@ -1515,19 +1672,19 @@ namespace MoneyTrackerAPP
                 default:
                     return;
                 case "Income":
-                    settingVar.category_inc.Remove(origintext);
+                    settingVar.category_inc.RemoveAt(settingVar.category_incClickItem);
                     settingDB.set_category("Income", settingVar.category_inc);
                     break;
                 case "Expense":
-                    settingVar.category_exp.Remove(origintext);
+                    settingVar.category_exp.RemoveAt(settingVar.category_expClickItem);
                     settingDB.set_category("Expense", settingVar.category_exp);
                     break;
                 case "Place":
-                    settingVar.list_place.Remove(origintext);
+                    settingVar.list_place.RemoveAt(settingVar.list_placeClickItem);
                     settingDB.set_list("Place", settingVar.list_place);
                     break;
                 case "Recipient":
-                    settingVar.list_recipient.Remove(origintext);
+                    settingVar.list_recipient.RemoveAt(settingVar.list_recipientClickItem);
                     settingDB.set_list("Recipient", settingVar.list_recipient);
                     break;
             }
@@ -1557,84 +1714,549 @@ namespace MoneyTrackerAPP
                     SettingFunction.update_List2ListBox(setting_list_recipient_listbox, settingVar.list_recipient);
                     break;
             }
-
         }
         #endregion
+        #endregion
 
-        private void trans_cbo_category_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           if(trans_rdb_expanse.Checked)
-            {
+        
 
-            }
-        }
-
-        private void trans_txtbox_name_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trans_txtbox_amount_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void trans_btn_save_Click(object sender, EventArgs e)
         {
+            bool error = true;
+            bool inputError = false;
+            if (tran_rdb_transfer.Checked)
+            {
+                int amount = 0;
+                try
+                {
+                    amount = int.Parse(transactionGlobal.transfer_txtbox_amount.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("金額輸入錯誤");
+                    inputError = true;
+                }
+                if (amount < 0)
+                {
+                    MessageBox.Show("請輸入正數");
+                    inputError = true;
+                }
+                if(transactionGlobal.transfer_cbo_from.Text == null)
+                {
+                    MessageBox.Show("請選擇轉出帳戶");
+                    inputError = true;
+                }
+                if(transactionGlobal.transfer_cbo_to.Text == null)
+                {
+                    MessageBox.Show("請選擇轉入帳戶");
+                    inputError = true;
+                }
 
+                if(!inputError)
+                {
+                    db.transferMoney(from: transactionGlobal.transfer_cbo_from.Text,
+                        to: transactionGlobal.transfer_cbo_to.Text,
+                        amount: amount);
+                    transactionGlobal.clearTransferInput();
+                    error = false;
+                }
+
+            }
+            else if (tran_rdb_debtandloan.Checked)
+            {
+                int amount = 0;
+                try
+                {
+                    amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("金額輸入錯誤");
+                    inputError = true;
+                }
+                if (amount < 0)
+                {
+                    MessageBox.Show("請輸入正數");
+                    inputError = true;
+                }
+                if (transactionGlobal.trans_cbo_category == null)
+                {
+                    MessageBox.Show("請選擇款項種類");
+                    inputError = true;
+                }
+                if (transactionGlobal.trans_cbo_account == null)
+                {
+                    MessageBox.Show("請選擇帳戶");
+                    inputError = true;
+                }
+
+                if (!inputError)
+                {
+                    db.insertDebtLoan(inputValue: amount);
+                }
+            }
+
+            //income and expense
+            else
+            {
+                try
+                {
+                    int amount = 0;
+                    try
+                    {
+                        amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("金額輸入錯誤");
+                        inputError = true;
+                    }
+                    if (amount < 0)
+                    {
+                        MessageBox.Show("請輸入正數");
+                        inputError = true;
+                    }
+                    if (transactionGlobal.trans_cbo_category == null)
+                    {
+                        MessageBox.Show("請選擇款項種類");
+                        inputError = true;
+                    }
+                    if (transactionGlobal.trans_cbo_account == null)
+                    {
+                        MessageBox.Show("請選擇帳戶");
+                        inputError = true;
+                    }
+
+                    if (!inputError)
+                    {
+                        if (trans_rdb_expense.Checked)
+                        {
+                            db.insertTransaction(transInput, "Expense");
+                        }
+                        else if (trans_rdb_income.Checked)
+                        {
+                            db.insertTransaction(transInput, "Income");
+                        }
+                        error = false;
+                    }
+                        
+
+                    /*Transaction transInput = new Transaction();
+                    if (transactionGlobal.trans_txtbox_name.Text != null)
+                    {
+                        transInput.name = transactionGlobal.trans_txtbox_name.Text;
+                    }
+                    else
+                    {
+                        MessageBox.Show("請輸入正數");
+                        error = true;
+                    }
+                    transInput.category = transactionGlobal.trans_cbo_category.Text;
+                    transInput.account = transactionGlobal.trans_cbo_account.Text;
+
+                    // no need to check date
+                    transInput.date = transactionGlobal.trans_date.Value;
+
+                    // comment, store is nullable
+                    if (transactionGlobal.trans_txtbox_store.Text != null)
+                    {
+                        transInput.place = transactionGlobal.trans_txtbox_store.Text;
+                    }
+                    else
+                    {
+                        transInput.place = "";
+                    }
+                    if (transactionGlobal.trans_txtbox_note.Text != null)
+                    {
+                        transInput.comment = transactionGlobal.trans_txtbox_note.Text;
+                    }
+                    else
+                    {
+                        transInput.comment = "";
+                    }
+
+                    transInput.amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
+                    if (transInput.amount < 0)
+                    {
+                        MessageBox.Show("請輸入正數");
+                        error = true;
+                    }
+                    else
+                    {
+                        if (trans_rdb_expense.Checked)
+                        {
+                            db.insertTransaction(transInput, "Expense");
+                        }
+                        else if (trans_rdb_income.Checked)
+                        {
+                            db.insertTransaction(transInput, "Income");
+                        }
+                        error = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    error = true;
+                }
+                transactionGlobal.clearTransInput();
+            }
+
+            if (!error)
+            {
+                if (tran_rdb_transfer.Checked)
+                {
+                    trans_transfer_display();
+                }
+                else if (tran_rdb_debtandloan.Checked)
+                {
+                    trans_debtLoan_display();
+                }
+                else if (trans_rdb_expense.Checked)
+                {
+                    trans_expense_display();
+                }
+                else if (trans_rdb_income.Checked)
+                {
+                    trans_income_display();
+                }
+
+                MessageBox.Show("已成功新增一筆紀錄！");
+            }*/
         }
 
-        private void trans_label_category_Click(object sender, EventArgs e)
+        void trans_expense_display()
         {
+            trans_panel1.Controls.Clear();
+            trans_panel1.Enabled = true;
+            Label trans_name = new Label();
+            trans_name.Location = new Point(10, 10);
+            trans_name.Text = "款項名稱";
+            TextBox trans_txtbox_name = new TextBox();
+            trans_txtbox_name.Location = new Point(125, 10);
+            //string[] string_name = ;
+            //AutoCompleteStringCollection myAdd = new AutoCompleteStringCollection();
+            //myAdd.AddRange(string_name);
+            //trans_txtbox_name.AutoCompleteCustomSource = myAdd;
+            //trans_txtbox_name.AutoCompleteMode = AutoCompleteMode.Suggest;
+            //trans_txtbox_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
+            Label trans_amount = new Label();
+            trans_amount.Location = new Point(400, 10);
+            trans_amount.Text = "款項金額";
+            TextBox trans_txtbox_amount = new TextBox();
+            trans_txtbox_amount.Location = new Point(515, 10);
+
+            Label trans_category = new Label();
+            trans_category.Location = new Point(10, 70);
+            trans_category.Text = "款項種類";
+            ComboBox trans_cbo_category = new ComboBox();
+            trans_cbo_category.Location = new Point(125, 70);
+            List<string> trans_list_category = new List<string>();
+            trans_list_category = db.get_category("Expense");
+            foreach (string ele in trans_list_category)
+            {
+                trans_cbo_category.Items.Add(ele);
+            }
+
+            Label trans_account = new Label();
+            trans_account.Location = new Point(400, 70);
+            trans_account.Text = "帳戶";
+            ComboBox trans_cbo_account = new ComboBox();
+            trans_cbo_account.Location = new Point(515, 70);
+            string[] trans_list_account = db.get_all_accounts();
+            foreach (string ele in trans_list_account)
+            {
+                if(ele != "Debt/Loan")
+                {
+                    trans_cbo_account.Items.Add(ele);
+                }
+            }
+
+            Label trans_date = new Label();
+            trans_date.Location = new Point(10, 130);
+            trans_date.Text = "記錄日期";
+            DateTimePicker date = new DateTimePicker();
+            date.Location = new Point(125, 130);
+
+            Label trans_store = new Label();
+            trans_store.Location = new Point(400, 130);
+            trans_store.Text = "商家";
+            TextBox trans_txtbox_store = new TextBox();
+            trans_txtbox_store.Location = new Point(515, 130);
+
+            Label trans_note = new Label();
+            trans_note.Location = new Point(10, 190);
+            trans_note.Text = "備註";
+            TextBox trans_txtbox_note = new TextBox();
+            trans_txtbox_note.Location = new Point(125, 190);
+
+
+            trans_panel1.Controls.Add(trans_name);
+            trans_panel1.Controls.Add(trans_txtbox_name);
+            trans_panel1.Controls.Add(trans_amount);
+            trans_panel1.Controls.Add(trans_txtbox_amount);
+            trans_panel1.Controls.Add(trans_category);
+            trans_panel1.Controls.Add(trans_cbo_category);
+            trans_panel1.Controls.Add(trans_account);
+            trans_panel1.Controls.Add(trans_cbo_account);
+            trans_panel1.Controls.Add(trans_date);
+            trans_panel1.Controls.Add(date);
+            trans_panel1.Controls.Add(trans_store);
+            trans_panel1.Controls.Add(trans_txtbox_store);
+            trans_panel1.Controls.Add(trans_note);
+            trans_panel1.Controls.Add(trans_txtbox_note);
+            trans_panel1.Show();
+
+            transactionGlobal.trans_txtbox_name = trans_txtbox_name;
+            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+            transactionGlobal.trans_cbo_category = trans_cbo_category;
+            transactionGlobal.trans_cbo_account = trans_cbo_account;
+            transactionGlobal.trans_date = date;
+            transactionGlobal.trans_txtbox_store = trans_txtbox_store;
+            transactionGlobal.trans_txtbox_note = trans_txtbox_note;
 
         }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
+        public void trans_rdb_expense_CheckedChanged(object sender, EventArgs e)
         {
-
+            trans_expense_display();
         }
 
-        private void trans_label_account_Click(object sender, EventArgs e)
+        void trans_income_display()
         {
+            trans_panel1.Controls.Clear();
+            trans_panel1.Enabled = true;
+            Label trans_name = new Label();
+            trans_name.Location = new Point(10, 10);
+            trans_name.Text = "款項名稱";
+            TextBox trans_txtbox_name = new TextBox();
+            trans_txtbox_name.Location = new Point(125, 10);
 
+            Label trans_amount = new Label();
+            trans_amount.Location = new Point(400, 10);
+            trans_amount.Text = "款項金額";
+            TextBox trans_txtbox_amount = new TextBox();
+            trans_txtbox_amount.Location = new Point(515, 10);
+
+            Label trans_category = new Label();
+            trans_category.Location = new Point(10, 70);
+            trans_category.Text = "款項種類";
+            ComboBox trans_cbo_category = new ComboBox();
+            trans_cbo_category.Location = new Point(125, 70);
+            List<string> trans_list_category = new List<string>();
+            trans_list_category = db.get_category("Income");
+            foreach (string ele in trans_list_category)
+            {
+                trans_cbo_category.Items.Add(ele);
+            }
+
+            Label trans_account = new Label();
+            trans_account.Location = new Point(400, 70);
+            trans_account.Text = "帳戶";
+            ComboBox trans_cbo_account = new ComboBox();
+            trans_cbo_account.Location = new Point(515, 70);
+            string[] trans_list_account = db.get_all_accounts();
+            foreach (string ele in trans_list_account)
+            {
+                if (ele != "Debt/Loan")
+                {
+                    trans_cbo_account.Items.Add(ele);
+                }
+            }
+
+            Label trans_date = new Label();
+            trans_date.Location = new Point(10, 130);
+            trans_date.Text = "記錄日期";
+            DateTimePicker date = new DateTimePicker();
+            date.Location = new Point(125, 130);
+
+            Label trans_store = new Label();
+            trans_store.Location = new Point(400, 130);
+            trans_store.Text = "商家";
+            TextBox trans_txtbox_store = new TextBox();
+            trans_txtbox_store.Location = new Point(515, 130);
+
+            Label trans_note = new Label();
+            trans_note.Location = new Point(10, 190);
+            trans_note.Text = "備註";
+            TextBox trans_txtbox_note = new TextBox();
+            trans_txtbox_note.Location = new Point(125, 190);
+
+            #region Add to panel
+            trans_panel1.Controls.Add(trans_name);
+            trans_panel1.Controls.Add(trans_txtbox_name);
+            trans_panel1.Controls.Add(trans_amount);
+            trans_panel1.Controls.Add(trans_txtbox_amount);
+            trans_panel1.Controls.Add(trans_category);
+            trans_panel1.Controls.Add(trans_cbo_category);
+            trans_panel1.Controls.Add(trans_account);
+            trans_panel1.Controls.Add(trans_cbo_account);
+            trans_panel1.Controls.Add(trans_date);
+            trans_panel1.Controls.Add(date);
+            trans_panel1.Controls.Add(trans_store);
+            trans_panel1.Controls.Add(trans_txtbox_store);
+            trans_panel1.Controls.Add(trans_note);
+            trans_panel1.Controls.Add(trans_txtbox_note);
+            trans_panel1.Show();
+            #endregion
+
+            transactionGlobal.trans_txtbox_name = trans_txtbox_name;
+            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+            transactionGlobal.trans_cbo_category = trans_cbo_category;
+            transactionGlobal.trans_cbo_account = trans_cbo_account;
+            transactionGlobal.trans_date = date;
+            transactionGlobal.trans_txtbox_store = trans_txtbox_store;
+            transactionGlobal.trans_txtbox_note = trans_txtbox_note;
         }
-
-        private void trans_cbo_account_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trans_note_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trans_txtbox_note_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trans_rdb_expanse_CheckedChanged(object sender, EventArgs e)
-        {
-            trans_expense_panel.Enabled = true;
-
-        }
-
         private void trans_rdb_income_CheckedChanged(object sender, EventArgs e)
         {
+            trans_income_display();
+        }
+        void trans_debtLoan_display()
+        {
+            trans_panel1.Controls.Clear();
+            trans_panel1.Enabled = true;
+            Label trans_name = new Label();
+            trans_name.Location = new Point(10, 10);
+            trans_name.Text = "款項名稱";
+            TextBox trans_txtbox_name = new TextBox();
+            trans_txtbox_name.Location = new Point(125, 10);
+
+            Label trans_amount = new Label();
+            trans_amount.Location = new Point(400, 10);
+            trans_amount.Text = "款項金額";
+            TextBox trans_txtbox_amount = new TextBox();
+            trans_txtbox_amount.Location = new Point(515, 10);
+
+            Label trans_category = new Label();
+            trans_category.Location = new Point(10, 70);
+            trans_category.Text = "款項種類";
+            ComboBox trans_cbo_category = new ComboBox();
+            trans_cbo_category.Location = new Point(125, 70);
+            string[] trans_debtandloan = new string[] { "Debt", "Loan" };
+            trans_cbo_category.Items.Add(trans_debtandloan[0]);
+            trans_cbo_category.Items.Add(trans_debtandloan[1]);
+            trans_cbo_category.SelectedIndex = 0;
+            Label trans_account = new Label();
+            trans_account.Location = new Point(400, 70);
+            trans_account.Text = "帳戶";
+            ComboBox trans_cbo_account = new ComboBox();
+            trans_cbo_account.Location = new Point(515, 70);
+            string[] trans_list_account = db.get_all_accounts();
+            foreach (string ele in trans_list_account)
+            {
+                trans_cbo_account.Items.Add(ele);
+            }
+
+            Label trans_date = new Label();
+            trans_date.Location = new Point(10, 130);
+            trans_date.Text = "記錄日期";
+            DateTimePicker date = new DateTimePicker();
+            date.Location = new Point(125, 130);
+
+            Label trans_store = new Label();
+            trans_store.Location = new Point(400, 130);
+            trans_store.Text = "對象";
+            TextBox trans_txtbox_store = new TextBox();
+            trans_txtbox_store.Location = new Point(515, 130);
+
+            //Label trans_note = new Label();
+            //trans_note.Location = new Point(10, 190);
+            //trans_note.Text = "備註";
+            //TextBox trans_txtbox_note = new TextBox();
+            //trans_txtbox_note.Location = new Point(125, 190);
+
+
+            trans_panel1.Controls.Add(trans_name);
+            trans_panel1.Controls.Add(trans_txtbox_name);
+            trans_panel1.Controls.Add(trans_amount);
+            trans_panel1.Controls.Add(trans_txtbox_amount);
+            trans_panel1.Controls.Add(trans_category);
+            trans_panel1.Controls.Add(trans_cbo_category);
+            trans_panel1.Controls.Add(trans_account);
+            trans_panel1.Controls.Add(trans_cbo_account);
+            trans_panel1.Controls.Add(trans_date);
+            trans_panel1.Controls.Add(date);
+            trans_panel1.Controls.Add(trans_store);
+            trans_panel1.Controls.Add(trans_txtbox_store);
+            //trans_panel1.Controls.Add(trans_note);
+            //trans_panel1.Controls.Add(trans_txtbox_note);
+            trans_panel1.Show();
+
+            transactionGlobal.trans_txtbox_name = trans_txtbox_name;
+            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+            transactionGlobal.trans_cbo_category = trans_cbo_category;
+            transactionGlobal.trans_cbo_account = trans_cbo_account;
+            transactionGlobal.trans_date = date;
+            transactionGlobal.trans_txtbox_store = trans_txtbox_store;
+            //transactionGlobal.trans_txtbox_note = trans_txtbox_note;
+        }
+
+        private void tran_rdb_debtandloan_CheckedChanged_1(object sender, EventArgs e)
+        {
+            trans_debtLoan_display();
+        }
+
+        void trans_transfer_display()
+        {
+            trans_panel1.Controls.Clear();
+
+            Label trans_amount = new Label();
+            trans_amount.Location = new Point(10, 10);
+            trans_amount.Text = "款項金額";
+            TextBox trans_txtbox_amount = new TextBox();
+            trans_txtbox_amount.Location = new Point(125, 10);
+
+            Label trans_transfer_from = new Label();
+            trans_transfer_from.Location = new Point(10, 70);
+            trans_transfer_from.Text = "轉出帳戶";
+            ComboBox trans_cbo_transfer_from = new ComboBox();
+            trans_cbo_transfer_from.Location = new Point(125, 70);
+
+
+            Label trans_transfer_to = new Label();
+            trans_transfer_to.Location = new Point(400, 70);
+            trans_transfer_to.Text = "轉入帳戶";
+            ComboBox trans_cbo_transfer_to = new ComboBox();
+            trans_cbo_transfer_to.Location = new Point(515, 70);
+            string[] trans_list_account = db.get_all_accounts();
+            foreach (string ele in trans_list_account)
+            {
+                if (ele != "Debt/Loan")
+                {
+                    trans_cbo_transfer_from.Items.Add(ele);
+                    trans_cbo_transfer_to.Items.Add(ele);
+                }
+            }
+
+
+            trans_panel1.Controls.Add(trans_amount);
+            trans_panel1.Controls.Add(trans_txtbox_amount);
+            trans_panel1.Controls.Add(trans_transfer_from);
+            trans_panel1.Controls.Add(trans_cbo_transfer_from);
+            trans_panel1.Controls.Add(trans_transfer_to);
+            trans_panel1.Controls.Add(trans_cbo_transfer_to);
+            trans_panel1.Show();
+
+            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+            transactionGlobal.transfer_cbo_from = trans_cbo_transfer_from;
+            transactionGlobal.transfer_cbo_to = trans_cbo_transfer_to;
+        }
+        private void tran_rdb_transfer_CheckedChanged(object sender, EventArgs e)
+        {
+            trans_transfer_display();
+        }
+
+        private void setting_budget_result_money_Click(object sender, EventArgs e)
+        {
 
         }
 
-        private void tran_rdb_debtandloan_CheckedChanged(object sender, EventArgs e)
+        private void trans_remainder_Click(object sender, EventArgs e)
         {
-            
-            trans_debtandloan_panel.Enabled = true;
-            Label trans_cbo_category = new Label();
-            trans_cbo_category.Location = new Point(10, 10);
-            trans_cbo_category.Text = "款項種類";
-            trans_debtandloan_panel.Controls.Add(trans_cbo_category);
-            trans_debtandloan_panel.Show();
-            
+           
         }
     }
 }

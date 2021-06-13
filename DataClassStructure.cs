@@ -45,7 +45,10 @@ namespace MoneyTrackerAPP
         public int amount;
         public DateTime date;
 
-        public DebtLoan() { }
+        public DebtLoan()
+        {
+            this.id = 0;
+        }
         public DebtLoan(string detail, string type, int amount, DateTime date, string recipient = null, string account = null, int id = 0)
         {
             this.recipient = recipient;
@@ -71,7 +74,13 @@ namespace MoneyTrackerAPP
         public bool bankChecked;
         public DateTime? bankDate;
 
-        public Transaction() { }
+        public Transaction()
+        {
+            this.subcategory = null;
+            this.place = null;
+            this.bankChecked = false;
+            this.bankDate = null;
+        }
         public Transaction(string name, string category, string account, int amount, DateTime date,
             string subcategory = null, string place = null, string comment = null)
         {

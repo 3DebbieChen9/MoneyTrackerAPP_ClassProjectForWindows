@@ -467,6 +467,37 @@ namespace MoneyTrackerAPP
             return accountNames.ToArray();
         }
 
+        public string[] get_all_accounts()
+        {
+            List<string> accountNames = new List<string>();
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT DISTINCT(Account) FROM Accounts
+                    ";
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            accountNames.Add(reader.GetString(0));
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return accountNames.ToArray();
+        }
         
         public List<string> queryDistictCategorByTypeWithinDate(string type, DateTime startTime, DateTime endTime)
         {

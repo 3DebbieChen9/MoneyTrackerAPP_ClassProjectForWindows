@@ -29,42 +29,29 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea29 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend29 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea30 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend30 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea31 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend31 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series31 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea32 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend32 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series32 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.main_panel = new System.Windows.Forms.Panel();
             this.main_tabControl = new System.Windows.Forms.TabControl();
             this.main_transaction = new System.Windows.Forms.TabPage();
+            this.trans_panel1 = new System.Windows.Forms.Panel();
             this.tran_rdb_transfer = new System.Windows.Forms.RadioButton();
             this.tran_rdb_debtandloan = new System.Windows.Forms.RadioButton();
             this.trans_btn_save = new System.Windows.Forms.Button();
             this.trans_remainder = new System.Windows.Forms.Label();
-            this.trans_txtbox_note = new System.Windows.Forms.TextBox();
-            this.trans_note = new System.Windows.Forms.Label();
-            this.trans_txtbox_store = new System.Windows.Forms.TextBox();
-            this.trans_label_store = new System.Windows.Forms.Label();
-            this.trans_date_picker = new System.Windows.Forms.DateTimePicker();
-            this.trans_label_date = new System.Windows.Forms.Label();
-            this.trans_cbo_account = new System.Windows.Forms.ComboBox();
-            this.trans_label_account = new System.Windows.Forms.Label();
-            this.trans_cbo_category = new System.Windows.Forms.ComboBox();
-            this.trans_label_category = new System.Windows.Forms.Label();
-            this.trans_txtbox_amount = new System.Windows.Forms.TextBox();
-            this.trans_label_amount = new System.Windows.Forms.Label();
-            this.trans_txtbox_name = new System.Windows.Forms.TextBox();
-            this.trans_label_name = new System.Windows.Forms.Label();
             this.trans_rdb_income = new System.Windows.Forms.RadioButton();
-            this.trans_rdb_expanse = new System.Windows.Forms.RadioButton();
+            this.trans_rdb_expense = new System.Windows.Forms.RadioButton();
             this.main_accounts = new System.Windows.Forms.TabPage();
             this.accounts_panel_debt = new System.Windows.Forms.Panel();
             this.accounts_btn_payDebt = new System.Windows.Forms.Button();
@@ -119,6 +106,19 @@
             this.setting_title = new System.Windows.Forms.Label();
             this.setting_tabControl = new System.Windows.Forms.TabControl();
             this.setting_notification = new System.Windows.Forms.TabPage();
+            this.setting_notification_info_delete = new System.Windows.Forms.Button();
+            this.setting_notification_info_modify = new System.Windows.Forms.Button();
+            this.setting_notification_info_add = new System.Windows.Forms.Button();
+            this.setting_notification_date_label = new System.Windows.Forms.Label();
+            this.setting_notification_day_label = new System.Windows.Forms.Label();
+            this.setting_notification_date_cb = new System.Windows.Forms.ComboBox();
+            this.setting_notification_month_label = new System.Windows.Forms.Label();
+            this.setting_notification_content_txt = new System.Windows.Forms.TextBox();
+            this.setting_notification_content_label = new System.Windows.Forms.Label();
+            this.setting_notification_title_txt = new System.Windows.Forms.TextBox();
+            this.setting_notification_title_label = new System.Windows.Forms.Label();
+            this.setting_notification_label1 = new System.Windows.Forms.Label();
+            this.setting_notification_listbox = new System.Windows.Forms.ListBox();
             this.setting_budget = new System.Windows.Forms.TabPage();
             this.setting_budget_total_lbl3 = new System.Windows.Forms.Label();
             this.setting_budget_total_lbl1 = new System.Windows.Forms.Label();
@@ -155,22 +155,8 @@
             this.main_closeApp = new System.Windows.Forms.Button();
             this.main_appName = new System.Windows.Forms.Label();
             this.main_applogo = new System.Windows.Forms.Label();
-            this.setting_list_notification_listbox = new System.Windows.Forms.ListBox();
-            this.setting_notification_label1 = new System.Windows.Forms.Label();
-            this.setting_notification_title_label = new System.Windows.Forms.Label();
-            this.setting_notification_title_txt = new System.Windows.Forms.TextBox();
-            this.setting_notification_content_txt = new System.Windows.Forms.TextBox();
-            this.setting_notification_content_label = new System.Windows.Forms.Label();
-            this.setting_notification_month_label = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.setting_notification_day_label = new System.Windows.Forms.Label();
-            this.setting_notification_date_label = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.trans_gb_expanse = new System.Windows.Forms.GroupBox();
-            this.trans_expense_panel = new System.Windows.Forms.Panel();
-            this.trans_debtandloan_panel = new System.Windows.Forms.Panel();
+            this.setting_notification_timer = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.main_panel.SuspendLayout();
             this.main_tabControl.SuspendLayout();
             this.main_transaction.SuspendLayout();
@@ -197,8 +183,6 @@
             this.main_list.SuspendLayout();
             this.detail_panel.SuspendLayout();
             this.main_border.SuspendLayout();
-            this.trans_expense_panel.SuspendLayout();
-            this.trans_debtandloan_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // main_panel
@@ -241,18 +225,13 @@
             // 
             this.main_transaction.AutoScroll = true;
             this.main_transaction.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.main_transaction.Controls.Add(this.trans_expense_panel);
-            this.main_transaction.Controls.Add(this.trans_gb_expanse);
+            this.main_transaction.Controls.Add(this.trans_panel1);
             this.main_transaction.Controls.Add(this.tran_rdb_transfer);
             this.main_transaction.Controls.Add(this.tran_rdb_debtandloan);
             this.main_transaction.Controls.Add(this.trans_btn_save);
             this.main_transaction.Controls.Add(this.trans_remainder);
-            this.main_transaction.Controls.Add(this.trans_txtbox_amount);
-            this.main_transaction.Controls.Add(this.trans_label_amount);
-            this.main_transaction.Controls.Add(this.trans_txtbox_name);
-            this.main_transaction.Controls.Add(this.trans_label_name);
             this.main_transaction.Controls.Add(this.trans_rdb_income);
-            this.main_transaction.Controls.Add(this.trans_rdb_expanse);
+            this.main_transaction.Controls.Add(this.trans_rdb_expense);
             this.main_transaction.ImageIndex = 0;
             this.main_transaction.Location = new System.Drawing.Point(104, 4);
             this.main_transaction.Name = "main_transaction";
@@ -260,6 +239,13 @@
             this.main_transaction.Size = new System.Drawing.Size(916, 552);
             this.main_transaction.TabIndex = 0;
             this.main_transaction.ToolTipText = "Add transaction";
+            // 
+            // trans_panel1
+            // 
+            this.trans_panel1.Location = new System.Drawing.Point(70, 114);
+            this.trans_panel1.Name = "trans_panel1";
+            this.trans_panel1.Size = new System.Drawing.Size(777, 329);
+            this.trans_panel1.TabIndex = 22;
             // 
             // tran_rdb_transfer
             // 
@@ -271,6 +257,7 @@
             this.tran_rdb_transfer.TabStop = true;
             this.tran_rdb_transfer.Text = "轉帳";
             this.tran_rdb_transfer.UseVisualStyleBackColor = true;
+            this.tran_rdb_transfer.CheckedChanged += new System.EventHandler(this.tran_rdb_transfer_CheckedChanged);
             // 
             // tran_rdb_debtandloan
             // 
@@ -282,7 +269,7 @@
             this.tran_rdb_debtandloan.TabStop = true;
             this.tran_rdb_debtandloan.Text = "應收/應付";
             this.tran_rdb_debtandloan.UseVisualStyleBackColor = true;
-            this.tran_rdb_debtandloan.CheckedChanged += new System.EventHandler(this.tran_rdb_debtandloan_CheckedChanged);
+            this.tran_rdb_debtandloan.CheckedChanged += new System.EventHandler(this.tran_rdb_debtandloan_CheckedChanged_1);
             // 
             // trans_btn_save
             // 
@@ -302,128 +289,7 @@
             this.trans_remainder.Size = new System.Drawing.Size(194, 28);
             this.trans_remainder.TabIndex = 18;
             this.trans_remainder.Text = "剩餘預算：0 元";
-            // 
-            // trans_txtbox_note
-            // 
-            this.trans_txtbox_note.Location = new System.Drawing.Point(165, 124);
-            this.trans_txtbox_note.Name = "trans_txtbox_note";
-            this.trans_txtbox_note.Size = new System.Drawing.Size(640, 36);
-            this.trans_txtbox_note.TabIndex = 17;
-            this.trans_txtbox_note.TextChanged += new System.EventHandler(this.trans_txtbox_note_TextChanged);
-            // 
-            // trans_note
-            // 
-            this.trans_note.AutoSize = true;
-            this.trans_note.Location = new System.Drawing.Point(23, 132);
-            this.trans_note.Name = "trans_note";
-            this.trans_note.Size = new System.Drawing.Size(116, 28);
-            this.trans_note.TabIndex = 16;
-            this.trans_note.Text = "備　　註";
-            this.trans_note.Click += new System.EventHandler(this.trans_note_Click);
-            // 
-            // trans_txtbox_store
-            // 
-            this.trans_txtbox_store.Location = new System.Drawing.Point(564, 57);
-            this.trans_txtbox_store.Name = "trans_txtbox_store";
-            this.trans_txtbox_store.Size = new System.Drawing.Size(241, 36);
-            this.trans_txtbox_store.TabIndex = 13;
-            // 
-            // trans_label_store
-            // 
-            this.trans_label_store.AutoSize = true;
-            this.trans_label_store.Location = new System.Drawing.Point(456, 68);
-            this.trans_label_store.Name = "trans_label_store";
-            this.trans_label_store.Size = new System.Drawing.Size(90, 28);
-            this.trans_label_store.TabIndex = 12;
-            this.trans_label_store.Text = "商　家";
-            // 
-            // trans_date_picker
-            // 
-            this.trans_date_picker.Location = new System.Drawing.Point(165, 54);
-            this.trans_date_picker.Name = "trans_date_picker";
-            this.trans_date_picker.Size = new System.Drawing.Size(241, 36);
-            this.trans_date_picker.TabIndex = 11;
-            // 
-            // trans_label_date
-            // 
-            this.trans_label_date.AutoSize = true;
-            this.trans_label_date.Location = new System.Drawing.Point(23, 60);
-            this.trans_label_date.Name = "trans_label_date";
-            this.trans_label_date.Size = new System.Drawing.Size(116, 28);
-            this.trans_label_date.TabIndex = 10;
-            this.trans_label_date.Text = "記錄時間";
-            // 
-            // trans_cbo_account
-            // 
-            this.trans_cbo_account.FormattingEnabled = true;
-            this.trans_cbo_account.Location = new System.Drawing.Point(564, 4);
-            this.trans_cbo_account.Name = "trans_cbo_account";
-            this.trans_cbo_account.Size = new System.Drawing.Size(241, 36);
-            this.trans_cbo_account.TabIndex = 9;
-            this.trans_cbo_account.SelectedIndexChanged += new System.EventHandler(this.trans_cbo_account_SelectedIndexChanged);
-            // 
-            // trans_label_account
-            // 
-            this.trans_label_account.AutoSize = true;
-            this.trans_label_account.Location = new System.Drawing.Point(456, 7);
-            this.trans_label_account.Name = "trans_label_account";
-            this.trans_label_account.Size = new System.Drawing.Size(90, 28);
-            this.trans_label_account.TabIndex = 8;
-            this.trans_label_account.Text = "帳　戶";
-            this.trans_label_account.Click += new System.EventHandler(this.trans_label_account_Click);
-            // 
-            // trans_cbo_category
-            // 
-            this.trans_cbo_category.FormattingEnabled = true;
-            this.trans_cbo_category.Location = new System.Drawing.Point(165, 1);
-            this.trans_cbo_category.Name = "trans_cbo_category";
-            this.trans_cbo_category.Size = new System.Drawing.Size(241, 36);
-            this.trans_cbo_category.TabIndex = 7;
-            this.trans_cbo_category.SelectedIndexChanged += new System.EventHandler(this.trans_cbo_category_SelectedIndexChanged);
-            // 
-            // trans_label_category
-            // 
-            this.trans_label_category.AutoSize = true;
-            this.trans_label_category.Location = new System.Drawing.Point(23, 4);
-            this.trans_label_category.Name = "trans_label_category";
-            this.trans_label_category.Size = new System.Drawing.Size(116, 28);
-            this.trans_label_category.TabIndex = 6;
-            this.trans_label_category.Text = "款項分類";
-            this.trans_label_category.Click += new System.EventHandler(this.trans_label_category_Click);
-            // 
-            // trans_txtbox_amount
-            // 
-            this.trans_txtbox_amount.Location = new System.Drawing.Point(606, 116);
-            this.trans_txtbox_amount.Name = "trans_txtbox_amount";
-            this.trans_txtbox_amount.Size = new System.Drawing.Size(241, 36);
-            this.trans_txtbox_amount.TabIndex = 5;
-            this.trans_txtbox_amount.TextChanged += new System.EventHandler(this.trans_txtbox_amount_TextChanged);
-            // 
-            // trans_label_amount
-            // 
-            this.trans_label_amount.AutoSize = true;
-            this.trans_label_amount.Location = new System.Drawing.Point(498, 119);
-            this.trans_label_amount.Name = "trans_label_amount";
-            this.trans_label_amount.Size = new System.Drawing.Size(90, 28);
-            this.trans_label_amount.TabIndex = 4;
-            this.trans_label_amount.Text = "金　額";
-            // 
-            // trans_txtbox_name
-            // 
-            this.trans_txtbox_name.Location = new System.Drawing.Point(207, 116);
-            this.trans_txtbox_name.Name = "trans_txtbox_name";
-            this.trans_txtbox_name.Size = new System.Drawing.Size(241, 36);
-            this.trans_txtbox_name.TabIndex = 3;
-            this.trans_txtbox_name.TextChanged += new System.EventHandler(this.trans_txtbox_name_TextChanged);
-            // 
-            // trans_label_name
-            // 
-            this.trans_label_name.AutoSize = true;
-            this.trans_label_name.Location = new System.Drawing.Point(65, 119);
-            this.trans_label_name.Name = "trans_label_name";
-            this.trans_label_name.Size = new System.Drawing.Size(116, 28);
-            this.trans_label_name.TabIndex = 2;
-            this.trans_label_name.Text = "款項名稱";
+            this.trans_remainder.Click += new System.EventHandler(this.trans_remainder_Click);
             // 
             // trans_rdb_income
             // 
@@ -436,18 +302,18 @@
             this.trans_rdb_income.UseVisualStyleBackColor = true;
             this.trans_rdb_income.CheckedChanged += new System.EventHandler(this.trans_rdb_income_CheckedChanged);
             // 
-            // trans_rdb_expanse
+            // trans_rdb_expense
             // 
-            this.trans_rdb_expanse.AutoSize = true;
-            this.trans_rdb_expanse.Checked = true;
-            this.trans_rdb_expanse.Location = new System.Drawing.Point(70, 46);
-            this.trans_rdb_expanse.Name = "trans_rdb_expanse";
-            this.trans_rdb_expanse.Size = new System.Drawing.Size(89, 32);
-            this.trans_rdb_expanse.TabIndex = 0;
-            this.trans_rdb_expanse.TabStop = true;
-            this.trans_rdb_expanse.Text = "支出";
-            this.trans_rdb_expanse.UseVisualStyleBackColor = true;
-            this.trans_rdb_expanse.CheckedChanged += new System.EventHandler(this.trans_rdb_expanse_CheckedChanged);
+            this.trans_rdb_expense.AutoSize = true;
+            this.trans_rdb_expense.Checked = true;
+            this.trans_rdb_expense.Location = new System.Drawing.Point(70, 46);
+            this.trans_rdb_expense.Name = "trans_rdb_expense";
+            this.trans_rdb_expense.Size = new System.Drawing.Size(89, 32);
+            this.trans_rdb_expense.TabIndex = 0;
+            this.trans_rdb_expense.TabStop = true;
+            this.trans_rdb_expense.Text = "支出";
+            this.trans_rdb_expense.UseVisualStyleBackColor = true;
+            this.trans_rdb_expense.CheckedChanged += new System.EventHandler(this.trans_rdb_expense_CheckedChanged);
             // 
             // main_accounts
             // 
@@ -689,56 +555,56 @@
             // 
             // report_barchart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.report_barchart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.report_barchart.Legends.Add(legend1);
+            chartArea29.Name = "ChartArea1";
+            this.report_barchart.ChartAreas.Add(chartArea29);
+            legend29.Name = "Legend1";
+            this.report_barchart.Legends.Add(legend29);
             this.report_barchart.Location = new System.Drawing.Point(575, 390);
             this.report_barchart.Name = "report_barchart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.report_barchart.Series.Add(series1);
+            series29.ChartArea = "ChartArea1";
+            series29.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series29.Legend = "Legend1";
+            series29.Name = "Series1";
+            this.report_barchart.Series.Add(series29);
             this.report_barchart.Size = new System.Drawing.Size(342, 166);
             this.report_barchart.TabIndex = 12;
             this.report_barchart.Text = "chart3";
             // 
             // report_piechart2
             // 
-            chartArea2.Name = "ChartArea1";
-            this.report_piechart2.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.report_piechart2.Legends.Add(legend2);
+            chartArea30.Name = "ChartArea1";
+            this.report_piechart2.ChartAreas.Add(chartArea30);
+            legend30.Name = "Legend1";
+            this.report_piechart2.Legends.Add(legend30);
             this.report_piechart2.Location = new System.Drawing.Point(575, 193);
             this.report_piechart2.Name = "report_piechart2";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series2.IsValueShownAsLabel = true;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.report_piechart2.Series.Add(series2);
+            series30.ChartArea = "ChartArea1";
+            series30.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series30.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series30.IsValueShownAsLabel = true;
+            series30.Legend = "Legend1";
+            series30.Name = "Series1";
+            this.report_piechart2.Series.Add(series30);
             this.report_piechart2.Size = new System.Drawing.Size(341, 200);
             this.report_piechart2.TabIndex = 11;
             this.report_piechart2.Text = "chart2";
             // 
             // report_piechart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.report_piechart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.report_piechart1.Legends.Add(legend3);
+            chartArea31.Name = "ChartArea1";
+            this.report_piechart1.ChartAreas.Add(chartArea31);
+            legend31.Name = "Legend1";
+            this.report_piechart1.Legends.Add(legend31);
             this.report_piechart1.Location = new System.Drawing.Point(575, 0);
             this.report_piechart1.Name = "report_piechart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series3.IsValueShownAsLabel = true;
-            series3.Label = "#PERCENT{P1}";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.report_piechart1.Series.Add(series3);
+            series31.ChartArea = "ChartArea1";
+            series31.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series31.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series31.IsValueShownAsLabel = true;
+            series31.Label = "#PERCENT{P1}";
+            series31.Legend = "Legend1";
+            series31.Name = "Series1";
+            this.report_piechart1.Series.Add(series31);
             this.report_piechart1.Size = new System.Drawing.Size(341, 200);
             this.report_piechart1.TabIndex = 10;
             this.report_piechart1.Text = "chart1";
@@ -1034,20 +900,20 @@
             // 
             // report_linechart
             // 
-            chartArea4.AxisX.Title = "Month";
-            chartArea4.AxisY.Title = "Amount";
-            chartArea4.Name = "ChartArea1";
-            this.report_linechart.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.report_linechart.Legends.Add(legend4);
+            chartArea32.AxisX.Title = "Month";
+            chartArea32.AxisY.Title = "Amount";
+            chartArea32.Name = "ChartArea1";
+            this.report_linechart.ChartAreas.Add(chartArea32);
+            legend32.Name = "Legend1";
+            this.report_linechart.Legends.Add(legend32);
             this.report_linechart.Location = new System.Drawing.Point(575, 129);
             this.report_linechart.Name = "report_linechart";
-            series4.BorderWidth = 3;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.report_linechart.Series.Add(series4);
+            series32.BorderWidth = 3;
+            series32.ChartArea = "ChartArea1";
+            series32.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series32.Legend = "Legend1";
+            series32.Name = "Series1";
+            this.report_linechart.Series.Add(series32);
             this.report_linechart.Size = new System.Drawing.Size(341, 262);
             this.report_linechart.TabIndex = 13;
             this.report_linechart.Text = "chart1";
@@ -1100,24 +966,189 @@
             // setting_notification
             // 
             this.setting_notification.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.setting_notification.Controls.Add(this.button3);
-            this.setting_notification.Controls.Add(this.button2);
-            this.setting_notification.Controls.Add(this.button1);
+            this.setting_notification.Controls.Add(this.setting_notification_info_delete);
+            this.setting_notification.Controls.Add(this.setting_notification_info_modify);
+            this.setting_notification.Controls.Add(this.setting_notification_info_add);
             this.setting_notification.Controls.Add(this.setting_notification_date_label);
             this.setting_notification.Controls.Add(this.setting_notification_day_label);
-            this.setting_notification.Controls.Add(this.comboBox1);
+            this.setting_notification.Controls.Add(this.setting_notification_date_cb);
             this.setting_notification.Controls.Add(this.setting_notification_month_label);
             this.setting_notification.Controls.Add(this.setting_notification_content_txt);
             this.setting_notification.Controls.Add(this.setting_notification_content_label);
             this.setting_notification.Controls.Add(this.setting_notification_title_txt);
             this.setting_notification.Controls.Add(this.setting_notification_title_label);
             this.setting_notification.Controls.Add(this.setting_notification_label1);
-            this.setting_notification.Controls.Add(this.setting_list_notification_listbox);
+            this.setting_notification.Controls.Add(this.setting_notification_listbox);
             this.setting_notification.ImageIndex = 0;
             this.setting_notification.Location = new System.Drawing.Point(4, 104);
             this.setting_notification.Name = "setting_notification";
             this.setting_notification.Size = new System.Drawing.Size(917, 452);
             this.setting_notification.TabIndex = 3;
+            // 
+            // setting_notification_info_delete
+            // 
+            this.setting_notification_info_delete.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setting_notification_info_delete.Location = new System.Drawing.Point(765, 346);
+            this.setting_notification_info_delete.Name = "setting_notification_info_delete";
+            this.setting_notification_info_delete.Size = new System.Drawing.Size(75, 30);
+            this.setting_notification_info_delete.TabIndex = 12;
+            this.setting_notification_info_delete.Text = "刪除";
+            this.setting_notification_info_delete.UseVisualStyleBackColor = true;
+            this.setting_notification_info_delete.Click += new System.EventHandler(this.setting_notification_info_delete_Click);
+            // 
+            // setting_notification_info_modify
+            // 
+            this.setting_notification_info_modify.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setting_notification_info_modify.Location = new System.Drawing.Point(613, 346);
+            this.setting_notification_info_modify.Name = "setting_notification_info_modify";
+            this.setting_notification_info_modify.Size = new System.Drawing.Size(75, 30);
+            this.setting_notification_info_modify.TabIndex = 11;
+            this.setting_notification_info_modify.Text = "修改";
+            this.setting_notification_info_modify.UseVisualStyleBackColor = true;
+            this.setting_notification_info_modify.Click += new System.EventHandler(this.setting_notification_info_modify_Click);
+            // 
+            // setting_notification_info_add
+            // 
+            this.setting_notification_info_add.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setting_notification_info_add.Location = new System.Drawing.Point(460, 346);
+            this.setting_notification_info_add.Name = "setting_notification_info_add";
+            this.setting_notification_info_add.Size = new System.Drawing.Size(75, 30);
+            this.setting_notification_info_add.TabIndex = 10;
+            this.setting_notification_info_add.Text = "新增";
+            this.setting_notification_info_add.UseVisualStyleBackColor = true;
+            this.setting_notification_info_add.Click += new System.EventHandler(this.setting_notification_info_add_Click);
+            // 
+            // setting_notification_date_label
+            // 
+            this.setting_notification_date_label.AutoSize = true;
+            this.setting_notification_date_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_date_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_date_label.Location = new System.Drawing.Point(460, 250);
+            this.setting_notification_date_label.Name = "setting_notification_date_label";
+            this.setting_notification_date_label.Size = new System.Drawing.Size(81, 40);
+            this.setting_notification_date_label.TabIndex = 9;
+            this.setting_notification_date_label.Text = "日期";
+            // 
+            // setting_notification_day_label
+            // 
+            this.setting_notification_day_label.AutoSize = true;
+            this.setting_notification_day_label.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_day_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_day_label.Location = new System.Drawing.Point(700, 290);
+            this.setting_notification_day_label.Name = "setting_notification_day_label";
+            this.setting_notification_day_label.Size = new System.Drawing.Size(146, 31);
+            this.setting_notification_day_label.TabIndex = 8;
+            this.setting_notification_day_label.Text = "日  進行提醒";
+            // 
+            // setting_notification_date_cb
+            // 
+            this.setting_notification_date_cb.FormattingEnabled = true;
+            this.setting_notification_date_cb.IntegralHeight = false;
+            this.setting_notification_date_cb.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25"});
+            this.setting_notification_date_cb.Location = new System.Drawing.Point(630, 290);
+            this.setting_notification_date_cb.Name = "setting_notification_date_cb";
+            this.setting_notification_date_cb.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_notification_date_cb.Size = new System.Drawing.Size(60, 36);
+            this.setting_notification_date_cb.TabIndex = 7;
+            // 
+            // setting_notification_month_label
+            // 
+            this.setting_notification_month_label.AutoSize = true;
+            this.setting_notification_month_label.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_month_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_month_label.Location = new System.Drawing.Point(560, 290);
+            this.setting_notification_month_label.Name = "setting_notification_month_label";
+            this.setting_notification_month_label.Size = new System.Drawing.Size(62, 31);
+            this.setting_notification_month_label.TabIndex = 6;
+            this.setting_notification_month_label.Text = "每月";
+            // 
+            // setting_notification_content_txt
+            // 
+            this.setting_notification_content_txt.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.setting_notification_content_txt.Location = new System.Drawing.Point(560, 160);
+            this.setting_notification_content_txt.Multiline = true;
+            this.setting_notification_content_txt.Name = "setting_notification_content_txt";
+            this.setting_notification_content_txt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_notification_content_txt.Size = new System.Drawing.Size(280, 72);
+            this.setting_notification_content_txt.TabIndex = 5;
+            // 
+            // setting_notification_content_label
+            // 
+            this.setting_notification_content_label.AutoSize = true;
+            this.setting_notification_content_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_content_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_content_label.Location = new System.Drawing.Point(460, 160);
+            this.setting_notification_content_label.Name = "setting_notification_content_label";
+            this.setting_notification_content_label.Size = new System.Drawing.Size(81, 40);
+            this.setting_notification_content_label.TabIndex = 4;
+            this.setting_notification_content_label.Text = "內容";
+            // 
+            // setting_notification_title_txt
+            // 
+            this.setting_notification_title_txt.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.setting_notification_title_txt.Location = new System.Drawing.Point(560, 100);
+            this.setting_notification_title_txt.Name = "setting_notification_title_txt";
+            this.setting_notification_title_txt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_notification_title_txt.Size = new System.Drawing.Size(120, 36);
+            this.setting_notification_title_txt.TabIndex = 3;
+            // 
+            // setting_notification_title_label
+            // 
+            this.setting_notification_title_label.AutoSize = true;
+            this.setting_notification_title_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_title_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_title_label.Location = new System.Drawing.Point(460, 100);
+            this.setting_notification_title_label.Name = "setting_notification_title_label";
+            this.setting_notification_title_label.Size = new System.Drawing.Size(81, 40);
+            this.setting_notification_title_label.TabIndex = 2;
+            this.setting_notification_title_label.Text = "標題";
+            // 
+            // setting_notification_label1
+            // 
+            this.setting_notification_label1.AutoSize = true;
+            this.setting_notification_label1.Font = new System.Drawing.Font("Microsoft JhengHei", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setting_notification_label1.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_label1.Location = new System.Drawing.Point(195, 75);
+            this.setting_notification_label1.Name = "setting_notification_label1";
+            this.setting_notification_label1.Size = new System.Drawing.Size(164, 46);
+            this.setting_notification_label1.TabIndex = 1;
+            this.setting_notification_label1.Text = "通知列表";
+            // 
+            // setting_notification_listbox
+            // 
+            this.setting_notification_listbox.FormattingEnabled = true;
+            this.setting_notification_listbox.ItemHeight = 28;
+            this.setting_notification_listbox.Location = new System.Drawing.Point(150, 120);
+            this.setting_notification_listbox.Name = "setting_notification_listbox";
+            this.setting_notification_listbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_notification_listbox.Size = new System.Drawing.Size(200, 256);
+            this.setting_notification_listbox.TabIndex = 0;
+            this.setting_notification_listbox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.setting_notification_listbox_MouseClick);
             // 
             // setting_budget
             // 
@@ -1201,6 +1232,7 @@
             this.setting_budget_result_money.Size = new System.Drawing.Size(206, 56);
             this.setting_budget_result_money.TabIndex = 9;
             this.setting_budget_result_money.Text = "1000000";
+            this.setting_budget_result_money.Click += new System.EventHandler(this.setting_budget_result_money_Click);
             // 
             // setting_budget_result_lbl2
             // 
@@ -1505,6 +1537,7 @@
             // main_border
             // 
             this.main_border.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.main_border.Controls.Add(this.label2);
             this.main_border.Controls.Add(this.label1);
             this.main_border.Controls.Add(this.main_closeApp);
             this.main_border.Controls.Add(this.main_appName);
@@ -1521,9 +1554,8 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(648, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 18);
+            this.label1.Size = new System.Drawing.Size(0, 18);
             this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
             // 
             // main_closeApp
             // 
@@ -1560,171 +1592,18 @@
             this.main_applogo.TabIndex = 1;
             this.main_applogo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_applogo_MouseMove);
             // 
-            // setting_list_notification_listbox
+            // setting_notification_timer
             // 
-            this.setting_list_notification_listbox.FormattingEnabled = true;
-            this.setting_list_notification_listbox.ItemHeight = 28;
-            this.setting_list_notification_listbox.Location = new System.Drawing.Point(150, 120);
-            this.setting_list_notification_listbox.Name = "setting_list_notification_listbox";
-            this.setting_list_notification_listbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.setting_list_notification_listbox.Size = new System.Drawing.Size(200, 256);
-            this.setting_list_notification_listbox.TabIndex = 0;
+            this.setting_notification_timer.Tick += new System.EventHandler(this.setting_notification_timer_Tick);
             // 
-            // setting_notification_label1
+            // label2
             // 
-            this.setting_notification_label1.AutoSize = true;
-            this.setting_notification_label1.Font = new System.Drawing.Font("Microsoft JhengHei", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setting_notification_label1.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.setting_notification_label1.Location = new System.Drawing.Point(195, 75);
-            this.setting_notification_label1.Name = "setting_notification_label1";
-            this.setting_notification_label1.Size = new System.Drawing.Size(164, 46);
-            this.setting_notification_label1.TabIndex = 1;
-            this.setting_notification_label1.Text = "通知列表";
-            // 
-            // setting_notification_title_label
-            // 
-            this.setting_notification_title_label.AutoSize = true;
-            this.setting_notification_title_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.setting_notification_title_label.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.setting_notification_title_label.Location = new System.Drawing.Point(460, 100);
-            this.setting_notification_title_label.Name = "setting_notification_title_label";
-            this.setting_notification_title_label.Size = new System.Drawing.Size(81, 40);
-            this.setting_notification_title_label.TabIndex = 2;
-            this.setting_notification_title_label.Text = "標題";
-            // 
-            // setting_notification_title_txt
-            // 
-            this.setting_notification_title_txt.Location = new System.Drawing.Point(560, 100);
-            this.setting_notification_title_txt.Name = "setting_notification_title_txt";
-            this.setting_notification_title_txt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.setting_notification_title_txt.Size = new System.Drawing.Size(120, 36);
-            this.setting_notification_title_txt.TabIndex = 3;
-            // 
-            // setting_notification_content_txt
-            // 
-            this.setting_notification_content_txt.Location = new System.Drawing.Point(560, 160);
-            this.setting_notification_content_txt.Multiline = true;
-            this.setting_notification_content_txt.Name = "setting_notification_content_txt";
-            this.setting_notification_content_txt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.setting_notification_content_txt.Size = new System.Drawing.Size(280, 72);
-            this.setting_notification_content_txt.TabIndex = 5;
-            // 
-            // setting_notification_content_label
-            // 
-            this.setting_notification_content_label.AutoSize = true;
-            this.setting_notification_content_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.setting_notification_content_label.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.setting_notification_content_label.Location = new System.Drawing.Point(460, 160);
-            this.setting_notification_content_label.Name = "setting_notification_content_label";
-            this.setting_notification_content_label.Size = new System.Drawing.Size(81, 40);
-            this.setting_notification_content_label.TabIndex = 4;
-            this.setting_notification_content_label.Text = "內容";
-            // 
-            // setting_notification_month_label
-            // 
-            this.setting_notification_month_label.AutoSize = true;
-            this.setting_notification_month_label.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.setting_notification_month_label.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.setting_notification_month_label.Location = new System.Drawing.Point(560, 290);
-            this.setting_notification_month_label.Name = "setting_notification_month_label";
-            this.setting_notification_month_label.Size = new System.Drawing.Size(62, 31);
-            this.setting_notification_month_label.TabIndex = 6;
-            this.setting_notification_month_label.Text = "每月";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(630, 290);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.comboBox1.Size = new System.Drawing.Size(60, 36);
-            this.comboBox1.TabIndex = 7;
-            // 
-            // setting_notification_day_label
-            // 
-            this.setting_notification_day_label.AutoSize = true;
-            this.setting_notification_day_label.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.setting_notification_day_label.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.setting_notification_day_label.Location = new System.Drawing.Point(700, 290);
-            this.setting_notification_day_label.Name = "setting_notification_day_label";
-            this.setting_notification_day_label.Size = new System.Drawing.Size(146, 31);
-            this.setting_notification_day_label.TabIndex = 8;
-            this.setting_notification_day_label.Text = "日  進行提醒";
-            // 
-            // setting_notification_date_label
-            // 
-            this.setting_notification_date_label.AutoSize = true;
-            this.setting_notification_date_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.setting_notification_date_label.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.setting_notification_date_label.Location = new System.Drawing.Point(460, 250);
-            this.setting_notification_date_label.Name = "setting_notification_date_label";
-            this.setting_notification_date_label.Size = new System.Drawing.Size(81, 40);
-            this.setting_notification_date_label.TabIndex = 9;
-            this.setting_notification_date_label.Text = "日期";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(460, 346);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "新增";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(613, 346);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 30);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "修改";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(765, 346);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 30);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "刪除";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // trans_gb_expanse
-            // 
-            this.trans_gb_expanse.Location = new System.Drawing.Point(922, 326);
-            this.trans_gb_expanse.Name = "trans_gb_expanse";
-            this.trans_gb_expanse.Size = new System.Drawing.Size(19, 20);
-            this.trans_gb_expanse.TabIndex = 22;
-            this.trans_gb_expanse.TabStop = false;
-            this.trans_gb_expanse.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // trans_expense_panel
-            // 
-            this.trans_expense_panel.Controls.Add(this.trans_debtandloan_panel);
-            this.trans_expense_panel.Location = new System.Drawing.Point(40, 184);
-            this.trans_expense_panel.Name = "trans_expense_panel";
-            this.trans_expense_panel.Size = new System.Drawing.Size(839, 203);
-            this.trans_expense_panel.TabIndex = 23;
-            // 
-            // trans_debtandloan_panel
-            // 
-            this.trans_debtandloan_panel.Controls.Add(this.trans_txtbox_note);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_note);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_label_date);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_cbo_account);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_txtbox_store);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_label_store);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_date_picker);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_label_account);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_cbo_category);
-            this.trans_debtandloan_panel.Controls.Add(this.trans_label_category);
-            this.trans_debtandloan_panel.Location = new System.Drawing.Point(2, 2);
-            this.trans_debtandloan_panel.Name = "trans_debtandloan_panel";
-            this.trans_debtandloan_panel.Size = new System.Drawing.Size(837, 200);
-            this.trans_debtandloan_panel.TabIndex = 18;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(471, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 18);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "label2";
             // 
             // MainForm
             // 
@@ -1778,9 +1657,6 @@
             this.detail_panel.ResumeLayout(false);
             this.main_border.ResumeLayout(false);
             this.main_border.PerformLayout();
-            this.trans_expense_panel.ResumeLayout(false);
-            this.trans_debtandloan_panel.ResumeLayout(false);
-            this.trans_debtandloan_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1798,25 +1674,10 @@
         private System.Windows.Forms.ImageList main_iconImages;
         private System.Windows.Forms.TabPage main_report;
         private System.Windows.Forms.TabPage main_settings;
-
-        private System.Windows.Forms.Label trans_label_name;
         private System.Windows.Forms.RadioButton trans_rdb_income;
-        private System.Windows.Forms.RadioButton trans_rdb_expanse;
-        private System.Windows.Forms.TextBox trans_txtbox_name;
-        private System.Windows.Forms.Label trans_label_amount;
-        private System.Windows.Forms.TextBox trans_txtbox_amount;
-        private System.Windows.Forms.Label trans_label_date;
-        private System.Windows.Forms.ComboBox trans_cbo_account;
-        private System.Windows.Forms.Label trans_label_account;
-        private System.Windows.Forms.ComboBox trans_cbo_category;
-        private System.Windows.Forms.Label trans_label_category;
+        private System.Windows.Forms.RadioButton trans_rdb_expense;
         private System.Windows.Forms.Button trans_btn_save;
         private System.Windows.Forms.Label trans_remainder;
-        private System.Windows.Forms.TextBox trans_txtbox_note;
-        private System.Windows.Forms.Label trans_note;
-        private System.Windows.Forms.TextBox trans_txtbox_store;
-        private System.Windows.Forms.Label trans_label_store;
-        private System.Windows.Forms.DateTimePicker trans_date_picker;
         private System.Windows.Forms.RadioButton tran_rdb_transfer;
         private System.Windows.Forms.RadioButton tran_rdb_debtandloan;
 
@@ -1906,21 +1767,21 @@
         private System.Windows.Forms.Label setting_budget_total_lbl1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label setting_notification_label1;
-        private System.Windows.Forms.ListBox setting_list_notification_listbox;
+        private System.Windows.Forms.ListBox setting_notification_listbox;
         private System.Windows.Forms.TextBox setting_notification_content_txt;
         private System.Windows.Forms.Label setting_notification_content_label;
         private System.Windows.Forms.TextBox setting_notification_title_txt;
         private System.Windows.Forms.Label setting_notification_title_label;
         private System.Windows.Forms.Label setting_notification_date_label;
         private System.Windows.Forms.Label setting_notification_day_label;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox setting_notification_date_cb;
         private System.Windows.Forms.Label setting_notification_month_label;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox trans_gb_expanse;
-        private System.Windows.Forms.Panel trans_expense_panel;
-        private System.Windows.Forms.Panel trans_debtandloan_panel;
+        private System.Windows.Forms.Button setting_notification_info_delete;
+        private System.Windows.Forms.Button setting_notification_info_modify;
+        private System.Windows.Forms.Button setting_notification_info_add;
+        private System.Windows.Forms.Timer setting_notification_timer;
+        private System.Windows.Forms.Panel trans_panel1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
