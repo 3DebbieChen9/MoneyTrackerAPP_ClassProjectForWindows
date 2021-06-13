@@ -137,7 +137,7 @@ namespace MoneyTrackerAPP
 
             setting_update_List2ListBox("TotalList");
             #endregion
-            Transaction trans = new Transaction(name: " ", category: " ", account: " ", amount: 10, date: DateTime.Now, place: "", comment: "");
+            Transaction trans = new Transaction(name:trans_txtbox_name.Text, category:trans_cbo_category.Text, account:trans_cbo_account.Text, amount: 10, date: DateTime.Now, place:trans_txtbox_store.Text, comment:trans_txtbox_note.Text);
             if(trans_rdb_expanse.Checked)
             {
                 db.insertTransaction(trans, "Expense");
@@ -1563,11 +1563,10 @@ namespace MoneyTrackerAPP
 
         private void trans_cbo_category_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(trans_rdb_expanse.Checked)
+           if(trans_rdb_expanse.Checked)
             {
-               
+
             }
-            //if()
         }
 
         private void trans_txtbox_name_TextChanged(object sender, EventArgs e)
@@ -1590,6 +1589,52 @@ namespace MoneyTrackerAPP
 
         }
 
-        
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_label_account_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_cbo_account_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_note_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_txtbox_note_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trans_rdb_expanse_CheckedChanged(object sender, EventArgs e)
+        {
+            trans_expense_panel.Enabled = true;
+
+        }
+
+        private void trans_rdb_income_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tran_rdb_debtandloan_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            trans_debtandloan_panel.Enabled = true;
+            Label trans_cbo_category = new Label();
+            trans_cbo_category.Location = new Point(10, 10);
+            trans_cbo_category.Text = "款項種類";
+            trans_debtandloan_panel.Controls.Add(trans_cbo_category);
+            trans_debtandloan_panel.Show();
+            
+        }
     }
 }

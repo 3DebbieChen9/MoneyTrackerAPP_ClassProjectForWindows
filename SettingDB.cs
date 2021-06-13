@@ -7,6 +7,20 @@ using Microsoft.Data.Sqlite;
 
 namespace MoneyTrackerAPP
 {
+    class SettingNotification
+    {
+        public string notiTitle;
+        public string notiContent;
+        public DateTime notiDate;
+        
+        public SettingNotification()
+        {
+            this.notiTitle = null;
+            this.notiContent = null;
+            this.notiDate = new DateTime();
+        }
+    }
+
     class SettingDB : Database
     {
         private string dbName;
@@ -270,6 +284,104 @@ namespace MoneyTrackerAPP
                 default:
                     break;
             }
+        }
+
+        void deleteAllNoti()
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        DELETE FROM Notifications
+                    ";
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        void insertNotification(SettingNotification noti)
+        {
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        INSERT INTO Notifications (notiTitle, notiContent, notiDate)
+                        VALUES ($title, $content, DateTime($date))
+                    ";
+                    if (noti.notiTitle != null) { command.Parameters.AddWithValue("$title", noti.notiTitle); }
+                    else { command.Parameters.AddWithValue("$title", DBNull.Value); }
+                    if (noti.notiContent != null) { command.Parameters.AddWithValue("$content", noti.notiContent); }
+                    else { command.Parameters.AddWithValue("$content", DBNull.Value); }
+                    command.Parameters.AddWithValue("$date", noti.notiDate.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        public void set_notification(List<SettingNotification> notifications)
+        {
+            deleteAllNoti();
+            foreach(SettingNotification notification in notifications)
+            {
+                insertNotification(notification);
+            }
+        }
+        public List<SettingNotification> get_notification()
+        {
+            List<SettingNotification> notifications = new List<SettingNotification>();
+
+            try
+            {
+                using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                    @"
+                        SELECT notiTitle, notiContent, notiDate FROM Notifications
+                    ";
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            SettingNotification tmp = new SettingNotification();
+                            tmp.notiTitle = reader.GetString(0);
+                            tmp.notiContent = reader.GetString(1);
+                            tmp.notiDate = reader.GetDateTime(2);
+                            notifications.Add(tmp);
+                        }
+                    }
+                    //Console.WriteLine("Sum = {0}", sum);
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return notifications;
         }
     }
 }
