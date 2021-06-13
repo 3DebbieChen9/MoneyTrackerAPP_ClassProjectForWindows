@@ -42,15 +42,29 @@ namespace MoneyTrackerAPP
         }
         private void settingInfo_OK_Click(object sender, EventArgs e)
         {
-            ((MainForm)_mainForm).setting_list_add(type, settingInfo_text.Text);
-            ((MainForm)_mainForm).setting_update_List2ListBox(type);
-            this.Close();
+            if (settingInfo_text.Text == "")
+            {
+                MessageBox.Show("請輸入文字");
+            }
+            else
+            {
+                ((MainForm)_mainForm).setting_list_add(type, settingInfo_text.Text);
+                ((MainForm)_mainForm).setting_update_List2ListBox(type);
+                this.Close();
+            }
         }
         private void settingInfo_Modify_Click(object sender, EventArgs e)
         {
-            ((MainForm)_mainForm).setting_list_modify(type, origin_text, settingInfo_text.Text);
-            ((MainForm)_mainForm).setting_update_List2ListBox(type);
-            this.Close();
+            if (settingInfo_text.Text == "")
+            {
+                MessageBox.Show("請輸入文字");
+            }
+            else
+            {
+                ((MainForm)_mainForm).setting_list_modify(type, origin_text, settingInfo_text.Text);
+                ((MainForm)_mainForm).setting_update_List2ListBox(type);
+                this.Close();
+            }
         }
 
         private void settingInfo_Delete_Click(object sender, EventArgs e)

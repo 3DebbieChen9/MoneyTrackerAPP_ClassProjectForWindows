@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea22 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend22 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea23 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend23 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea24 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend24 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.main_panel = new System.Windows.Forms.Panel();
             this.main_tabControl = new System.Windows.Forms.TabControl();
@@ -151,10 +151,24 @@
             this.detail_label = new System.Windows.Forms.Label();
             this.main_iconImages = new System.Windows.Forms.ImageList(this.components);
             this.main_border = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.main_closeApp = new System.Windows.Forms.Button();
             this.main_appName = new System.Windows.Forms.Label();
             this.main_applogo = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.setting_list_notification_listbox = new System.Windows.Forms.ListBox();
+            this.setting_notification_label1 = new System.Windows.Forms.Label();
+            this.setting_notification_title_label = new System.Windows.Forms.Label();
+            this.setting_notification_title_txt = new System.Windows.Forms.TextBox();
+            this.setting_notification_content_txt = new System.Windows.Forms.TextBox();
+            this.setting_notification_content_label = new System.Windows.Forms.Label();
+            this.setting_notification_month_label = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.setting_notification_day_label = new System.Windows.Forms.Label();
+            this.setting_notification_date_label = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.main_panel.SuspendLayout();
             this.main_tabControl.SuspendLayout();
             this.main_transaction.SuspendLayout();
@@ -173,6 +187,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.report_linechart)).BeginInit();
             this.main_settings.SuspendLayout();
             this.setting_tabControl.SuspendLayout();
+            this.setting_notification.SuspendLayout();
             this.setting_budget.SuspendLayout();
             this.setting_budge_result_panel.SuspendLayout();
             this.setting_list.SuspendLayout();
@@ -222,6 +237,7 @@
             // 
             this.main_transaction.AutoScroll = true;
             this.main_transaction.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.main_transaction.Controls.Add(this.groupBox1);
             this.main_transaction.Controls.Add(this.tran_rdb_transfer);
             this.main_transaction.Controls.Add(this.tran_rdb_debtandloan);
             this.main_transaction.Controls.Add(this.trans_btn_save);
@@ -671,56 +687,56 @@
             // 
             // report_barchart
             // 
-            chartArea5.Name = "ChartArea1";
-            this.report_barchart.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.report_barchart.Legends.Add(legend5);
+            chartArea21.Name = "ChartArea1";
+            this.report_barchart.ChartAreas.Add(chartArea21);
+            legend21.Name = "Legend1";
+            this.report_barchart.Legends.Add(legend21);
             this.report_barchart.Location = new System.Drawing.Point(575, 390);
             this.report_barchart.Name = "report_barchart";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.report_barchart.Series.Add(series5);
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series21.Legend = "Legend1";
+            series21.Name = "Series1";
+            this.report_barchart.Series.Add(series21);
             this.report_barchart.Size = new System.Drawing.Size(342, 166);
             this.report_barchart.TabIndex = 12;
             this.report_barchart.Text = "chart3";
             // 
             // report_piechart2
             // 
-            chartArea6.Name = "ChartArea1";
-            this.report_piechart2.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.report_piechart2.Legends.Add(legend6);
+            chartArea22.Name = "ChartArea1";
+            this.report_piechart2.ChartAreas.Add(chartArea22);
+            legend22.Name = "Legend1";
+            this.report_piechart2.Legends.Add(legend22);
             this.report_piechart2.Location = new System.Drawing.Point(575, 193);
             this.report_piechart2.Name = "report_piechart2";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series6.IsValueShownAsLabel = true;
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.report_piechart2.Series.Add(series6);
+            series22.ChartArea = "ChartArea1";
+            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series22.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series22.IsValueShownAsLabel = true;
+            series22.Legend = "Legend1";
+            series22.Name = "Series1";
+            this.report_piechart2.Series.Add(series22);
             this.report_piechart2.Size = new System.Drawing.Size(341, 200);
             this.report_piechart2.TabIndex = 11;
             this.report_piechart2.Text = "chart2";
             // 
             // report_piechart1
             // 
-            chartArea7.Name = "ChartArea1";
-            this.report_piechart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.report_piechart1.Legends.Add(legend7);
+            chartArea23.Name = "ChartArea1";
+            this.report_piechart1.ChartAreas.Add(chartArea23);
+            legend23.Name = "Legend1";
+            this.report_piechart1.Legends.Add(legend23);
             this.report_piechart1.Location = new System.Drawing.Point(575, 0);
             this.report_piechart1.Name = "report_piechart1";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series7.IsValueShownAsLabel = true;
-            series7.Label = "#PERCENT{P1}";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.report_piechart1.Series.Add(series7);
+            series23.ChartArea = "ChartArea1";
+            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series23.IsValueShownAsLabel = true;
+            series23.Label = "#PERCENT{P1}";
+            series23.Legend = "Legend1";
+            series23.Name = "Series1";
+            this.report_piechart1.Series.Add(series23);
             this.report_piechart1.Size = new System.Drawing.Size(341, 200);
             this.report_piechart1.TabIndex = 10;
             this.report_piechart1.Text = "chart1";
@@ -1016,20 +1032,20 @@
             // 
             // report_linechart
             // 
-            chartArea8.AxisX.Title = "Month";
-            chartArea8.AxisY.Title = "Amount";
-            chartArea8.Name = "ChartArea1";
-            this.report_linechart.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.report_linechart.Legends.Add(legend8);
+            chartArea24.AxisX.Title = "Month";
+            chartArea24.AxisY.Title = "Amount";
+            chartArea24.Name = "ChartArea1";
+            this.report_linechart.ChartAreas.Add(chartArea24);
+            legend24.Name = "Legend1";
+            this.report_linechart.Legends.Add(legend24);
             this.report_linechart.Location = new System.Drawing.Point(575, 129);
             this.report_linechart.Name = "report_linechart";
-            series8.BorderWidth = 3;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.report_linechart.Series.Add(series8);
+            series24.BorderWidth = 3;
+            series24.ChartArea = "ChartArea1";
+            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series24.Legend = "Legend1";
+            series24.Name = "Series1";
+            this.report_linechart.Series.Add(series24);
             this.report_linechart.Size = new System.Drawing.Size(341, 262);
             this.report_linechart.TabIndex = 13;
             this.report_linechart.Text = "chart1";
@@ -1082,6 +1098,19 @@
             // setting_notification
             // 
             this.setting_notification.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.setting_notification.Controls.Add(this.button3);
+            this.setting_notification.Controls.Add(this.button2);
+            this.setting_notification.Controls.Add(this.button1);
+            this.setting_notification.Controls.Add(this.setting_notification_date_label);
+            this.setting_notification.Controls.Add(this.setting_notification_day_label);
+            this.setting_notification.Controls.Add(this.comboBox1);
+            this.setting_notification.Controls.Add(this.setting_notification_month_label);
+            this.setting_notification.Controls.Add(this.setting_notification_content_txt);
+            this.setting_notification.Controls.Add(this.setting_notification_content_label);
+            this.setting_notification.Controls.Add(this.setting_notification_title_txt);
+            this.setting_notification.Controls.Add(this.setting_notification_title_label);
+            this.setting_notification.Controls.Add(this.setting_notification_label1);
+            this.setting_notification.Controls.Add(this.setting_list_notification_listbox);
             this.setting_notification.ImageIndex = 0;
             this.setting_notification.Location = new System.Drawing.Point(4, 104);
             this.setting_notification.Name = "setting_notification";
@@ -1185,7 +1214,8 @@
             // 
             this.setting_budget_result_lbl1.AutoSize = true;
             this.setting_budget_result_lbl1.Font = new System.Drawing.Font("Microsoft JhengHei", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setting_budget_result_lbl1.Location = new System.Drawing.Point(72, 28);
+            this.setting_budget_result_lbl1.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_budget_result_lbl1.Location = new System.Drawing.Point(105, 30);
             this.setting_budget_result_lbl1.Name = "setting_budget_result_lbl1";
             this.setting_budget_result_lbl1.Size = new System.Drawing.Size(315, 51);
             this.setting_budget_result_lbl1.TabIndex = 7;
@@ -1382,6 +1412,7 @@
             // setting_category_exp_add
             // 
             this.setting_category_exp_add.BackColor = System.Drawing.Color.Transparent;
+            this.setting_category_exp_add.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("setting_category_exp_add.BackgroundImage")));
             this.setting_category_exp_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.setting_category_exp_add.Location = new System.Drawing.Point(740, 75);
             this.setting_category_exp_add.Name = "setting_category_exp_add";
@@ -1415,6 +1446,7 @@
             // setting_category_inc_add
             // 
             this.setting_category_inc_add.BackColor = System.Drawing.Color.Transparent;
+            this.setting_category_inc_add.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("setting_category_inc_add.BackgroundImage")));
             this.setting_category_inc_add.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.setting_category_inc_add.Location = new System.Drawing.Point(310, 75);
             this.setting_category_inc_add.Name = "setting_category_inc_add";
@@ -1482,6 +1514,15 @@
             this.main_border.TabIndex = 0;
             this.main_border.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_border_MouseMove);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(648, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 18);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
+            // 
             // main_closeApp
             // 
             this.main_closeApp.BackColor = System.Drawing.Color.LightSeaGreen;
@@ -1517,14 +1558,146 @@
             this.main_applogo.TabIndex = 1;
             this.main_applogo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.main_applogo_MouseMove);
             // 
-            // label1
+            // setting_list_notification_listbox
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(648, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 18);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this.setting_list_notification_listbox.FormattingEnabled = true;
+            this.setting_list_notification_listbox.ItemHeight = 28;
+            this.setting_list_notification_listbox.Location = new System.Drawing.Point(150, 120);
+            this.setting_list_notification_listbox.Name = "setting_list_notification_listbox";
+            this.setting_list_notification_listbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_list_notification_listbox.Size = new System.Drawing.Size(200, 256);
+            this.setting_list_notification_listbox.TabIndex = 0;
+            // 
+            // setting_notification_label1
+            // 
+            this.setting_notification_label1.AutoSize = true;
+            this.setting_notification_label1.Font = new System.Drawing.Font("Microsoft JhengHei", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setting_notification_label1.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_label1.Location = new System.Drawing.Point(195, 75);
+            this.setting_notification_label1.Name = "setting_notification_label1";
+            this.setting_notification_label1.Size = new System.Drawing.Size(164, 46);
+            this.setting_notification_label1.TabIndex = 1;
+            this.setting_notification_label1.Text = "通知列表";
+            // 
+            // setting_notification_title_label
+            // 
+            this.setting_notification_title_label.AutoSize = true;
+            this.setting_notification_title_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_title_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_title_label.Location = new System.Drawing.Point(460, 100);
+            this.setting_notification_title_label.Name = "setting_notification_title_label";
+            this.setting_notification_title_label.Size = new System.Drawing.Size(81, 40);
+            this.setting_notification_title_label.TabIndex = 2;
+            this.setting_notification_title_label.Text = "標題";
+            // 
+            // setting_notification_title_txt
+            // 
+            this.setting_notification_title_txt.Location = new System.Drawing.Point(560, 100);
+            this.setting_notification_title_txt.Name = "setting_notification_title_txt";
+            this.setting_notification_title_txt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_notification_title_txt.Size = new System.Drawing.Size(120, 36);
+            this.setting_notification_title_txt.TabIndex = 3;
+            // 
+            // setting_notification_content_txt
+            // 
+            this.setting_notification_content_txt.Location = new System.Drawing.Point(560, 160);
+            this.setting_notification_content_txt.Multiline = true;
+            this.setting_notification_content_txt.Name = "setting_notification_content_txt";
+            this.setting_notification_content_txt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.setting_notification_content_txt.Size = new System.Drawing.Size(280, 72);
+            this.setting_notification_content_txt.TabIndex = 5;
+            // 
+            // setting_notification_content_label
+            // 
+            this.setting_notification_content_label.AutoSize = true;
+            this.setting_notification_content_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_content_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_content_label.Location = new System.Drawing.Point(460, 160);
+            this.setting_notification_content_label.Name = "setting_notification_content_label";
+            this.setting_notification_content_label.Size = new System.Drawing.Size(81, 40);
+            this.setting_notification_content_label.TabIndex = 4;
+            this.setting_notification_content_label.Text = "內容";
+            // 
+            // setting_notification_month_label
+            // 
+            this.setting_notification_month_label.AutoSize = true;
+            this.setting_notification_month_label.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_month_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_month_label.Location = new System.Drawing.Point(560, 290);
+            this.setting_notification_month_label.Name = "setting_notification_month_label";
+            this.setting_notification_month_label.Size = new System.Drawing.Size(62, 31);
+            this.setting_notification_month_label.TabIndex = 6;
+            this.setting_notification_month_label.Text = "每月";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(630, 290);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBox1.Size = new System.Drawing.Size(60, 36);
+            this.comboBox1.TabIndex = 7;
+            // 
+            // setting_notification_day_label
+            // 
+            this.setting_notification_day_label.AutoSize = true;
+            this.setting_notification_day_label.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_day_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_day_label.Location = new System.Drawing.Point(700, 290);
+            this.setting_notification_day_label.Name = "setting_notification_day_label";
+            this.setting_notification_day_label.Size = new System.Drawing.Size(146, 31);
+            this.setting_notification_day_label.TabIndex = 8;
+            this.setting_notification_day_label.Text = "日  進行提醒";
+            // 
+            // setting_notification_date_label
+            // 
+            this.setting_notification_date_label.AutoSize = true;
+            this.setting_notification_date_label.Font = new System.Drawing.Font("Microsoft JhengHei", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.setting_notification_date_label.ForeColor = System.Drawing.Color.LightSeaGreen;
+            this.setting_notification_date_label.Location = new System.Drawing.Point(460, 250);
+            this.setting_notification_date_label.Name = "setting_notification_date_label";
+            this.setting_notification_date_label.Size = new System.Drawing.Size(81, 40);
+            this.setting_notification_date_label.TabIndex = 9;
+            this.setting_notification_date_label.Text = "日期";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(460, 346);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 30);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "新增";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(613, 346);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 30);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "修改";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(765, 346);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 30);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "刪除";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(90, 294);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
             // 
             // MainForm
             // 
@@ -1564,6 +1737,8 @@
             this.main_settings.ResumeLayout(false);
             this.main_settings.PerformLayout();
             this.setting_tabControl.ResumeLayout(false);
+            this.setting_notification.ResumeLayout(false);
+            this.setting_notification.PerformLayout();
             this.setting_budget.ResumeLayout(false);
             this.setting_budget.PerformLayout();
             this.setting_budge_result_panel.ResumeLayout(false);
@@ -1700,6 +1875,20 @@
         private System.Windows.Forms.ListBox setting_list_place_listbox;
         private System.Windows.Forms.Label setting_budget_total_lbl1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label setting_notification_label1;
+        private System.Windows.Forms.ListBox setting_list_notification_listbox;
+        private System.Windows.Forms.TextBox setting_notification_content_txt;
+        private System.Windows.Forms.Label setting_notification_content_label;
+        private System.Windows.Forms.TextBox setting_notification_title_txt;
+        private System.Windows.Forms.Label setting_notification_title_label;
+        private System.Windows.Forms.Label setting_notification_date_label;
+        private System.Windows.Forms.Label setting_notification_day_label;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label setting_notification_month_label;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
