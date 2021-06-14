@@ -21,6 +21,20 @@ namespace MoneyTrackerAPP
         public ComboBox transfer_cbo_from;
         public ComboBox transfer_cbo_to;
 
+        public TransactionGlobal()
+        {
+            trans_txtbox_name = new TextBox();
+            trans_txtbox_amount = new TextBox();
+            trans_cbo_category = new ComboBox();
+            trans_cbo_account = new ComboBox();
+            trans_date = new DateTimePicker();
+            trans_txtbox_store = new TextBox();
+            trans_txtbox_note = new TextBox();
+
+            transfer_txtbox_amount = new TextBox();
+            transfer_cbo_from = new ComboBox();
+            transfer_cbo_to = new ComboBox();
+        }
         public void clearTransInput()
         {
             trans_txtbox_name = null;

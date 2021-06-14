@@ -144,13 +144,13 @@ namespace MoneyTrackerAPP
             setting_update_List2ListBox("TotalList");
             #endregion
             //Transaction trans = new Transaction(name:trans_txtbox_name.Text, category:trans_cbo_category.Text, account:trans_cbo_account.Text, amount:10, date: , place:trans_txtbox_store.Text, comment:trans_txtbox_note.Text);
-
+            
             trans_expense_display();
         }
         private void main_tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Trans
-            if(main_tabControl.SelectedIndex == 0)
+            if (main_tabControl.SelectedIndex == 0)
             {
                 trans_expense_display();
                 trans_rdb_expense.Checked = true;
@@ -159,7 +159,7 @@ namespace MoneyTrackerAPP
                 tran_rdb_transfer.Checked = false;
             }
             // Account
-            else if(main_tabControl.SelectedIndex == 1)
+            else if (main_tabControl.SelectedIndex == 1)
             {
                 accounts_type.Text = "";
                 accounts_name.Text = "";
@@ -263,7 +263,7 @@ namespace MoneyTrackerAPP
                 detail_label.Text += "--------------------" + "----------" + "--------------------" + "-------------------" + "-------------" + "------------" + "----------" + "----------" + "--------------------" + "----------" + Environment.NewLine;
                 foreach (Detail ele in details)
                 {
-                    detail_label.Text += String.Format("{0,-20}", ele.name) + String.Format("{0,-10}", ele.type) + String.Format("{0,-20}", ele.category) + String.Format("{0,-19}", ele.subcategory) + String.Format("{0,-13}", ele.amount) + 
+                    detail_label.Text += String.Format("{0,-20}", ele.name) + String.Format("{0,-10}", ele.type) + String.Format("{0,-20}", ele.category) + String.Format("{0,-19}", ele.subcategory) + String.Format("{0,-13}", ele.amount) +
                         String.Format("{0,-12}", ele.account) + String.Format("{0,-10}", ele.date.ToString("yyyy-MM-dd")) + String.Format("{0,-10}", ele.place) + String.Format("{0,-20}", ele.comment) + Environment.NewLine;
                 }
                 detail_label.Text += " " + Environment.NewLine;
@@ -277,11 +277,11 @@ namespace MoneyTrackerAPP
             accounts_panel_detail.Controls.Clear();
             accounts_panel_creditcard.Controls.Clear();
             accounts_panel_debt.Controls.Clear();
-            
+
             if (accounts_type.Text == "Debt/Loan")
             {
                 accounts_panel_account.Controls.Remove(accounts_delete);
-                
+
                 string[] recipients_name = accountDB.get_list_recipient().ToArray();
                 foreach (string ele in recipients_name)
                 {
@@ -405,9 +405,9 @@ namespace MoneyTrackerAPP
                 //DateTimePicker accounts_paid_date = new DateTimePicker();
                 ComboBox accounts_account = new ComboBox();
                 string[] allAccounts = accountDB.get_all_account();
-                foreach(string account in allAccounts)
+                foreach (string account in allAccounts)
                 {
-                    if(account != "Debt/Loan")
+                    if (account != "Debt/Loan")
                     {
                         accounts_account.Items.Add(account);
                     }
@@ -420,7 +420,7 @@ namespace MoneyTrackerAPP
                 catch { accounts_paid.Name = "p0"; }
                 try { accounts_account.Name = "a" + debt_info[i].id.ToString(); }
                 catch { accounts_account.Name = "a0"; }
-                
+
 
                 account.debt_checkbox.Add(accounts_paid);
                 account.debt_account.Add(accounts_account);
@@ -557,12 +557,12 @@ namespace MoneyTrackerAPP
                 accounts_total_balance.Text = accountDB.get_debtLoan_balance(accounts_name.Text);
                 refreshDebtLoanInfo();
             }
-            
+
         }
 
         private void accounts_ok_Click(object sender, EventArgs e)
         {
-            foreach(CheckBox ele in account.accounts_checkbox)
+            foreach (CheckBox ele in account.accounts_checkbox)
             {
                 if (ele.Checked)
                 {
@@ -585,9 +585,9 @@ namespace MoneyTrackerAPP
             {
                 if (ele.Checked)
                 {
-                    foreach(ComboBox element in account.debt_account)
+                    foreach (ComboBox element in account.debt_account)
                     {
-                        if(element.Name.Substring(1) == ele.Name.Substring(1))
+                        if (element.Name.Substring(1) == ele.Name.Substring(1))
                         {
                             string payAccount = element.Text;
                             accountDB.pay_DebtLoan(int.Parse(ele.Name.Substring(1)), payAccount);
@@ -1718,9 +1718,9 @@ namespace MoneyTrackerAPP
         #endregion
         #endregion
 
-        
 
-        
+
+
         private void trans_btn_save_Click(object sender, EventArgs e)
         {
             bool error = true;
@@ -1731,29 +1731,30 @@ namespace MoneyTrackerAPP
                 try
                 {
                     amount = int.Parse(transactionGlobal.transfer_txtbox_amount.Text);
+                    if (amount < 0)
+                    {
+                        MessageBox.Show("請輸入正數");
+                        inputError = true;
+                    }
                 }
                 catch
                 {
                     MessageBox.Show("金額輸入錯誤");
                     inputError = true;
                 }
-                if (amount < 0)
-                {
-                    MessageBox.Show("請輸入正數");
-                    inputError = true;
-                }
-                if(transactionGlobal.transfer_cbo_from.Text == null)
+
+                if (transactionGlobal.transfer_cbo_from.Text == null)
                 {
                     MessageBox.Show("請選擇轉出帳戶");
                     inputError = true;
                 }
-                if(transactionGlobal.transfer_cbo_to.Text == null)
+                if (transactionGlobal.transfer_cbo_to.Text == null)
                 {
                     MessageBox.Show("請選擇轉入帳戶");
                     inputError = true;
                 }
 
-                if(!inputError)
+                if (!inputError)
                 {
                     db.transferMoney(from: transactionGlobal.transfer_cbo_from.Text,
                         to: transactionGlobal.transfer_cbo_to.Text,
@@ -1765,142 +1766,157 @@ namespace MoneyTrackerAPP
             }
             else if (tran_rdb_debtandloan.Checked)
             {
+                DebtLoan inputDebtLoan = new DebtLoan();
+                // Check Amount
                 int amount = 0;
                 try
                 {
                     amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
+                    if (amount < 0)
+                    {
+                        MessageBox.Show("請輸入正數");
+                        inputError = true;
+                    }
                 }
                 catch
                 {
                     MessageBox.Show("金額輸入錯誤");
                     inputError = true;
                 }
-                if (amount < 0)
-                {
-                    MessageBox.Show("請輸入正數");
-                    inputError = true;
-                }
-                if (transactionGlobal.trans_cbo_category == null)
+
+                // Check Type, Account
+                if (transactionGlobal.trans_cbo_category.Text == null)
                 {
                     MessageBox.Show("請選擇款項種類");
                     inputError = true;
                 }
-                if (transactionGlobal.trans_cbo_account == null)
+                else
                 {
-                    MessageBox.Show("請選擇帳戶");
+                    inputDebtLoan.type = transactionGlobal.trans_cbo_category.Text;
+                    if (inputDebtLoan.type == "Loan")
+                    {
+                        if (transactionGlobal.trans_cbo_account.Text == null)
+                        {
+                            MessageBox.Show("請選擇帳戶");
+                            inputError = true;
+                        }
+                        else
+                        {
+                            inputDebtLoan.account = transactionGlobal.trans_cbo_account.Text;
+                        }
+                    }
+                    else
+                    {
+                        inputDebtLoan.account = transactionGlobal.trans_cbo_account.Text;
+                    }
+                }
+                
+                // Check Detail
+                if(transactionGlobal.trans_txtbox_name.Text == null)
+                {
+                    MessageBox.Show("請輸入款項名稱");
                     inputError = true;
+                }
+                else
+                {
+                    inputDebtLoan.detail = transactionGlobal.trans_txtbox_name.Text;
+                }
+
+                // Check Recipient
+                if(transactionGlobal.trans_txtbox_store.Text == null)
+                {
+                    MessageBox.Show("請輸入對象");
+                    inputError = true;
+                }
+                else
+                {
+                    inputDebtLoan.recipient = transactionGlobal.trans_txtbox_store.Text;
                 }
 
                 if (!inputError)
                 {
-                    db.insertDebtLoan(inputValue: amount);
+                    inputDebtLoan.amount = amount;
+                    inputDebtLoan.date = transactionGlobal.trans_date.Value;
+                    db.insertDebtLoan(inputValue: inputDebtLoan);
+                    transactionGlobal.clearTransInput();
+                    error = false;
                 }
             }
 
             //income and expense
             else
             {
+                Transaction transInput = new Transaction();
+
+                // Check Name
+                if (transactionGlobal.trans_txtbox_name.Text == null)
+                {
+                    MessageBox.Show("請輸入款項名稱");
+                    inputError = true;
+                }
+                else
+                {
+                    transInput.name = transactionGlobal.trans_txtbox_name.Text;
+                }
+
+                // Check Amount
+                int amount = 0;
                 try
                 {
-                    int amount = 0;
-                    try
-                    {
-                        amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("金額輸入錯誤");
-                        inputError = true;
-                    }
+                    amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
                     if (amount < 0)
                     {
                         MessageBox.Show("請輸入正數");
                         inputError = true;
                     }
-                    if (transactionGlobal.trans_cbo_category == null)
-                    {
-                        MessageBox.Show("請選擇款項種類");
-                        inputError = true;
-                    }
-                    if (transactionGlobal.trans_cbo_account == null)
-                    {
-                        MessageBox.Show("請選擇帳戶");
-                        inputError = true;
-                    }
-
-                    if (!inputError)
-                    {
-                        if (trans_rdb_expense.Checked)
-                        {
-                            db.insertTransaction(transInput, "Expense");
-                        }
-                        else if (trans_rdb_income.Checked)
-                        {
-                            db.insertTransaction(transInput, "Income");
-                        }
-                        error = false;
-                    }
-                        
-
-                    /*Transaction transInput = new Transaction();
-                    if (transactionGlobal.trans_txtbox_name.Text != null)
-                    {
-                        transInput.name = transactionGlobal.trans_txtbox_name.Text;
-                    }
-                    else
-                    {
-                        MessageBox.Show("請輸入正數");
-                        error = true;
-                    }
-                    transInput.category = transactionGlobal.trans_cbo_category.Text;
-                    transInput.account = transactionGlobal.trans_cbo_account.Text;
-
-                    // no need to check date
-                    transInput.date = transactionGlobal.trans_date.Value;
-
-                    // comment, store is nullable
-                    if (transactionGlobal.trans_txtbox_store.Text != null)
-                    {
-                        transInput.place = transactionGlobal.trans_txtbox_store.Text;
-                    }
-                    else
-                    {
-                        transInput.place = "";
-                    }
-                    if (transactionGlobal.trans_txtbox_note.Text != null)
-                    {
-                        transInput.comment = transactionGlobal.trans_txtbox_note.Text;
-                    }
-                    else
-                    {
-                        transInput.comment = "";
-                    }
-
-                    transInput.amount = int.Parse(transactionGlobal.trans_txtbox_amount.Text);
-                    if (transInput.amount < 0)
-                    {
-                        MessageBox.Show("請輸入正數");
-                        error = true;
-                    }
-                    else
-                    {
-                        if (trans_rdb_expense.Checked)
-                        {
-                            db.insertTransaction(transInput, "Expense");
-                        }
-                        else if (trans_rdb_income.Checked)
-                        {
-                            db.insertTransaction(transInput, "Income");
-                        }
-                        error = false;
-                    }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.ToString());
-                    error = true;
+                    MessageBox.Show("金額輸入錯誤");
+                    inputError = true;
                 }
-                transactionGlobal.clearTransInput();
+
+                // Check Category
+                if (transactionGlobal.trans_cbo_category.Text == null)
+                {
+                    MessageBox.Show("請選擇款項種類");
+                    inputError = true;
+                }
+                else
+                {
+                    transInput.category = transactionGlobal.trans_cbo_category.Text;
+                }
+
+                // Check Account
+                if (transactionGlobal.trans_cbo_account.Text == null)
+                {
+                    MessageBox.Show("請選擇帳戶");
+                    inputError = true;
+                }
+                else
+                {
+                    transInput.account = transactionGlobal.trans_cbo_account.Text;
+                }
+
+                if (!inputError)
+                {
+                    transInput.amount = amount;
+                    transInput.date = transactionGlobal.trans_date.Value;
+                    transInput.place = transactionGlobal.trans_txtbox_store.Text;
+                    transInput.comment = transactionGlobal.trans_txtbox_note.Text;
+                    if (trans_rdb_expense.Checked)
+                    {
+                        db.insertTransaction(transInput, "Expense");
+                        transactionGlobal.clearTransInput();
+                        error = false;
+                    }
+                    else if (trans_rdb_income.Checked)
+                    {
+                        db.insertTransaction(transInput, "Income");
+                        transactionGlobal.clearTransInput();
+                        error = false;
+                    }
+                }
             }
 
             if (!error)
@@ -1923,340 +1939,352 @@ namespace MoneyTrackerAPP
                 }
 
                 MessageBox.Show("已成功新增一筆紀錄！");
-            }*/
-        }
-
-        void trans_expense_display()
-        {
-            trans_panel1.Controls.Clear();
-            trans_panel1.Enabled = true;
-            Label trans_name = new Label();
-            trans_name.Location = new Point(10, 10);
-            trans_name.Text = "款項名稱";
-            TextBox trans_txtbox_name = new TextBox();
-            trans_txtbox_name.Location = new Point(125, 10);
-            //string[] string_name = ;
-            //AutoCompleteStringCollection myAdd = new AutoCompleteStringCollection();
-            //myAdd.AddRange(string_name);
-            //trans_txtbox_name.AutoCompleteCustomSource = myAdd;
-            //trans_txtbox_name.AutoCompleteMode = AutoCompleteMode.Suggest;
-            //trans_txtbox_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-
-            Label trans_amount = new Label();
-            trans_amount.Location = new Point(400, 10);
-            trans_amount.Text = "款項金額";
-            TextBox trans_txtbox_amount = new TextBox();
-            trans_txtbox_amount.Location = new Point(515, 10);
-
-            Label trans_category = new Label();
-            trans_category.Location = new Point(10, 70);
-            trans_category.Text = "款項種類";
-            ComboBox trans_cbo_category = new ComboBox();
-            trans_cbo_category.Location = new Point(125, 70);
-            List<string> trans_list_category = new List<string>();
-            trans_list_category = db.get_category("Expense");
-            foreach (string ele in trans_list_category)
-            {
-                trans_cbo_category.Items.Add(ele);
             }
-
-            Label trans_account = new Label();
-            trans_account.Location = new Point(400, 70);
-            trans_account.Text = "帳戶";
-            ComboBox trans_cbo_account = new ComboBox();
-            trans_cbo_account.Location = new Point(515, 70);
-            string[] trans_list_account = db.get_all_accounts();
-            foreach (string ele in trans_list_account)
-            {
-                if(ele != "Debt/Loan")
-                {
-                    trans_cbo_account.Items.Add(ele);
-                }
-            }
-
-            Label trans_date = new Label();
-            trans_date.Location = new Point(10, 130);
-            trans_date.Text = "記錄日期";
-            DateTimePicker date = new DateTimePicker();
-            date.Location = new Point(125, 130);
-
-            Label trans_store = new Label();
-            trans_store.Location = new Point(400, 130);
-            trans_store.Text = "商家";
-            TextBox trans_txtbox_store = new TextBox();
-            trans_txtbox_store.Location = new Point(515, 130);
-
-            Label trans_note = new Label();
-            trans_note.Location = new Point(10, 190);
-            trans_note.Text = "備註";
-            TextBox trans_txtbox_note = new TextBox();
-            trans_txtbox_note.Location = new Point(125, 190);
-
-
-            trans_panel1.Controls.Add(trans_name);
-            trans_panel1.Controls.Add(trans_txtbox_name);
-            trans_panel1.Controls.Add(trans_amount);
-            trans_panel1.Controls.Add(trans_txtbox_amount);
-            trans_panel1.Controls.Add(trans_category);
-            trans_panel1.Controls.Add(trans_cbo_category);
-            trans_panel1.Controls.Add(trans_account);
-            trans_panel1.Controls.Add(trans_cbo_account);
-            trans_panel1.Controls.Add(trans_date);
-            trans_panel1.Controls.Add(date);
-            trans_panel1.Controls.Add(trans_store);
-            trans_panel1.Controls.Add(trans_txtbox_store);
-            trans_panel1.Controls.Add(trans_note);
-            trans_panel1.Controls.Add(trans_txtbox_note);
-            trans_panel1.Show();
-
-            transactionGlobal.trans_txtbox_name = trans_txtbox_name;
-            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
-            transactionGlobal.trans_cbo_category = trans_cbo_category;
-            transactionGlobal.trans_cbo_account = trans_cbo_account;
-            transactionGlobal.trans_date = date;
-            transactionGlobal.trans_txtbox_store = trans_txtbox_store;
-            transactionGlobal.trans_txtbox_note = trans_txtbox_note;
-
         }
-        public void trans_rdb_expense_CheckedChanged(object sender, EventArgs e)
+        
+    }
+    void trans_expense_display()
+    {
+        Panel trans_panel1 = new Panel();
+        trans_panel1.Controls.Clear();
+        trans_panel1.Enabled = true;
+        Label trans_name = new Label();
+        trans_name.Location = new Point(10, 10);
+        trans_name.Text = "款項名稱";
+        TextBox trans_txtbox_name = new TextBox();
+        trans_txtbox_name.Location = new Point(125, 10);
+
+        Label trans_amount = new Label();
+        trans_amount.Location = new Point(400, 10);
+        trans_amount.Text = "款項金額";
+        TextBox trans_txtbox_amount = new TextBox();
+        trans_txtbox_amount.Location = new Point(515, 10);
+
+        Label trans_category = new Label();
+        trans_category.Location = new Point(10, 70);
+        trans_category.Text = "款項種類";
+        ComboBox trans_cbo_category = new ComboBox();
+        trans_cbo_category.Location = new Point(125, 70);
+        trans_cbo_category.Size = new Size(200, 28);
+        List<string> trans_list_category = new List<string>();
+        trans_list_category = db.get_category("Expense");
+        foreach (string ele in trans_list_category)
         {
-            trans_expense_display();
+            trans_cbo_category.Items.Add(ele);
         }
 
-        void trans_income_display()
+        Label trans_account = new Label();
+        trans_account.Location = new Point(400, 70);
+        trans_account.Text = "帳戶";
+        ComboBox trans_cbo_account = new ComboBox();
+        trans_cbo_account.Location = new Point(515, 70);
+        trans_cbo_account.Size = new Size(200, 28);
+        string[] trans_list_account = db.get_all_accounts();
+        foreach (string ele in trans_list_account)
         {
-            trans_panel1.Controls.Clear();
-            trans_panel1.Enabled = true;
-            Label trans_name = new Label();
-            trans_name.Location = new Point(10, 10);
-            trans_name.Text = "款項名稱";
-            TextBox trans_txtbox_name = new TextBox();
-            trans_txtbox_name.Location = new Point(125, 10);
-
-            Label trans_amount = new Label();
-            trans_amount.Location = new Point(400, 10);
-            trans_amount.Text = "款項金額";
-            TextBox trans_txtbox_amount = new TextBox();
-            trans_txtbox_amount.Location = new Point(515, 10);
-
-            Label trans_category = new Label();
-            trans_category.Location = new Point(10, 70);
-            trans_category.Text = "款項種類";
-            ComboBox trans_cbo_category = new ComboBox();
-            trans_cbo_category.Location = new Point(125, 70);
-            List<string> trans_list_category = new List<string>();
-            trans_list_category = db.get_category("Income");
-            foreach (string ele in trans_list_category)
-            {
-                trans_cbo_category.Items.Add(ele);
-            }
-
-            Label trans_account = new Label();
-            trans_account.Location = new Point(400, 70);
-            trans_account.Text = "帳戶";
-            ComboBox trans_cbo_account = new ComboBox();
-            trans_cbo_account.Location = new Point(515, 70);
-            string[] trans_list_account = db.get_all_accounts();
-            foreach (string ele in trans_list_account)
-            {
-                if (ele != "Debt/Loan")
-                {
-                    trans_cbo_account.Items.Add(ele);
-                }
-            }
-
-            Label trans_date = new Label();
-            trans_date.Location = new Point(10, 130);
-            trans_date.Text = "記錄日期";
-            DateTimePicker date = new DateTimePicker();
-            date.Location = new Point(125, 130);
-
-            Label trans_store = new Label();
-            trans_store.Location = new Point(400, 130);
-            trans_store.Text = "商家";
-            TextBox trans_txtbox_store = new TextBox();
-            trans_txtbox_store.Location = new Point(515, 130);
-
-            Label trans_note = new Label();
-            trans_note.Location = new Point(10, 190);
-            trans_note.Text = "備註";
-            TextBox trans_txtbox_note = new TextBox();
-            trans_txtbox_note.Location = new Point(125, 190);
-
-            #region Add to panel
-            trans_panel1.Controls.Add(trans_name);
-            trans_panel1.Controls.Add(trans_txtbox_name);
-            trans_panel1.Controls.Add(trans_amount);
-            trans_panel1.Controls.Add(trans_txtbox_amount);
-            trans_panel1.Controls.Add(trans_category);
-            trans_panel1.Controls.Add(trans_cbo_category);
-            trans_panel1.Controls.Add(trans_account);
-            trans_panel1.Controls.Add(trans_cbo_account);
-            trans_panel1.Controls.Add(trans_date);
-            trans_panel1.Controls.Add(date);
-            trans_panel1.Controls.Add(trans_store);
-            trans_panel1.Controls.Add(trans_txtbox_store);
-            trans_panel1.Controls.Add(trans_note);
-            trans_panel1.Controls.Add(trans_txtbox_note);
-            trans_panel1.Show();
-            #endregion
-
-            transactionGlobal.trans_txtbox_name = trans_txtbox_name;
-            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
-            transactionGlobal.trans_cbo_category = trans_cbo_category;
-            transactionGlobal.trans_cbo_account = trans_cbo_account;
-            transactionGlobal.trans_date = date;
-            transactionGlobal.trans_txtbox_store = trans_txtbox_store;
-            transactionGlobal.trans_txtbox_note = trans_txtbox_note;
-        }
-        private void trans_rdb_income_CheckedChanged(object sender, EventArgs e)
-        {
-            trans_income_display();
-        }
-        void trans_debtLoan_display()
-        {
-            trans_panel1.Controls.Clear();
-            trans_panel1.Enabled = true;
-            Label trans_name = new Label();
-            trans_name.Location = new Point(10, 10);
-            trans_name.Text = "款項名稱";
-            TextBox trans_txtbox_name = new TextBox();
-            trans_txtbox_name.Location = new Point(125, 10);
-
-            Label trans_amount = new Label();
-            trans_amount.Location = new Point(400, 10);
-            trans_amount.Text = "款項金額";
-            TextBox trans_txtbox_amount = new TextBox();
-            trans_txtbox_amount.Location = new Point(515, 10);
-
-            Label trans_category = new Label();
-            trans_category.Location = new Point(10, 70);
-            trans_category.Text = "款項種類";
-            ComboBox trans_cbo_category = new ComboBox();
-            trans_cbo_category.Location = new Point(125, 70);
-            string[] trans_debtandloan = new string[] { "Debt", "Loan" };
-            trans_cbo_category.Items.Add(trans_debtandloan[0]);
-            trans_cbo_category.Items.Add(trans_debtandloan[1]);
-            trans_cbo_category.SelectedIndex = 0;
-            Label trans_account = new Label();
-            trans_account.Location = new Point(400, 70);
-            trans_account.Text = "帳戶";
-            ComboBox trans_cbo_account = new ComboBox();
-            trans_cbo_account.Location = new Point(515, 70);
-            string[] trans_list_account = db.get_all_accounts();
-            foreach (string ele in trans_list_account)
+            if (ele != "Debt/Loan")
             {
                 trans_cbo_account.Items.Add(ele);
             }
-
-            Label trans_date = new Label();
-            trans_date.Location = new Point(10, 130);
-            trans_date.Text = "記錄日期";
-            DateTimePicker date = new DateTimePicker();
-            date.Location = new Point(125, 130);
-
-            Label trans_store = new Label();
-            trans_store.Location = new Point(400, 130);
-            trans_store.Text = "對象";
-            TextBox trans_txtbox_store = new TextBox();
-            trans_txtbox_store.Location = new Point(515, 130);
-
-            //Label trans_note = new Label();
-            //trans_note.Location = new Point(10, 190);
-            //trans_note.Text = "備註";
-            //TextBox trans_txtbox_note = new TextBox();
-            //trans_txtbox_note.Location = new Point(125, 190);
-
-
-            trans_panel1.Controls.Add(trans_name);
-            trans_panel1.Controls.Add(trans_txtbox_name);
-            trans_panel1.Controls.Add(trans_amount);
-            trans_panel1.Controls.Add(trans_txtbox_amount);
-            trans_panel1.Controls.Add(trans_category);
-            trans_panel1.Controls.Add(trans_cbo_category);
-            trans_panel1.Controls.Add(trans_account);
-            trans_panel1.Controls.Add(trans_cbo_account);
-            trans_panel1.Controls.Add(trans_date);
-            trans_panel1.Controls.Add(date);
-            trans_panel1.Controls.Add(trans_store);
-            trans_panel1.Controls.Add(trans_txtbox_store);
-            //trans_panel1.Controls.Add(trans_note);
-            //trans_panel1.Controls.Add(trans_txtbox_note);
-            trans_panel1.Show();
-
-            transactionGlobal.trans_txtbox_name = trans_txtbox_name;
-            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
-            transactionGlobal.trans_cbo_category = trans_cbo_category;
-            transactionGlobal.trans_cbo_account = trans_cbo_account;
-            transactionGlobal.trans_date = date;
-            transactionGlobal.trans_txtbox_store = trans_txtbox_store;
-            //transactionGlobal.trans_txtbox_note = trans_txtbox_note;
         }
 
-        private void tran_rdb_debtandloan_CheckedChanged_1(object sender, EventArgs e)
-        {
-            trans_debtLoan_display();
-        }
+        Label trans_date = new Label();
+        trans_date.Location = new Point(10, 130);
+        trans_date.Text = "記錄日期";
+        DateTimePicker date = new DateTimePicker();
+        date.Location = new Point(125, 130);
 
-        void trans_transfer_display()
-        {
-            trans_panel1.Controls.Clear();
+        Label trans_store = new Label();
+        trans_store.Location = new Point(400, 130);
+        trans_store.Text = "商家";
+        TextBox trans_txtbox_store = new TextBox();
+        trans_txtbox_store.Location = new Point(515, 130);
 
-            Label trans_amount = new Label();
-            trans_amount.Location = new Point(10, 10);
-            trans_amount.Text = "款項金額";
-            TextBox trans_txtbox_amount = new TextBox();
-            trans_txtbox_amount.Location = new Point(125, 10);
-
-            Label trans_transfer_from = new Label();
-            trans_transfer_from.Location = new Point(10, 70);
-            trans_transfer_from.Text = "轉出帳戶";
-            ComboBox trans_cbo_transfer_from = new ComboBox();
-            trans_cbo_transfer_from.Location = new Point(125, 70);
+        List<string> get_store_list = db.get_list_place();
+        AutoCompleteStringCollection myAdd = new AutoCompleteStringCollection();
+        myAdd.AddRange(get_store_list.ToArray());
+        trans_txtbox_name.AutoCompleteCustomSource = myAdd;
+        trans_txtbox_name.AutoCompleteMode = AutoCompleteMode.Suggest;
+        trans_txtbox_name.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
 
-            Label trans_transfer_to = new Label();
-            trans_transfer_to.Location = new Point(400, 70);
-            trans_transfer_to.Text = "轉入帳戶";
-            ComboBox trans_cbo_transfer_to = new ComboBox();
-            trans_cbo_transfer_to.Location = new Point(515, 70);
-            string[] trans_list_account = db.get_all_accounts();
-            foreach (string ele in trans_list_account)
-            {
-                if (ele != "Debt/Loan")
-                {
-                    trans_cbo_transfer_from.Items.Add(ele);
-                    trans_cbo_transfer_to.Items.Add(ele);
-                }
-            }
+        Label trans_note = new Label();
+        trans_note.Location = new Point(10, 190);
+        trans_note.Text = "備註";
+        TextBox trans_txtbox_note = new TextBox();
+        trans_txtbox_note.Location = new Point(125, 190);
+
+        Label trans_remainder = new Label();
+        trans_remainder.Location = new Point(400, 485);
+        trans_remainder.Text = db.get_budgetAmount();
+        trans_panel1.Controls.Add(trans_remainder);
 
 
-            trans_panel1.Controls.Add(trans_amount);
-            trans_panel1.Controls.Add(trans_txtbox_amount);
-            trans_panel1.Controls.Add(trans_transfer_from);
-            trans_panel1.Controls.Add(trans_cbo_transfer_from);
-            trans_panel1.Controls.Add(trans_transfer_to);
-            trans_panel1.Controls.Add(trans_cbo_transfer_to);
-            trans_panel1.Show();
+        trans_panel1.Controls.Add(trans_name);
+        trans_panel1.Controls.Add(trans_txtbox_name);
+        trans_panel1.Controls.Add(trans_amount);
+        trans_panel1.Controls.Add(trans_txtbox_amount);
+        trans_panel1.Controls.Add(trans_category);
+        trans_panel1.Controls.Add(trans_cbo_category);
+        trans_panel1.Controls.Add(trans_account);
+        trans_panel1.Controls.Add(trans_cbo_account);
+        trans_panel1.Controls.Add(trans_date);
+        trans_panel1.Controls.Add(date);
+        trans_panel1.Controls.Add(trans_store);
+        trans_panel1.Controls.Add(trans_txtbox_store);
+        trans_panel1.Controls.Add(trans_note);
+        trans_panel1.Controls.Add(trans_txtbox_note);
+        trans_panel1.Controls.Add(trans_remainder);
+        trans_panel1.Show();
 
-            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
-            transactionGlobal.transfer_cbo_from = trans_cbo_transfer_from;
-            transactionGlobal.transfer_cbo_to = trans_cbo_transfer_to;
-        }
-        private void tran_rdb_transfer_CheckedChanged(object sender, EventArgs e)
-        {
-            trans_transfer_display();
-        }
+        transactionGlobal.trans_txtbox_name = trans_txtbox_name;
+        transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+        transactionGlobal.trans_cbo_category = trans_cbo_category;
+        transactionGlobal.trans_cbo_account = trans_cbo_account;
+        transactionGlobal.trans_date = date;
+        transactionGlobal.trans_txtbox_store = trans_txtbox_store;
+        transactionGlobal.trans_txtbox_note = trans_txtbox_note;
 
-        private void setting_budget_result_money_Click(object sender, EventArgs e)
-        {
+        trans_remainder.Text = db.get_budgetAmount();
 
-        }
-
-        private void trans_remainder_Click(object sender, EventArgs e)
-        {
-           
-        }
     }
+    //public void trans_rdb_expense_CheckedChanged(object sender, EventArgs e)
+    //{
+    //    trans_expense_display();
+    //}
+
+    void trans_income_display()
+    {
+        Panel trans_panel1 = new Panel();
+        trans_panel1.Controls.Clear();
+        trans_panel1.Enabled = true;
+        Label trans_name = new Label();
+        trans_name.Location = new Point(10, 10);
+        trans_name.Text = "款項名稱";
+        TextBox trans_txtbox_name = new TextBox();
+        trans_txtbox_name.Location = new Point(125, 10);
+
+        Label trans_amount = new Label();
+        trans_amount.Location = new Point(400, 10);
+        trans_amount.Text = "款項金額";
+        TextBox trans_txtbox_amount = new TextBox();
+        trans_txtbox_amount.Location = new Point(515, 10);
+
+        Label trans_category = new Label();
+        trans_category.Location = new Point(10, 70);
+        trans_category.Text = "款項種類";
+        ComboBox trans_cbo_category = new ComboBox();
+        trans_cbo_category.Location = new Point(125, 70);
+        trans_cbo_category.Size = new Size(200, 28);
+        List<string> trans_list_category = new List<string>();
+        trans_list_category = db.get_category("Income");
+        foreach (string ele in trans_list_category)
+        {
+            trans_cbo_category.Items.Add(ele);
+        }
+
+        Label trans_account = new Label();
+        trans_account.Location = new Point(400, 70);
+        trans_account.Text = "帳戶";
+        ComboBox trans_cbo_account = new ComboBox();
+        trans_cbo_account.Location = new Point(515, 70);
+        trans_cbo_account.Size = new Size(200, 28);
+        string[] trans_list_account = db.get_all_accounts();
+        foreach (string ele in trans_list_account)
+        {
+            if (ele != "Debt/Loan")
+            {
+                trans_cbo_account.Items.Add(ele);
+            }
+        }
+
+        Label trans_date = new Label();
+        trans_date.Location = new Point(10, 130);
+        trans_date.Text = "記錄日期";
+        DateTimePicker date = new DateTimePicker();
+        date.Location = new Point(125, 130);
+
+        Label trans_store = new Label();
+        trans_store.Location = new Point(400, 130);
+        trans_store.Text = "商家";
+        TextBox trans_txtbox_store = new TextBox();
+        trans_txtbox_store.Location = new Point(515, 130);
+
+        Label trans_note = new Label();
+        trans_note.Location = new Point(10, 190);
+        trans_note.Text = "備註";
+        TextBox trans_txtbox_note = new TextBox();
+        trans_txtbox_note.Location = new Point(125, 190);
+
+        #region Add to panel
+        trans_panel1.Controls.Add(trans_name);
+        trans_panel1.Controls.Add(trans_txtbox_name);
+        trans_panel1.Controls.Add(trans_amount);
+        trans_panel1.Controls.Add(trans_txtbox_amount);
+        trans_panel1.Controls.Add(trans_category);
+        trans_panel1.Controls.Add(trans_cbo_category);
+        trans_panel1.Controls.Add(trans_account);
+        trans_panel1.Controls.Add(trans_cbo_account);
+        trans_panel1.Controls.Add(trans_date);
+        trans_panel1.Controls.Add(date);
+        trans_panel1.Controls.Add(trans_store);
+        trans_panel1.Controls.Add(trans_txtbox_store);
+        trans_panel1.Controls.Add(trans_note);
+        trans_panel1.Controls.Add(trans_txtbox_note);
+        trans_panel1.Show();
+        #endregion
+
+        TransactionGlobal.trans_txtbox_name = trans_txtbox_name;
+        TransactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+        TransactionGlobal.trans_cbo_category = trans_cbo_category;
+        TransactionGlobal.trans_cbo_account = trans_cbo_account;
+        TransactionGlobal.trans_date = date;
+        TransactionGlobal.trans_txtbox_store = trans_txtbox_store;
+        TransactionGlobal.trans_txtbox_note = trans_txtbox_note;
+    }
+    //private void trans_rdb_income_CheckedChanged(object sender, EventArgs e)
+    //{
+    //  trans_income_display();
+    //}
+    void trans_debtLoan_display()
+    {
+        Panel trans_panel1 = new Panel();
+        trans_panel1.Controls.Clear();
+        trans_panel1.Enabled = true;
+        Label trans_name = new Label();
+        trans_name.Location = new Point(10, 10);
+        trans_name.Text = "款項名稱";
+        TextBox trans_txtbox_name = new TextBox();
+        trans_txtbox_name.Location = new Point(125, 10);
+
+        Label trans_amount = new Label();
+        trans_amount.Location = new Point(400, 10);
+        trans_amount.Text = "款項金額";
+        TextBox trans_txtbox_amount = new TextBox();
+        trans_txtbox_amount.Location = new Point(515, 10);
+
+        Label trans_category = new Label();
+        trans_category.Location = new Point(10, 70);
+        trans_category.Text = "款項種類";
+        ComboBox trans_cbo_category = new ComboBox();
+        trans_cbo_category.Location = new Point(125, 70);
+        trans_cbo_category.Size = new Size(200, 28);
+        string[] trans_debtandloan = new string[] { "Debt", "Loan" };
+        trans_cbo_category.Items.Add(trans_debtandloan[0]);
+        trans_cbo_category.Items.Add(trans_debtandloan[1]);
+        trans_cbo_category.SelectedIndex = 0;
+        Label trans_account = new Label();
+        trans_account.Location = new Point(400, 70);
+        trans_account.Text = "帳戶";
+        ComboBox trans_cbo_account = new ComboBox();
+        trans_cbo_account.Location = new Point(515, 70);
+        trans_cbo_account.Size = new Size(200, 28);
+        string[] trans_list_account = db.get_all_accounts();
+        foreach (string ele in trans_list_account)
+        {
+            trans_cbo_account.Items.Add(ele);
+        }
+
+        Label trans_date = new Label();
+        trans_date.Location = new Point(10, 130);
+        trans_date.Text = "記錄日期";
+        DateTimePicker date = new DateTimePicker();
+        date.Location = new Point(125, 130);
+
+        Label trans_store = new Label();
+        trans_store.Location = new Point(400, 130);
+        trans_store.Text = "對象";
+        TextBox trans_txtbox_store = new TextBox();
+        trans_txtbox_store.Location = new Point(515, 130);
+
+        //Label trans_note = new Label();
+        //trans_note.Location = new Point(10, 190);
+        //trans_note.Text = "備註";
+        //TextBox trans_txtbox_note = new TextBox();
+        //trans_txtbox_note.Location = new Point(125, 190);
+
+
+        trans_panel1.Controls.Add(trans_name);
+        trans_panel1.Controls.Add(trans_txtbox_name);
+        trans_panel1.Controls.Add(trans_amount);
+        trans_panel1.Controls.Add(trans_txtbox_amount);
+        trans_panel1.Controls.Add(trans_category);
+        trans_panel1.Controls.Add(trans_cbo_category);
+        trans_panel1.Controls.Add(trans_account);
+        trans_panel1.Controls.Add(trans_cbo_account);
+        trans_panel1.Controls.Add(trans_date);
+        trans_panel1.Controls.Add(date);
+        trans_panel1.Controls.Add(trans_store);
+        trans_panel1.Controls.Add(trans_txtbox_store);
+
+        trans_panel1.Show();
+
+        TransactionGlobal.trans_txtbox_name = trans_txtbox_name;
+        TransactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+        TransactionGlobal.trans_cbo_category = trans_cbo_category;
+        TransactionGlobal.trans_cbo_account = trans_cbo_account;
+        TransactionGlobal.trans_date = date;
+        TransactionGlobal.trans_txtbox_store = trans_txtbox_store;
+        //transactionGlobal.trans_txtbox_note = trans_txtbox_note;
+    }
+
+    //private void tran_rdb_debtandloan_CheckedChanged_1(object sender, EventArgs e)
+    //{
+    //    trans_debtLoan_display();
+    //}
+
+    void trans_transfer_display()
+    {
+        Panel trans_panel1=new Panel();
+        trans_panel1.Controls.Clear();
+
+        Label trans_amount = new Label();
+        trans_amount.Location = new Point(10, 10);
+        trans_amount.Text = "款項金額";
+        TextBox trans_txtbox_amount = new TextBox();
+        trans_txtbox_amount.Location = new Point(125, 10);
+
+        Label trans_transfer_from = new Label();
+        trans_transfer_from.Location = new Point(10, 70);
+        trans_transfer_from.Text = "轉出帳戶";
+        ComboBox trans_cbo_transfer_from = new ComboBox();
+        trans_cbo_transfer_from.Location = new Point(125, 70);
+        trans_cbo_transfer_from.Size = new Size(200, 28);
+
+        Label trans_transfer_to = new Label();
+        trans_transfer_to.Location = new Point(400, 70);
+        trans_transfer_to.Text = "轉入帳戶";
+        ComboBox trans_cbo_transfer_to = new ComboBox();
+        trans_cbo_transfer_to.Location = new Point(515, 70);
+        trans_cbo_transfer_to.Size = new Size(200, 28);
+        string[] trans_list_account = db.get_all_accounts();
+        foreach (string ele in trans_list_account)
+        {
+            if (ele != "Debt/Loan")
+            {
+                trans_cbo_transfer_from.Items.Add(ele);
+                trans_cbo_transfer_to.Items.Add(ele);
+            }
+        }
+
+
+        trans_panel1.Controls.Add(trans_amount);
+        trans_panel1.Controls.Add(trans_txtbox_amount);
+        trans_panel1.Controls.Add(trans_transfer_from);
+        trans_panel1.Controls.Add(trans_cbo_transfer_from);
+        trans_panel1.Controls.Add(trans_transfer_to);
+        trans_panel1.Controls.Add(trans_cbo_transfer_to);
+        trans_panel1.Show();
+
+        TransactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+        TransactionGlobal.transfer_cbo_from = trans_cbo_transfer_from;
+        TransactionGlobal.transfer_cbo_to = trans_cbo_transfer_to;
+ 
+    }
+
+
+    //private void setting_budget_result_money_Click(object sender, EventArgs e)
+
+
 }
+

@@ -17,10 +17,9 @@ namespace MoneyTrackerAPP
         public DateTime date;
         public string place;
         public string comment;
-        public string tag;
         public Detail() { }
         public Detail(string name, string type, string category, string account, int amount, DateTime date,
-            string subcategory = null, string place = null, string comment = null, string tag = null)
+            string subcategory = null, string place = null, string comment = null)
         {
             this.name = name;
             this.type = type;
@@ -31,7 +30,6 @@ namespace MoneyTrackerAPP
             this.date = date;
             this.place = place;
             this.comment = comment;
-            this.tag = tag;
         }
     }
 
@@ -48,8 +46,9 @@ namespace MoneyTrackerAPP
         public DebtLoan()
         {
             this.id = 0;
+            this.account = null;
         }
-        public DebtLoan(string detail, string type, int amount, DateTime date, string recipient = null, string account = null, int id = 0)
+        public DebtLoan(string detail, string type, int amount, DateTime date, string recipient, string account = null, int id = 0)
         {
             this.recipient = recipient;
             this.detail = detail;
@@ -65,19 +64,23 @@ namespace MoneyTrackerAPP
     {
         public string name;
         public string category;
-        public string subcategory;
         public string account;
         public int amount;
         public DateTime date;
+
         public string place;
         public string comment;
+
+        public string subcategory;
         public bool bankChecked;
         public DateTime? bankDate;
 
         public Transaction()
         {
-            this.subcategory = null;
             this.place = null;
+            this.comment = null;
+
+            this.subcategory = null;
             this.bankChecked = false;
             this.bankDate = null;
         }

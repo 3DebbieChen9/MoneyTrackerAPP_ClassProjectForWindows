@@ -16,7 +16,6 @@ namespace MoneyTrackerAPP
         }
 
         #region INSERT
-       
         public void insertTransaction(Transaction inputValue, string type)
         {
             try
@@ -75,6 +74,7 @@ namespace MoneyTrackerAPP
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
+                // UPDATE Budget
                 if(type == "Expense")
                 {
                     using (var connection = new SqliteConnection("Data Source=" + this.dbName))
@@ -720,7 +720,7 @@ namespace MoneyTrackerAPP
                     var command = connection.CreateCommand();
                     command.CommandText =
                     @"
-                        SELECT Name, Type, Category, Subcategory, Account, Amount, Date, Place, Comment, Tag
+                        SELECT Name, Type, Category, Subcategory, Account, Amount, Date, Place, Comment
                             FROM Transactions ORDER BY Date DESC
                     ";
 
@@ -738,7 +738,6 @@ namespace MoneyTrackerAPP
                             tmpTrans.date = reader.GetDateTime(6);
                             try { tmpTrans.place = reader.GetString(7); } catch { tmpTrans.place = null; }
                             try { tmpTrans.comment = reader.GetString(8); } catch { tmpTrans.comment = null; }
-                            try { tmpTrans.tag = reader.GetString(9); } catch { tmpTrans.tag = null; }
 
                             detail.Add(tmpTrans);
                         }
