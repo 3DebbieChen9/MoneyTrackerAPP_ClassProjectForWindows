@@ -29,22 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend16 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.main_panel = new System.Windows.Forms.Panel();
             this.main_tabControl = new System.Windows.Forms.TabControl();
             this.main_transaction = new System.Windows.Forms.TabPage();
+            this.trans_panel_budget = new System.Windows.Forms.Panel();
+            this.trans_remainder = new System.Windows.Forms.Label();
+            this.trans_label_remainder = new System.Windows.Forms.Label();
             this.trans_panel1 = new System.Windows.Forms.Panel();
             this.tran_rdb_transfer = new System.Windows.Forms.RadioButton();
             this.tran_rdb_debtandloan = new System.Windows.Forms.RadioButton();
@@ -151,15 +154,14 @@
             this.main_iconImages = new System.Windows.Forms.ImageList(this.components);
             this.main_border = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.main_closeApp = new System.Windows.Forms.Button();
             this.main_appName = new System.Windows.Forms.Label();
             this.main_applogo = new System.Windows.Forms.Label();
             this.setting_notification_timer = new System.Windows.Forms.Timer(this.components);
-            this.trans_label_remainder = new System.Windows.Forms.Label();
             this.main_panel.SuspendLayout();
             this.main_tabControl.SuspendLayout();
             this.main_transaction.SuspendLayout();
+            this.trans_panel_budget.SuspendLayout();
             this.main_accounts.SuspendLayout();
             this.accounts_panel_debt.SuspendLayout();
             this.accounts_panel_creditcard.SuspendLayout();
@@ -225,7 +227,7 @@
             // 
             this.main_transaction.AutoScroll = true;
             this.main_transaction.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.main_transaction.Controls.Add(this.trans_label_remainder);
+            this.main_transaction.Controls.Add(this.trans_panel_budget);
             this.main_transaction.Controls.Add(this.trans_panel1);
             this.main_transaction.Controls.Add(this.tran_rdb_transfer);
             this.main_transaction.Controls.Add(this.tran_rdb_debtandloan);
@@ -239,6 +241,32 @@
             this.main_transaction.Size = new System.Drawing.Size(916, 552);
             this.main_transaction.TabIndex = 0;
             this.main_transaction.ToolTipText = "Add transaction";
+            // 
+            // trans_panel_budget
+            // 
+            this.trans_panel_budget.Controls.Add(this.trans_remainder);
+            this.trans_panel_budget.Controls.Add(this.trans_label_remainder);
+            this.trans_panel_budget.Location = new System.Drawing.Point(307, 456);
+            this.trans_panel_budget.Name = "trans_panel_budget";
+            this.trans_panel_budget.Size = new System.Drawing.Size(311, 64);
+            this.trans_panel_budget.TabIndex = 24;
+            // 
+            // trans_remainder
+            // 
+            this.trans_remainder.Location = new System.Drawing.Point(152, 24);
+            this.trans_remainder.Name = "trans_remainder";
+            this.trans_remainder.Size = new System.Drawing.Size(142, 28);
+            this.trans_remainder.TabIndex = 24;
+            this.trans_remainder.Text = "0";
+            // 
+            // trans_label_remainder
+            // 
+            this.trans_label_remainder.AutoSize = true;
+            this.trans_label_remainder.Location = new System.Drawing.Point(15, 24);
+            this.trans_label_remainder.Name = "trans_label_remainder";
+            this.trans_label_remainder.Size = new System.Drawing.Size(142, 28);
+            this.trans_label_remainder.TabIndex = 23;
+            this.trans_label_remainder.Text = "剩餘預算：";
             // 
             // trans_panel1
             // 
@@ -257,6 +285,7 @@
             this.tran_rdb_transfer.TabStop = true;
             this.tran_rdb_transfer.Text = "轉帳";
             this.tran_rdb_transfer.UseVisualStyleBackColor = true;
+            this.tran_rdb_transfer.CheckedChanged += new System.EventHandler(this.tran_rdb_transfer_CheckedChanged);
             // 
             // tran_rdb_debtandloan
             // 
@@ -268,6 +297,7 @@
             this.tran_rdb_debtandloan.TabStop = true;
             this.tran_rdb_debtandloan.Text = "應收/應付";
             this.tran_rdb_debtandloan.UseVisualStyleBackColor = true;
+            this.tran_rdb_debtandloan.CheckedChanged += new System.EventHandler(this.tran_rdb_debtandloan_CheckedChanged);
             // 
             // trans_btn_save
             // 
@@ -288,6 +318,7 @@
             this.trans_rdb_income.TabIndex = 1;
             this.trans_rdb_income.Text = "收入";
             this.trans_rdb_income.UseVisualStyleBackColor = true;
+            this.trans_rdb_income.CheckedChanged += new System.EventHandler(this.trans_rdb_income_CheckedChanged);
             // 
             // trans_rdb_expense
             // 
@@ -300,6 +331,7 @@
             this.trans_rdb_expense.TabStop = true;
             this.trans_rdb_expense.Text = "支出";
             this.trans_rdb_expense.UseVisualStyleBackColor = true;
+            this.trans_rdb_expense.CheckedChanged += new System.EventHandler(this.trans_rdb_expense_CheckedChanged);
             // 
             // main_accounts
             // 
@@ -541,56 +573,56 @@
             // 
             // report_barchart
             // 
-            chartArea5.Name = "ChartArea1";
-            this.report_barchart.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.report_barchart.Legends.Add(legend5);
+            chartArea13.Name = "ChartArea1";
+            this.report_barchart.ChartAreas.Add(chartArea13);
+            legend13.Name = "Legend1";
+            this.report_barchart.Legends.Add(legend13);
             this.report_barchart.Location = new System.Drawing.Point(575, 390);
             this.report_barchart.Name = "report_barchart";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.report_barchart.Series.Add(series5);
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series13.Legend = "Legend1";
+            series13.Name = "Series1";
+            this.report_barchart.Series.Add(series13);
             this.report_barchart.Size = new System.Drawing.Size(342, 166);
             this.report_barchart.TabIndex = 12;
             this.report_barchart.Text = "chart3";
             // 
             // report_piechart2
             // 
-            chartArea6.Name = "ChartArea1";
-            this.report_piechart2.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.report_piechart2.Legends.Add(legend6);
+            chartArea14.Name = "ChartArea1";
+            this.report_piechart2.ChartAreas.Add(chartArea14);
+            legend14.Name = "Legend1";
+            this.report_piechart2.Legends.Add(legend14);
             this.report_piechart2.Location = new System.Drawing.Point(575, 193);
             this.report_piechart2.Name = "report_piechart2";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series6.IsValueShownAsLabel = true;
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.report_piechart2.Series.Add(series6);
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series14.IsValueShownAsLabel = true;
+            series14.Legend = "Legend1";
+            series14.Name = "Series1";
+            this.report_piechart2.Series.Add(series14);
             this.report_piechart2.Size = new System.Drawing.Size(341, 200);
             this.report_piechart2.TabIndex = 11;
             this.report_piechart2.Text = "chart2";
             // 
             // report_piechart1
             // 
-            chartArea7.Name = "ChartArea1";
-            this.report_piechart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.report_piechart1.Legends.Add(legend7);
+            chartArea15.Name = "ChartArea1";
+            this.report_piechart1.ChartAreas.Add(chartArea15);
+            legend15.Name = "Legend1";
+            this.report_piechart1.Legends.Add(legend15);
             this.report_piechart1.Location = new System.Drawing.Point(575, 0);
             this.report_piechart1.Name = "report_piechart1";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series7.IsValueShownAsLabel = true;
-            series7.Label = "#PERCENT{P1}";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.report_piechart1.Series.Add(series7);
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series15.IsValueShownAsLabel = true;
+            series15.Label = "#PERCENT{P1}";
+            series15.Legend = "Legend1";
+            series15.Name = "Series1";
+            this.report_piechart1.Series.Add(series15);
             this.report_piechart1.Size = new System.Drawing.Size(341, 200);
             this.report_piechart1.TabIndex = 10;
             this.report_piechart1.Text = "chart1";
@@ -886,20 +918,20 @@
             // 
             // report_linechart
             // 
-            chartArea8.AxisX.Title = "Month";
-            chartArea8.AxisY.Title = "Amount";
-            chartArea8.Name = "ChartArea1";
-            this.report_linechart.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.report_linechart.Legends.Add(legend8);
+            chartArea16.AxisX.Title = "Month";
+            chartArea16.AxisY.Title = "Amount";
+            chartArea16.Name = "ChartArea1";
+            this.report_linechart.ChartAreas.Add(chartArea16);
+            legend16.Name = "Legend1";
+            this.report_linechart.Legends.Add(legend16);
             this.report_linechart.Location = new System.Drawing.Point(575, 129);
             this.report_linechart.Name = "report_linechart";
-            series8.BorderWidth = 3;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.report_linechart.Series.Add(series8);
+            series16.BorderWidth = 3;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Legend = "Legend1";
+            series16.Name = "Series1";
+            this.report_linechart.Series.Add(series16);
             this.report_linechart.Size = new System.Drawing.Size(341, 262);
             this.report_linechart.TabIndex = 13;
             this.report_linechart.Text = "chart1";
@@ -1523,7 +1555,6 @@
             // 
             this.main_border.BackColor = System.Drawing.Color.LightSeaGreen;
             this.main_border.Controls.Add(this.label2);
-            this.main_border.Controls.Add(this.label1);
             this.main_border.Controls.Add(this.main_closeApp);
             this.main_border.Controls.Add(this.main_appName);
             this.main_border.Controls.Add(this.main_applogo);
@@ -1537,19 +1568,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(471, 3);
+            this.label2.Location = new System.Drawing.Point(518, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 5;
             this.label2.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(648, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 18);
-            this.label1.TabIndex = 4;
             // 
             // main_closeApp
             // 
@@ -1590,15 +1613,6 @@
             // 
             this.setting_notification_timer.Tick += new System.EventHandler(this.setting_notification_timer_Tick);
             // 
-            // trans_label_remainder
-            // 
-            this.trans_label_remainder.AutoSize = true;
-            this.trans_label_remainder.Location = new System.Drawing.Point(304, 485);
-            this.trans_label_remainder.Name = "trans_label_remainder";
-            this.trans_label_remainder.Size = new System.Drawing.Size(142, 28);
-            this.trans_label_remainder.TabIndex = 23;
-            this.trans_label_remainder.Text = "剩餘預算：";
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1616,6 +1630,8 @@
             this.main_tabControl.ResumeLayout(false);
             this.main_transaction.ResumeLayout(false);
             this.main_transaction.PerformLayout();
+            this.trans_panel_budget.ResumeLayout(false);
+            this.trans_panel_budget.PerformLayout();
             this.main_accounts.ResumeLayout(false);
             this.main_accounts.PerformLayout();
             this.accounts_panel_debt.ResumeLayout(false);
@@ -1758,7 +1774,6 @@
         private System.Windows.Forms.Label setting_label4;
         private System.Windows.Forms.ListBox setting_list_place_listbox;
         private System.Windows.Forms.Label setting_budget_total_lbl1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label setting_notification_label1;
         private System.Windows.Forms.ListBox setting_notification_listbox;
         private System.Windows.Forms.TextBox setting_notification_content_txt;
@@ -1776,6 +1791,8 @@
         private System.Windows.Forms.Panel trans_panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label trans_label_remainder;
+        private System.Windows.Forms.Panel trans_panel_budget;
+        private System.Windows.Forms.Label trans_remainder;
     }
 }
 
