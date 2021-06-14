@@ -74,19 +74,19 @@ namespace MoneyTrackerAPP
             switch (e.Index)
             {
                 case 0:
-                    e.Graphics.FillRectangle(new SolidBrush(Color.PaleTurquoise), e.Bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(Color.PowderBlue), e.Bounds);
                     break;
                 case 1:
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Turquoise), e.Bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(Color.LemonChiffon), e.Bounds);
                     break;
                 case 2:
                     e.Graphics.FillRectangle(new SolidBrush(Color.PaleTurquoise), e.Bounds);
                     break;
                 case 3:
-                    e.Graphics.FillRectangle(new SolidBrush(Color.Aquamarine), e.Bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(Color.NavajoWhite), e.Bounds);
                     break;
                 case 4:
-                    e.Graphics.FillRectangle(new SolidBrush(Color.LightSkyBlue), e.Bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(Color.LightCyan), e.Bounds);
                     break;
                 default:
                     break;
@@ -171,7 +171,7 @@ namespace MoneyTrackerAPP
                 main_accounts.Controls.Remove(accounts_panel_debt);
 
                 AutoCompleteStringCollection myAdd = new AutoCompleteStringCollection();
-                myAdd.AddRange(accountDB.get_account_type());
+                myAdd.AddRange(accountDB.get_account_type().Where(val => val != "Debt/Loan").ToArray());
                 accounts_txtType.AutoCompleteCustomSource = myAdd;
                 accounts_txtType.AutoCompleteMode = AutoCompleteMode.Suggest;
                 accounts_txtType.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -270,7 +270,7 @@ namespace MoneyTrackerAPP
                 foreach (Detail ele in details)
                 {
                     detail_label.Text += String.Format("{0,-20}", ele.name) + String.Format("{0,-10}", ele.type) + String.Format("{0,-20}", ele.category) + String.Format("{0,-19}", ele.subcategory) + String.Format("{0,-13}", ele.amount) +
-                        String.Format("{0,-12}", ele.account) + String.Format("{0,-10}", ele.date.ToString("yyyy-MM-dd")) + String.Format("{0,-10}", ele.place) + String.Format("{0,-20}", ele.comment) + Environment.NewLine;
+                        String.Format("{0,-12}", ele.account) + String.Format("{0,-12}", ele.date.ToString("yyyy-MM-dd")) + String.Format("{0,-10}", ele.place) + String.Format("{0,-20}", ele.comment) + Environment.NewLine;
                 }
                 detail_label.Text += " " + Environment.NewLine;
             }
@@ -358,8 +358,17 @@ namespace MoneyTrackerAPP
                     accounts_txtName.Text = "";
                     accounts_txtBalance.Text = "";
 
+                    accounts_type.Text = "";
+                    accounts_name.Text = "";
+                    accounts_total_balance.Text = "0";
+                    accounts_panel_detail.Controls.Clear();
+                    accounts_panel_creditcard.Controls.Clear();
+                    accounts_panel_debt.Controls.Clear();
+                    main_accounts.Controls.Add(accounts_panel_detail);
+                    main_accounts.Controls.Remove(accounts_panel_creditcard);
+                    main_accounts.Controls.Remove(accounts_panel_debt);
                     AutoCompleteStringCollection myAdd = new AutoCompleteStringCollection();
-                    myAdd.AddRange(accountDB.get_account_type());
+                    myAdd.AddRange(accountDB.get_account_type().Where(val => val != "Debt/Loan").ToArray());
                     accounts_txtType.AutoCompleteCustomSource = myAdd;
                     accounts_txtType.AutoCompleteMode = AutoCompleteMode.Suggest;
                     accounts_txtType.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -413,7 +422,7 @@ namespace MoneyTrackerAPP
                     main_accounts.Controls.Remove(accounts_panel_creditcard);
                     main_accounts.Controls.Remove(accounts_panel_debt);
                     AutoCompleteStringCollection myAdd = new AutoCompleteStringCollection();
-                    myAdd.AddRange(accountDB.get_account_type());
+                    myAdd.AddRange(accountDB.get_account_type().Where(val => val != "Debt/Loan").ToArray());
                     accounts_txtType.AutoCompleteCustomSource = myAdd;
                     accounts_txtType.AutoCompleteMode = AutoCompleteMode.Suggest;
                     accounts_txtType.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -1795,35 +1804,36 @@ namespace MoneyTrackerAPP
                 try
                 {
                     amount = int.Parse(transactionGlobal.transfer_txtbox_amount.Text);
-                    if (amount <= 0)
-                    {
-                        MessageBox.Show("請輸入正數");
-                        inputError = true;
-                    }
-                    else if (transactionGlobal.transfer_cbo_from.Text == "")
-                    {
-                        MessageBox.Show("請選擇轉出帳戶");
-                        inputError = true;
-                    }
-                    else if (transactionGlobal.transfer_cbo_to.Text == "")
-                    {
-                        MessageBox.Show("請選擇轉入帳戶");
-                        inputError = true;
-                    }
-
-                    if (!inputError)
-                    {
-                        db.transferMoney(from: transactionGlobal.transfer_cbo_from.Text,
-                            to: transactionGlobal.transfer_cbo_to.Text,
-                            amount: amount);
-                        transactionGlobal.clearTransferInput();
-                        error = false;
-                    }
                 }
                 catch
                 {
                     MessageBox.Show("金額輸入錯誤");
                     inputError = true;
+                }
+
+                if (amount <= 0)
+                {
+                    MessageBox.Show("請輸入正數");
+                    inputError = true;
+                }
+                else if (transactionGlobal.transfer_cbo_from.Text == "")
+                {
+                    MessageBox.Show("請選擇轉出帳戶");
+                    inputError = true;
+                }
+                else if (transactionGlobal.transfer_cbo_to.Text == "")
+                {
+                    MessageBox.Show("請選擇轉入帳戶");
+                    inputError = true;
+                }
+
+                if (!inputError)
+                {
+                    db.transferMoney(from: transactionGlobal.transfer_cbo_from.Text,
+                        to: transactionGlobal.transfer_cbo_to.Text,
+                        amount: amount);
+                    transactionGlobal.clearTransferInput();
+                    error = false;
                 }
             }
             else if (tran_rdb_debtandloan.Checked)
@@ -1884,8 +1894,6 @@ namespace MoneyTrackerAPP
                     }
                 }
                 
-                
-
                 // Check Recipient
                 if(transactionGlobal.trans_txtbox_store.Text == "")
                 {
@@ -2351,7 +2359,7 @@ namespace MoneyTrackerAPP
             trans_panel1.Controls.Add(trans_cbo_transfer_to);
             trans_panel1.Show();
 
-            transactionGlobal.trans_txtbox_amount = trans_txtbox_amount;
+            transactionGlobal.transfer_txtbox_amount = trans_txtbox_amount;
             transactionGlobal.transfer_cbo_from = trans_cbo_transfer_from;
             transactionGlobal.transfer_cbo_to = trans_cbo_transfer_to;
 
