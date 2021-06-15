@@ -80,27 +80,27 @@ namespace MoneyTrackerAPP
                     connection.Close();
                 }
                 // UPDATE Budget
-                if(type == "Expense")
-                {
-                    using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                    {
-                        connection.Open();
+                //if(type == "Expense")
+                //{
+                //    using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                //    {
+                //        connection.Open();
 
-                        var command = connection.CreateCommand();
+                //        var command = connection.CreateCommand();
 
-                        command.CommandText =
-                        @"
-                            UPDATE Info 
-                            SET Amount = (SELECT Amount FROM Info WHERE Detail = 'Budget') - $amount
-                            WHERE Detail = 'Budget'
-                         ";
-                        // Not NULL
-                        command.Parameters.AddWithValue("$amount", inputValue.amount);
+                //        command.CommandText =
+                //        @"
+                //            UPDATE Info 
+                //            SET Amount = (SELECT Amount FROM Info WHERE Detail = 'Budget') - $amount
+                //            WHERE Detail = 'Budget'
+                //         ";
+                //        // Not NULL
+                //        command.Parameters.AddWithValue("$amount", inputValue.amount);
 
-                        command.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                }
+                //        command.ExecuteNonQuery();
+                //        connection.Close();
+                //    }
+                //}
                 
             }
             catch (Exception ex)
@@ -157,27 +157,27 @@ namespace MoneyTrackerAPP
                         connection.Close();
                     }
                 }
-                if(inputValue.type == "Debt")
-                {
-                    using (var connection = new SqliteConnection("Data Source=" + this.dbName))
-                    {
-                        connection.Open();
+                //if(inputValue.type == "Debt")
+                //{
+                //    using (var connection = new SqliteConnection("Data Source=" + this.dbName))
+                //    {
+                //        connection.Open();
 
-                        var command = connection.CreateCommand();
+                //        var command = connection.CreateCommand();
 
-                        command.CommandText =
-                        @"
-                            UPDATE Info 
-                            SET Amount = (SELECT Amount FROM Info WHERE Detail = 'Budget') - $amount
-                            WHERE Detail = 'Budget'
-                         ";
-                        // Not NULL
-                        command.Parameters.AddWithValue("$amount", inputValue.amount);
+                //        command.CommandText =
+                //        @"
+                //            UPDATE Info 
+                //            SET Amount = (SELECT Amount FROM Info WHERE Detail = 'Budget') - $amount
+                //            WHERE Detail = 'Budget'
+                //         ";
+                //        // Not NULL
+                //        command.Parameters.AddWithValue("$amount", inputValue.amount);
 
-                        command.ExecuteNonQuery();
-                        connection.Close();
-                    }
-                }
+                //        command.ExecuteNonQuery();
+                //        connection.Close();
+                //    }
+                //}
             }
             catch (Exception ex)
             {

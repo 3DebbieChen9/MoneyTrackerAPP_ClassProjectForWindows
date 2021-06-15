@@ -202,7 +202,7 @@ namespace MoneyTrackerAPP
                 report.pie_inc_series.ChartType = SeriesChartType.Pie;
                 report.pie_inc_series.IsValueShownAsLabel = true;
                 report.pie_inc_series.LegendText = "#AXISLABEL";
-                report.pie_inc_series.Label = "#PERCENT{P}";
+                report.pie_inc_series.Label = "#PERCENT{P0}";
                 report.pie_inc_series.Points.DataBindXY(day_inc_cate, day_inc_amount);
                 report_piechart2.Series.Add(report.pie_inc_series);
                 report_barchart.Series.Clear();
@@ -2132,7 +2132,7 @@ namespace MoneyTrackerAPP
             transactionGlobal.trans_txtbox_note = trans_txtbox_note;
 
             //trans_panel_budget.Show();
-            trans_remainder.Text = db.get_budgetAmount();
+            trans_remainder.Text = (int.Parse(settingDB.get_budgetAmount()) + settingDB.get_sum_period(settingVar.startDate, settingVar.endDate)).ToString();
 
         }
 
