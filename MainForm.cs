@@ -16,7 +16,7 @@ namespace MoneyTrackerAPP
 {
     public partial class MainForm : Form
     {
-        static string dbName = "../../moneyRecord.db";
+        static string dbName = "moneyRecord.db";
         static Database db = new Database(dbName);
         static AccountDB accountDB = new AccountDB(dbName);
         static ReportDB reportDB = new ReportDB(dbName);
@@ -58,7 +58,10 @@ namespace MoneyTrackerAPP
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-
+        private void main_minimizeApp_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
         public MainForm()
         {
             InitializeComponent();
@@ -2396,6 +2399,8 @@ namespace MoneyTrackerAPP
                 trans_expense_display();
             }
         }
+
+
     }
 
 

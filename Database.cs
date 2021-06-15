@@ -10,9 +10,14 @@ namespace MoneyTrackerAPP
     class Database
     {
         private string dbName;
+        public Database() { }
         public Database(string _dbName)
         {
             this.dbName = _dbName;
+        }
+        public void setDatabasePath(string path)
+        {
+            this.dbName = path;
         }
 
         #region INSERT
